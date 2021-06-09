@@ -34,9 +34,20 @@ public class TestController {
         return "home";
     }
 
-//    @GetMapping("/test2")
-//    public String test(){
-//        return "index";
-//    }
+    @GetMapping("/test2")
+    public String test(){
+        return "index";
+    }
 
+    @GetMapping("/test3")
+    public String home3(Model model) {
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", "Bamdule");
+        map.put("date", LocalDateTime.now());
+        map.put("date2", service.selectTest());
+        model.addAttribute("data", map);
+
+        return "tables";
+    }
 }

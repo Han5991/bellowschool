@@ -3,10 +3,6 @@ spring:
     prefix: classpath:templates/
     suffix: .html
     cache: false
-
-  mvc:
-    static-path-pattern: "/static/**"
-
   datasource:
     url: jdbc:log4jdbc:oracle:thin:@localhost:1521:XE
 #    url: jdbc:oracle:thin:@localhost:1521/xe
@@ -37,3 +33,11 @@ logging:
       resultsettable: trace
     org.springframework.web: debug
     com.zaxxer.hikari.HikariDataSource: error
+
+server:
+  error:
+    include-exception: false
+    include-stacktrace: never
+    path:
+    whitelabel:
+      enabled: true
