@@ -1,4 +1,4 @@
-package com.bellowschool.controller;
+package com.bellowschool.common.controller;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;

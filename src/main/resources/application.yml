@@ -7,8 +7,8 @@ spring:
     url: jdbc:log4jdbc:oracle:thin:@localhost:1521:XE
 #    url: jdbc:oracle:thin:@localhost:1521/xe
 #    url: jdbc:mariadb://localhost:3306/bootex
-    username: shop
-    password: 1234
+    username: bellowschool
+    password: bellowschool
 #    driver-class-name: oracle.jdbc.OracleDriver
 #    driver-class-name: org.mariadb.jdbc.Driver
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
@@ -21,7 +21,7 @@ spring:
 
 mybatis:
   type-aliases-package: com.bellowschool.vo
-  mapper-locations: mybatis/**/*.xml
+  mapper-locations: sqlmap/**/*.xml
 
 logging:
   level:
