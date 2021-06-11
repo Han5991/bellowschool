@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+    <th:block th:fragment="content">
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+            <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+                For more information about DataTables, please visit the <a target="_blank"
+                                                                           href="https://datatables.net">official
+                    DataTables documentation</a>.</p>
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h3 class="m-0 font-weight-bold text-primary">공지사항</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>번호</th>
+                                <th>제목</th>
+                                <th>작성자</th>
+                                <th>작성일</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            var table = $("#dataTable").DataTable({
+                dom: 'Bfrtip',
+                select: true,
+                buttons: [
+                    {
+                        text: '등록',
+                        action: function () {
+                            location.href = "/notiRegPageWin";
+                        }
+                    },
+                    {
+                        text: '수정',
+                        action: function () {
+                            console.log('a');
+                        }
+                    },
+                    {
+                        text: '삭제',
+                        action: function () {
+                            console.log('a');
+                        }
+                    }
+                ],
+                ajax: {
+                    'url': '/notiList',
+                    'type': 'POST',
+                    'dataSrc': ''
+                },
+                columns: [
+                    {data: null},
+                    {data: 'sno'},
+                    {data: 'title'},
+                    {data: 'reguser'},
+                    {data: 'regtime'}
+                ],
+                language: {
+                    "emptyTable": "데이터가 없어요.",
+                    "lengthMenu": "페이지당 _MENU_ 개씩 보기",
+                    "info": "현재 _START_ - _END_ / _TOTAL_건",
+                    "infoEmpty": "데이터 없음",
+                    "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
+                    "search": "검색 : ",
+                    "zeroRecords": "일치하는 데이터가 없어요.",
+                    "loadingRecords": "로딩중...",
+                    "processing": "잠시만 기다려 주세요...",
+                    select: {
+                        rows: "%d 건이 선택 되었습니다."
+                    },
+                    "paginate": {
+                        "next": "다음",
+                        "previous": "이전"
+                    }
+                },
+                ordering: false,
+                columnDefs: [
+                    {
+                        'targets': 0,
+                        data: null,
+                        defaultContent: '',
+                        'searchable': false,
+                        'orderable': false,
+                        'className': 'select-checkbox'
+                    },
+                    {
+                        'targets': 2,
+                        'render': function (data, type, full, meta) {
+                            return '<a href="#"><span style="font-weight: bold">' + data + '</span></a>';
+                        }
+                    },
+                    {
+                        'targets': 4,
+                        'render': function (data, type, full, meta) {
+                            return data.substring(0, 4) + "-" + data.substring(4, 6) + "-" + data.substring(6, 8) + " " + data.substring(8, 10) + ":" + data.substring(10, 12);
+                        }
+                    }
+                ],
+                select: {
+                    style: 'os',
+                    selector: 'td:first-child'
+                }
+            });
+
+            $('#dataTable_filter').prepend('<select id="select"></select>');
+            $('#dataTable > thead > tr').children().each(function (indexInArray, valueOfElement) {
+                if (indexInArray != 0) {
+                    $('#select').append('<option>' + valueOfElement.innerHTML + '</option>');
+                }
+            });
+
+            $('.dataTables_filter input').unbind().bind('keyup', function () {
+                var colIndex = document.querySelector('#select').selectedIndex;
+                table.column(colIndex+1).search(this.value).draw();
+            });
+
+            table
+                .on('select', function (e, dt, type, indexes) {
+                    var rowData1 = table.rows(indexes).data().toArray();
+                    console.log(rowData1);
+                    console.log(JSON.stringify(rowData1));
+                })
+                .on('deselect', function (e, dt, type, indexes) {
+                    var rowData2 = table.rows(indexes).data().toArray();
+                    console.log(rowData2[0]);
+                });
+        </script>
+    </th:block>
+</th:block>

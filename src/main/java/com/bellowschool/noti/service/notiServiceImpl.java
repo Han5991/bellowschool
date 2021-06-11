@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -17,4 +18,10 @@ public class notiServiceImpl implements notiService{
     public List<notiVo> notiPagedList() {
         return notiMapper.notiPagedList();
     }
+
+    @Override
+    public int regNoti(Map<String, Object> params) {
+        return notiMapper.regNoti(params);
+    }
+
 }

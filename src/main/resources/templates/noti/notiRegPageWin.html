@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+    <th:block th:fragment="content">
+        <div class="container-fluid">
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h3 class="m-0 font-weight-bold text-primary">공지사항</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <form id="regnoti">
+                            <table class="table table-primary" cellspacing="0">
+                                <colgroup>
+                                    <col width="10%"/>
+                                    <col width="70%"/>
+                                    <col width="10%"/>
+                                    <col width="10%"/>
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th colspan="4" class="text-primary">공지사항 등록</th>
+                                </tr>
+                                <tr>
+                                    <th style="vertical-align: middle; text-align: center">제목</th>
+                                    <th><input type="text" style="width: 100%" id="regnotititle" required maxlength="500" oninput="numberMaxLength(this);"></th>
+                                    <th style="vertical-align: middle; text-align: center">작성자</th>
+                                    <th style="vertical-align: middle; text-align: center">관리자</th>
+                                </tr>
+                                <tr>
+                                    <th style="vertical-align: middle; text-align: center">내용</th>
+                                    <th style="vertical-align: middle" height="500px" colspan="4">
+                                    <textarea id="regnoticontent" class="form-control-user" required maxlength="2000" oninput="numberMaxLength(this);"
+                                              style="width: 100%; height: 100%; resize: none"></textarea>
+                                    </th>
+                                </tr>
+                                </thead>
+                            </table>
+                            <input type="submit" class="btn-primary" onclick="$.fncregnoti()" value="등록">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $.fncregnoti = function () {
+                if ($('#regnotititle').val() != "" && $('#regnoticontent').val() != "") {
+                    $.ajax({
+                        url: '/createnoti',
+                        type: 'POST',
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            regnotititle: $('#regnotititle').val(),
+                            regnoticontent: $('#regnoticontent').val(),
+                            regnotiuser: '관리자'
+                        }),
+                        success: function onData(data) {
+                            if (data >= 1) {
+                                alert('공지사항이 등록 되었습니다.');
+                                location.href = "/noti";
+                            } else if (data == 0) {
+                                alert('공지사항이 등록에 실패하였습니다.');
+                            }
+                        },
+                        error: function onError(error) {
+                            console.error(error);
+                        }
+                    });
+                }
+            }
+        </script>
+    </th:block>
+</th:block>

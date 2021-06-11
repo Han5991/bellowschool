@@ -8,5 +8,20 @@
              , REGUSER
              , REGTIME
         FROM BSNOTI
+        ORDER BY REGTIME DESC
     </select>
+
+    <insert id="regNoti" parameterType="hashMap">
+        INSERT INTO bsnoti (title,
+                            content,
+                            reguser,
+                            sno,
+                            regtime)
+        VALUES ( #{regnotititle}
+               , #{regnoticontent}
+               , #{regnotiuser}
+               , (SELECT max(sno) from bsnoti) + 1
+               , TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS'))
+    </insert>
+
 </mapper>
