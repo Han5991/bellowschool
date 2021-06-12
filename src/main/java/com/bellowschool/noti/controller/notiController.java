@@ -6,10 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -35,12 +32,36 @@ public class notiController {
 
     @GetMapping("/notiRegPageWin")
     public String regnoti() {
-        return "noti/notiRegPageWin.html";
+        return "noti/notiRegPageWin";
     }
 
     @PostMapping("/createnoti")
     @ResponseBody
     public int createnoti(@RequestBody Map<String, Object> params) {
         return notiService.regNoti(params);
+    }
+
+    @PostMapping("/detelenoti")
+    @ResponseBody
+    public int detelenoti(@RequestBody Map<String, Object> params) {
+        return notiService.notiDetele(params);
+    }
+
+    @GetMapping("/notiRead")
+    public String readNotiPage(@RequestParam int sno, Model model) {
+        model.addAttribute("noti", notiService.notiReadPage(sno));
+        return "noti/notiReadPageWin";
+    }
+
+    @GetMapping("/updatenoti")
+    public String updatenoti(@RequestParam int sno, Model model) {
+        model.addAttribute("noti", notiService.notiReadPage(sno));
+        return "noti/notiUpdatePageWin";
+    }
+
+    @PostMapping("/updateNotiPage")
+    @ResponseBody
+    public int updateNotiPage(@RequestBody Map<String, Object> params) {
+        return notiService.updateNoti(params);
     }
 }

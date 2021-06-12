@@ -15,7 +15,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class MainController {
 
-    @GetMapping("/")
+    @GetMapping("/bellowschool")
     public String mainindex(){
         return "index";
     }

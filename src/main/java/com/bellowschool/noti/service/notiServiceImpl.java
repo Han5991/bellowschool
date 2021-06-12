@@ -10,7 +10,7 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-public class notiServiceImpl implements notiService{
+public class notiServiceImpl implements notiService {
 
     private final notiMapper notiMapper;
 
@@ -22,6 +22,21 @@ public class notiServiceImpl implements notiService{
     @Override
     public int regNoti(Map<String, Object> params) {
         return notiMapper.regNoti(params);
+    }
+
+    @Override
+    public notiVo notiReadPage(int sno) {
+        return notiMapper.notiReadPage(sno);
+    }
+
+    @Override
+    public int notiDetele(Map<String, Object> params) {
+        return notiMapper.notiDetele(params);
+    }
+
+    @Override
+    public int updateNoti(Map<String, Object> params) {
+        return notiMapper.updateNoti(params);
     }
 
 }
