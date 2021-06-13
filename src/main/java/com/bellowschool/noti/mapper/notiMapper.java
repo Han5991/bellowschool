@@ -20,4 +20,6 @@ public interface notiMapper {
 
     int notiDetele(Map<String, Object> params);
 
+    void updateNotiHitcnt(int sno);
+
 }

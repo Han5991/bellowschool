@@ -12,4 +12,5 @@ public interface notiService {
     notiVo notiReadPage(int sno);
     int notiDetele(Map<String, Object> params);
     int updateNoti(Map<String, Object> params);
+
 }

@@ -9,4 +9,5 @@ public class notiVo {
     String reguser;
     int sno;
     String regtime;
+    int hitcnt;
 }

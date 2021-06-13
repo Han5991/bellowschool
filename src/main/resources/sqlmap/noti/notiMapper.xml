@@ -6,22 +6,25 @@
         SELECT SNO
              , TITLE
              , REGUSER
+             , HITCNT
              , TO_CHAR(TO_DATE(REGTIME, 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD HH24:MI') REGTIME
         FROM BSNOTI
         ORDER BY SNO DESC
     </select>
 
     <insert id="regNoti" parameterType="hashMap">
-        INSERT INTO bsnoti (title,
-                            content,
-                            reguser,
-                            sno,
-                            regtime)
+        INSERT INTO bsnoti (TITLE
+                            , CONTENT
+                            , REGUSER
+                            , SNO
+                            , REGTIME
+                            , HITCNT)
         VALUES ( #{regnotititle}
                , #{regnoticontent}
                , #{regnotiuser}
-               , (SELECT max(sno) from bsnoti) + 1
-               , TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS'))
+               , (SELECT max(SNO) from BSNOTI) + 1
+               , TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
+               , 0)
     </insert>
 
     <select id="notiReadPage" resultType="notiVo" parameterType="int">
@@ -45,6 +48,16 @@
         <set>
             TITLE = #{updateNotiTitle}
             ,CONTENT =#{updateNotiContent}
+        </set>
+        <where>
+            SNO = #{sno}
+        </where>
+    </update>
+
+    <update id="updateNotiHitcnt" parameterType="int">
+        UPDATE BSNOTI
+        <set>
+            HITCNT=HITCNT+1
         </set>
         <where>
             SNO = #{sno}

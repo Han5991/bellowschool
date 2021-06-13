@@ -27,6 +27,7 @@
                                 <th>제목</th>
                                 <th>작성자</th>
                                 <th>작성일</th>
+                                <th>조회수</th>
                             </tr>
                             </thead>
                         </table>
@@ -50,16 +51,26 @@
                         text: '수정',
                         action: function () {
                             this.sno = sno;
-                            location.href = "/updatenoti?sno="+sno;
+                            if (sno != 0) {
+                                location.href = "/updatenoti?sno=" + sno;
+                                sno = 0;
+                            }else{
+                                alert("수정할 게시물을 선택해주세요.");
+                            }
                         }
                     },
                     {
                         text: '삭제',
                         action: function (e, dt) {
                             this.sno = sno;
-                            if (confirm("정말 삭제하시겠습니까?") == true) {
-                                $.fncDelete(sno);
-                                dt.ajax.reload();
+                            if (sno != 0) {
+                                if (confirm("정말 삭제하시겠습니까?") == true) {
+                                    $.fncDelete(sno);
+                                    dt.ajax.reload();
+                                    sno = 0;
+                                }
+                            } else {
+                                alert("삭제할 게시물을 선택해주세요.");
                             }
                         }
                     }
@@ -74,7 +85,8 @@
                     {data: 'sno'},
                     {data: 'title'},
                     {data: 'reguser'},
-                    {data: 'regtime'}
+                    {data: 'regtime'},
+                    {data: 'hitcnt'}
                 ],
                 language: {
                     "emptyTable": "데이터가 없어요.",
@@ -112,7 +124,7 @@
                     },
                     {
                         'targets': 2,
-                        'width': '58%',
+                        'width': '50%',
                         'render': function (data, type, full, meta) {
                             return '<a href="/notiRead?sno=' + full.sno + '"><span style="font-weight: bold">' + data + '</span></a>';
                         }
@@ -124,7 +136,12 @@
                     },
                     {
                         'targets': 4,
-                        'width': '20%',
+                        'width': '18%',
+                        "className": "text-center"
+                    },
+                    {
+                        'targets': 5,
+                        'width': '10%',
                         "className": "text-center"
                     }
                 ],
@@ -160,7 +177,6 @@
                         } else if (data == 0) {
                             alert('공지사항이 삭제 되지 않았습니다.');
                         }
-                        return data;
                     }
                 });
             }

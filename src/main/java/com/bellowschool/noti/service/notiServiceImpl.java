@@ -26,6 +26,7 @@ public class notiServiceImpl implements notiService {
 
     @Override
     public notiVo notiReadPage(int sno) {
+        notiMapper.updateNotiHitcnt(sno);
         return notiMapper.notiReadPage(sno);
     }
 
