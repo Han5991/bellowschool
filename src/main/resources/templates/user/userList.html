@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+    <th:block th:fragment="content">
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+
+            <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+                For more information about DataTables, please visit the <a target="_blank"
+                                                                           href="https://datatables.net">official
+                    DataTables documentation</a>.</p>
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h3 class="m-0 font-weight-bold text-primary">사용자 목록</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr style="text-align: center; vertical-align: middle">
+                                <th></th>
+                                <th>회원번호</th>
+                                <th>이름</th>
+                                <th>사용자타입</th>
+                                <th>사용자반</th>
+                                <th>등록일시</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            var sno = 0;
+            var table = $("#dataTable").DataTable({
+                dom: 'Bfrtip',
+                select: true,
+                buttons: [
+                    {
+                        text: '등록',
+                        action: function () {
+                            location.href = "/user";
+                        }
+                    },
+                    {
+                        text: '수정',
+                        action: function () {
+                            this.sno = sno;
+                            if (sno != 0) {
+                                location.href = "/updatenoti?sno=" + sno;
+                                sno = 0;
+                            } else {
+                                alert("수정할 게시물을 선택해주세요.");
+                            }
+                        }
+                    },
+                    {
+                        text: '삭제',
+                        action: function (e, dt) {
+                            this.sno = sno;
+                            if (sno != 0) {
+                                if (confirm("정말 삭제하시겠습니까?") == true) {
+                                    dt.ajax.reload();
+                                    sno = 0;
+                                }
+                            } else {
+                                alert("삭제할 게시물을 선택해주세요.");
+                            }
+                        }
+                    }
+                ],
+                ajax: {
+                    'url': '/userList',
+                    'type': 'POST',
+                    'dataSrc': ''
+                },
+                columns: [
+                    {data: null},
+                    {data: 'usernum'},
+                    {data: 'username'},
+                    {data: 'usertype'},
+                    {data: 'userclass'},
+                    {data: 'userdtime'}
+                ],
+                language: {
+                    "emptyTable": "데이터가 없어요.",
+                    "lengthMenu": "페이지당 _MENU_ 개씩 보기",
+                    "info": "현재 _START_ - _END_ / _TOTAL_건",
+                    "infoEmpty": "데이터 없음",
+                    "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
+                    "search": "검색 : ",
+                    "zeroRecords": "일치하는 데이터가 없어요.",
+                    "loadingRecords": "로딩중...",
+                    "processing": "잠시만 기다려 주세요...",
+                    "select": {
+                        "rows": "%d 건이 선택 되었습니다."
+                    },
+                    "paginate": {
+                        "next": "다음",
+                        "previous": "이전"
+                    }
+                },
+                ordering: false,
+                columnDefs: [
+                    {
+                        'targets': 0,
+                        'width': '5%',
+                        data: null,
+                        defaultContent: '',
+                        'searchable': false,
+                        'orderable': false,
+                        'className': 'select-checkbox'
+                    },
+                    {
+                        'targets': 1,
+                        'width': '19%',
+                        "className": "text-center"
+                    },
+                    {
+                        'targets': 2,
+                        'width': '19%',
+                        "className": "text-center",
+                        'render': function (data, type, full, meta) {
+                            return '<a href="/userRead?usernum=' + full.usernum + '"><span style="font-weight: bold">' + data + '</span></a>';
+                        }
+                    },
+                    {
+                        'targets': 3,
+                        'width': '19%',
+                        "className": "text-center",
+                        'render': function (data, type, full, meta) {
+                            switch (data) {
+                                case '0':
+                                    return '관리자'
+                                    break;
+                                case '1':
+                                    return '선생님'
+                                    break;
+                                case '2':
+                                    return '어머님'
+                                    break;
+                            }
+                        }
+                    },
+                    {
+                        'targets': 4,
+                        'width': '19%',
+                        "className": "text-center",
+                        'render': function (data, type, full, meta) {
+                            switch (data) {
+                                case '0':
+                                    return '교무실'
+                                    break;
+                                case '1':
+                                    return '고급2'
+                                    break;
+                                case '2':
+                                    return '고급1'
+                                    break;
+                                case '3':
+                                    return '중급'
+                                    break;
+                            }
+                        }
+                    },
+                    {
+                        'targets': 5,
+                        'width': '19%',
+                        "className": "text-center"
+                    }
+                ],
+                select: {
+                    style: 'os',
+                    selector: 'td:first-child'
+                }
+            });
+
+            $('#dataTable_filter').prepend('<select id="select"></select>');
+            $('#dataTable > thead > tr').children().each(function (indexInArray, valueOfElement) {
+                if (indexInArray != 0) {
+                    $('#select').append('<option>' + valueOfElement.innerHTML + '</option>');
+                }
+            });
+
+            $('.dataTables_filter input').unbind().bind('keyup', function () {
+                var colIndex = document.querySelector('#select').selectedIndex;
+                table.column(colIndex + 1).search(this.value).draw();
+            });
+
+            $.fncuserDelete = function (sno) {
+                $.ajax({
+                    url: '/deteleuser',
+                    type: 'POST',
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        usernum: sno
+                    }),
+                    success: function onData(data) {
+                        if (data >= 1) {
+                            alert('사용자가 삭제 되었습니다.');
+                        } else if (data == 0) {
+                            alert('사용자가 삭제 되지 않았습니다.');
+                        }
+                    }
+                });
+            }
+            table
+                .on('select', function (e, dt, type, indexes) {
+                    var rowData1 = table.rows(indexes).data().toArray();
+                    sno = rowData1[0].usernum;
+                })
+            // .on('deselect', function (e, dt, type, indexes) {
+            //     var rowData2 = table.rows(indexes).data().toArray();
+            //     console.log(rowData2[0].sno);
+            // });
+        </script>
+    </th:block>
+</th:block>

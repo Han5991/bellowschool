@@ -5,12 +5,12 @@ spring:
     cache: false
   datasource:
     url: jdbc:log4jdbc:oracle:thin:@localhost:1521:XE
-#    url: jdbc:oracle:thin:@localhost:1521/xe
-#    url: jdbc:mariadb://localhost:3306/bootex
+    #    url: jdbc:oracle:thin:@localhost:1521/xe
+    #    url: jdbc:mariadb://localhost:3306/bootex
     username: bellowschool
     password: bellowschool
-#    driver-class-name: oracle.jdbc.OracleDriver
-#    driver-class-name: org.mariadb.jdbc.Driver
+    #    driver-class-name: oracle.jdbc.OracleDriver
+    #    driver-class-name: org.mariadb.jdbc.Driver
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
 
     hikari:

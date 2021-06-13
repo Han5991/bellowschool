@@ -83,6 +83,12 @@
 <!--            <groupId>org.apache.tomcat.embed</groupId>-->
 <!--            <artifactId>tomcat-embed-jasper</artifactId>-->
 <!--        </dependency>-->
+<!--        qr-->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+            <version>3.1.0</version>
+        </dependency>
 
         <dependency>
             <groupId>org.bgee.log4jdbc-log4j2</groupId>

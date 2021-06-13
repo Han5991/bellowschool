@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bellowschool.user.mapper.userMapper">
+    <select id="userList" resultType="userVo">
+        SELECT USERNUM
+             , USERNAME
+             , USERTYPE
+             , USERCLASS
+             , TO_CHAR(TO_DATE(USERDTIME, 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD HH24:MI') USERDTIME
+        FROM BSUSER
+        ORDER BY USERNUM
+    </select>
+
+    <insert id="regUser" parameterType="hashMap">
+        INSERT INTO BSUSER ( USERNUM
+                           , USERNAME
+                           , USERTYPE
+                           , USERCLASS
+                           , PASSWORD
+                           , QRNAME
+                           , QRPATH
+                           , USERDTIME)
+        VALUES ( #{usernum}
+               , #{username}
+               , #{usertype}
+               , #{userclass}
+               , #{password}
+               , #{qrname}
+               , #{qrpath}
+               , TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS'))
+    </insert>
+
+    <select id="cresno" resultType="int">
+        SELECT MAX(USERNUM) + 1 usernum
+        FROM BSUSER
+    </select>
+
+    <delete id="userDetele" parameterType="hashMap">
+        DELETE
+            BSUSER
+        WHERE USERNUM =
+              #{usernum}
+    </delete>
+
+    <select id="userRead" resultType="userVo" parameterType="int">
+        SELECT USERNUM
+             , USERNAME
+             , USERTYPE
+             , USERCLASS
+             , QRPATH
+             , TO_CHAR(TO_DATE(USERDTIME, 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD HH24:MI') USERDTIME
+        FROM BSUSER
+        WHERE USERNUM = #{usernum}
+    </select>
+
+    <update id="updateNoti" parameterType="hashMap">
+        UPDATE BSNOTI
+        <set>
+            TITLE = #{updateNotiTitle}
+            ,CONTENT =#{updateNotiContent}
+        </set>
+        <where>
+            SNO = #{sno}
+        </where>
+    </update>
+
+</mapper>
