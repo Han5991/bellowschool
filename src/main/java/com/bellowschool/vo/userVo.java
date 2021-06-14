@@ -10,6 +10,5 @@ public class userVo {
     String userclass;
     String password;
     String qrname;
-    String qrpath;
     String userdtime;
 }

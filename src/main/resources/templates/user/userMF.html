@@ -11,28 +11,31 @@
                 </div>
                 <div class="card-body">
                     <form id="reguser">
-                        <div class="mb-3"><label for="username">이름</label><input class="form-control" id="username"
-                                                                                 type="text" placeholder="김풀무" maxlength="5"
-                                                                                 oninput="numberMaxLength(this);" required>
-                            <label for="password">비밀번호</label><input class="form-control" id="password"
-                                                                         type="password" maxlength="10"
-                                                                         oninput="numberMaxLength(this);" required></div>
                         <div class="mb-3">
-                            <label for="usertype">사용자 종류</label><select class="form-control"
-                                                                        id="usertype">
-                            <option th:value="0">관리자</option>
-                            <option th:value="1">선생님</option>
-                            <option th:value="2">어머님</option>
-                        </select>
+                            <label for="username">이름</label>
+                            <input class="form-control" id="username" type="text" placeholder="김풀무" maxlength="3"
+                                   oninput="numberMaxLength(this);" required>
+                            <label for="password">비밀번호</label>
+                            <input class="form-control" id="password" type="password"
+                                   maxlength="10" oninput="numberMaxLength(this);"
+                                   required>
                         </div>
                         <div class="mb-3">
-                            <label for="userclass">사용자 반</label><select class="form-control"
-                                                                        id="userclass">
-                            <option th:value="0">교무실</option>
-                            <option th:value="1">고급2</option>
-                            <option th:value="2">고급1</option>
-                            <option th:value="3">중급</option>
-                        </select>
+                            <label for="usertype">사용자 종류</label>
+                            <select class="form-control" id="usertype">
+                                <option th:value="0">관리자</option>
+                                <option th:value="1">선생님</option>
+                                <option th:value="2">어머님</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="userclass">사용자 반</label>
+                            <select class="form-control" id="userclass">
+                                <option th:value="0">교무실</option>
+                                <option th:value="1">고급2</option>
+                                <option th:value="2">고급1</option>
+                                <option th:value="3">중급</option>
+                            </select>
                         </div>
                         <input type="submit" class="btn btn-primary btn-sm" onclick="$.fncreguser()" value="등록">
                     </form>

@@ -54,4 +54,16 @@ public class userController {
         model.addAttribute("user", userService.userRead(usernum));
         return "user/userRead";
     }
+
+    @GetMapping("/userUpdateWin")
+    public String userUpdate(@RequestParam int usernum, Model model) {
+        model.addAttribute("user", userService.userRead(usernum));
+        return "user/userUpdate";
+    }
+
+    @PostMapping("/userUpdate")
+    @ResponseBody
+    public int userUpdate(@RequestBody Map<String, Object> params) {
+        return userService.updateUser(params);
+    }
 }

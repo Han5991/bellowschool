@@ -12,8 +12,14 @@ import java.util.Map;
 @Repository
 public interface userMapper {
     int regUser(Map<String, Object> params);
-    int cresno ();
+
+    int cresno();
+
     List<userVo> userList();
+
     int userDetele(Map<String, Object> params);
+
     userVo userRead(int usernum);
+
+    int updateUser(Map<String, Object> params);
 }

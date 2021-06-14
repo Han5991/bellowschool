@@ -7,59 +7,61 @@
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h3 class="m-0 font-weight-bold text-primary">사용자 등록</h3>
+                    <h3 class="m-0 font-weight-bold text-primary">사용자 수정</h3>
                 </div>
                 <div class="card-body">
                     <form id="reguser">
-                        <div class="mb-3"><label for="username">이름</label><input class="form-control" id="username"
-                                                                                 type="text" placeholder="김풀무" maxlength="5"
-                                                                                 oninput="numberMaxLength(this);" required>
-                            <label for="password">비밀번호</label><input class="form-control" id="password"
-                                                                         type="password" maxlength="10"
-                                                                         oninput="numberMaxLength(this);" required></div>
                         <div class="mb-3">
-                            <label for="usertype">사용자 종류</label><select class="form-control"
-                                                                        id="usertype">
-                            <option th:value="0">관리자</option>
-                            <option th:value="1">선생님</option>
-                            <option th:value="2">어머님</option>
-                        </select>
+                            <label for="username">이름</label>
+                            <input class="form-control" id="username" type="text" th:value='${user.username}'>
                         </div>
                         <div class="mb-3">
-                            <label for="userclass">사용자 반</label><select class="form-control"
-                                                                        id="userclass">
-                            <option th:value="0">교무실</option>
-                            <option th:value="1">고급2</option>
-                            <option th:value="2">고급1</option>
-                            <option th:value="3">중급</option>
-                        </select>
+                            <label for="usertype">사용자 종류</label>
+                            <select class="form-control" id="usertype">
+                                <option th:selected="${user.usertype}=='0'" th:value="0">관리자</option>
+                                <option th:selected="${user.usertype}=='1'" th:value="1">선생님</option>
+                                <option th:selected="${user.usertype}=='2'" th:value="2">어머님</option>
+                            </select>
                         </div>
-                        <input type="submit" class="btn btn-primary btn-sm" onclick="$.fncreguser()" value="등록">
+                        <div class="mb-3">
+                            <label for="userclass">사용자 반</label>
+                            <select class="form-control" id="userclass">
+                                <option th:selected="${user.userclass}=='0'" th:value="0">교무실</option>
+                                <option th:selected="${user.userclass}=='1'" th:value="1">고급2</option>
+                                <option th:selected="${user.userclass}=='2'" th:value="2">고급1</option>
+                                <option th:selected="${user.userclass}=='3'" th:value="3">중급</option>
+                            </select>
+                        </div>
+                        <input type="submit" class="btn btn-primary btn-sm" onclick="$.updateUser()" value="등록">
                     </form>
                 </div>
             </div>
         </div>
         <script>
-            $.fncreguser = function () {
-                if (confirm("정말 등록하시겠습니까?") == true) {
+            $.updateUser = function () {
+                if (confirm("정말 수정하시겠습니까?") == true) {
                     if ($('#username').val() != "" && $('#password').val() != "") {
                         $.ajax({
-                            url: '/reguser',
+                            url: '/userUpdate',
                             type: 'POST',
                             contentType: "application/json",
                             data: JSON.stringify({
-                                username: $('#username').val(),
-                                password: $('#password').val(),
-                                usertype: $('#usertype').val(),
-                                userclass: $('#userclass').val()
+                                /*<![CDATA[*/
+                                userNum: [[${param.usernum}]],
+                                /*]]*/
+                                userName: $('#username').val(),
+                                userType: $('#usertype').val(),
+                                userClass: $('#userclass').val(),
+                                /*<![CDATA[*/
+                                qrName: '[[${param.qrname}]]'
+                                /*]]*/
                             }),
                             success: function onData(data) {
-                                console.log(data);
                                 if (data >= 1) {
-                                    alert('사용자가 등록 되었습니다.');
-                                    location.href = "/user";
+                                    alert('사용자가 수정 되었습니다.');
+                                    location.href = "/userListWin";
                                 } else if (data == 0) {
-                                    alert('사용자 등록에 실패하였습니다.');
+                                    alert('사용자 수정에 실패하였습니다.');
                                 }
                             }
                         });

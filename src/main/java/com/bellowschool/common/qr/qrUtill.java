@@ -5,6 +5,7 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 
 import javax.imageio.ImageIO;
@@ -13,9 +14,9 @@ import java.io.File;
 
 public class qrUtill {
 
-    public boolean qrCreate(int sno, String name) {
+    public boolean qrCreate(int sno, String name, String qrname) {
         try {
-            String codeurl = new String((sno + name).getBytes("UTF-8"), "ISO-8859-1");
+            String codeurl = new String((sno + "_" + name).getBytes("UTF-8"), "ISO-8859-1");
 
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
 
@@ -23,7 +24,7 @@ public class qrUtill {
 
             BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
 
-            File file = new File("C:\\Users\\admin\\IdeaProjects\\bellowschool\\src\\main\\resources\\static\\img\\qrcode\\" + sno + ".png");
+            File file = new File("C:\\Users\\admin\\IdeaProjects\\bellowschool\\src\\main\\resources\\static\\img\\qrcode\\" + qrname + ".png");
 
             return ImageIO.write(bufferedImage, "png", file);
 

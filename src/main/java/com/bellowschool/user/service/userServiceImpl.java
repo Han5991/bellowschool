@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Log4j2
 @Service
@@ -25,11 +26,12 @@ public class userServiceImpl implements userService {
 
         int sno = userMapper.cresno();
         String username = (String) params.get("username");
+        String qrname = UUID.randomUUID().toString();
 
         params.put("usernum", sno);
-        params.put("qrname", sno);
-        params.put("qrpath", "img\\qrcode\\" + sno + ".png");
-        qr.qrCreate(sno, username);
+        params.put("qrname", qrname);
+
+        qr.qrCreate(sno, username, qrname);
 
         return userMapper.regUser(params);
     }
@@ -41,8 +43,8 @@ public class userServiceImpl implements userService {
 
     @Override
     public int userDetele(Map<String, Object> params) {
-        int usernum = (int) params.get("usernum");
-        File file = new File("C:\\Users\\admin\\IdeaProjects\\bellowschool\\src\\main\\resources\\static\\img\\qrcode\\" + usernum + ".png");
+        String qrname = (String) params.get("qrname");
+        File file = new File("C:\\Users\\admin\\IdeaProjects\\bellowschool\\src\\main\\resources\\static\\img\\qrcode\\" + qrname + ".png");
         file.delete();
         return userMapper.userDetele(params);
     }
@@ -50,5 +52,21 @@ public class userServiceImpl implements userService {
     @Override
     public userVo userRead(int usernum) {
         return userMapper.userRead(usernum);
+    }
+
+    @Override
+    public int updateUser(Map<String, Object> params) {
+        qrUtill qr = new qrUtill();
+        int sno = (int) params.get("userNum");
+        String username = (String) params.get("userName");
+        String qrnameEx = (String) params.get("qrName");
+        String qrnameNew = UUID.randomUUID().toString();
+
+        params.put("qrName", qrnameNew);
+        qr.qrCreate(sno, username, qrnameNew);
+
+        File file = new File("C:\\Users\\admin\\IdeaProjects\\bellowschool\\src\\main\\resources\\static\\img\\qrcode\\" + qrnameEx + ".png");
+        file.delete();
+        return userMapper.updateUser(params);
     }
 }

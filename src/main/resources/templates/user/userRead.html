@@ -7,7 +7,7 @@
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h3 class="m-0 font-weight-bold text-primary">사용자 등록</h3>
+                    <h3 class="m-0 font-weight-bold text-primary">사용자</h3>
                 </div>
                 <div class="card-body">
                     <form id="reguser">
@@ -31,38 +31,10 @@
                             <option th:selected="${user.userclass}=='3'">중급</option>
                         </select>
                         </div>
-                        <img th:src="${user.qrpath}">
+                        <img th:src="${'img/qrcode/'+user.qrname+'.png'}">
                     </form>
                 </div>
             </div>
         </div>
-        <script>
-            $.fncreguser = function () {
-                if (confirm("정말 등록하시겠습니까?") == true) {
-                    if ($('#username').val() != "" && $('#password').val() != "") {
-                        $.ajax({
-                            url: '/reguser',
-                            type: 'POST',
-                            contentType: "application/json",
-                            data: JSON.stringify({
-                                username: $('#username').val(),
-                                password: $('#password').val(),
-                                usertype: $('#usertype').val(),
-                                userclass: $('#userclass').val()
-                            }),
-                            success: function onData(data) {
-                                console.log(data);
-                                if (data >= 1) {
-                                    alert('사용자가 등록 되었습니다.');
-                                    location.href = "/user";
-                                } else if (data == 0) {
-                                    alert('사용자 등록에 실패하였습니다.');
-                                }
-                            }
-                        });
-                    }
-                }
-            }
-        </script>
     </th:block>
 </th:block>
