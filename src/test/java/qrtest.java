@@ -32,7 +32,12 @@ public class qrtest {
     @Value("#{'${propertyTestList}' .split(',')}") // ,을 기준으로 리스트형으로 매핑
     private List<String> propertyTestList;
 
-    public static void main(String[] args) {
-    System.out.println(propertyTestName);
+    public static void main(String[] args) throws Exception {
+
+
+        String codeurl = new String((27 + "_" + "테스트").getBytes("UTF-8"));
+
+        System.out.println(codeurl);
+
     }
 }

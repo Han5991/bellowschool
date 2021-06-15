@@ -16,7 +16,7 @@ public class QrUtill {
 
     public boolean qrCreate(int sno, String name, String qrname) {
         try {
-            String codeurl = new String((sno + "_" + name).getBytes("UTF-8"), "ISO-8859-1");
+            String codeurl = new String((sno + "_" + name).getBytes("UTF-8"),"UTF-8");
 
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
 

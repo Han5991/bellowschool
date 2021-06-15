@@ -19,7 +19,7 @@ public class NotiController {
     private final NotiServiceImpl notiService;
 
     @GetMapping("/noti")
-    public String noti(Model model) {
+    public String noti() {
         return "noti/notiPagedListFM";
     }
 

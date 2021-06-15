@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bellowschool.schedule.mapper.ScheduleMapper">
+    <select id="notiPagedList" resultType="NotiVo">
+        SELECT SNO
+             , TITLE
+             , REGUSER
+             , HITCNT
+             , TO_CHAR(TO_DATE(REGTIME, 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD HH24:MI') REGTIME
+        FROM BSNOTI
+        ORDER BY SNO DESC
+    </select>
+
+    <insert id="regNoti" parameterType="hashMap">
+        INSERT INTO bsnoti (TITLE
+                            , CONTENT
+                            , REGUSER
+                            , SNO
+                            , REGTIME
+                            , HITCNT)
+        VALUES ( #{regnotititle}
+               , #{regnoticontent}
+               , #{regnotiuser}
+               , (SELECT max(SNO) from BSNOTI) + 1
+               , TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
+               , 0)
+    </insert>
+
+    <select id="notiReadPage" resultType="NotiVo" parameterType="int">
+        SELECT SNO
+             , TITLE
+             , CONTENT
+             , REGUSER
+             , TO_CHAR(TO_DATE(REGTIME, 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD HH24:MI') REGTIME
+        FROM BSNOTI
+        WHERE SNO = #{sno}
+    </select>
+
+    <delete id="notiDetele" parameterType="hashMap">
+        DELETE
+        BSNOTI WHERE SNO =
+        #{sno}
+    </delete>
+
+    <update id="updateNoti" parameterType="hashMap">
+        UPDATE BSNOTI
+        <set>
+            TITLE = #{updateNotiTitle}
+            ,CONTENT =#{updateNotiContent}
+        </set>
+        <where>
+            SNO = #{sno}
+        </where>
+    </update>
+
+    <update id="updateNotiHitcnt" parameterType="int">
+        UPDATE BSNOTI
+        <set>
+            HITCNT=HITCNT+1
+        </set>
+        <where>
+            SNO = #{sno}
+        </where>
+    </update>
+</mapper>
