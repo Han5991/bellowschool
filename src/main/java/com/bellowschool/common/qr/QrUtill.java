@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-public class qrUtill {
+public class QrUtill {
 
     public boolean qrCreate(int sno, String name, String qrname) {
         try {

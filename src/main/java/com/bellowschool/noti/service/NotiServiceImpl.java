@@ -1,7 +1,7 @@
 package com.bellowschool.noti.service;
 
-import com.bellowschool.noti.mapper.notiMapper;
-import com.bellowschool.vo.notiVo;
+import com.bellowschool.noti.mapper.NotiMapper;
+import com.bellowschool.vo.NotiVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,12 +10,12 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-public class notiServiceImpl implements notiService {
+public class NotiServiceImpl implements NotiService {
 
-    private final notiMapper notiMapper;
+    private final NotiMapper notiMapper;
 
     @Override
-    public List<notiVo> notiPagedList() {
+    public List<NotiVo> notiPagedList() {
         return notiMapper.notiPagedList();
     }
 
@@ -25,7 +25,7 @@ public class notiServiceImpl implements notiService {
     }
 
     @Override
-    public notiVo notiReadPage(int sno) {
+    public NotiVo notiReadPage(int sno) {
         notiMapper.updateNotiHitcnt(sno);
         return notiMapper.notiReadPage(sno);
     }

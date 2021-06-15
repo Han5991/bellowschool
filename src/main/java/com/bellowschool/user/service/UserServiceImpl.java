@@ -1,11 +1,10 @@
 package com.bellowschool.user.service;
 
-import com.bellowschool.common.qr.qrUtill;
-import com.bellowschool.user.mapper.userMapper;
-import com.bellowschool.vo.userVo;
+import com.bellowschool.common.qr.QrUtill;
+import com.bellowschool.user.mapper.UserMapper;
+import com.bellowschool.vo.UserVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -16,13 +15,13 @@ import java.util.UUID;
 @Log4j2
 @Service
 @RequiredArgsConstructor
-public class userServiceImpl implements userService {
+public class UserServiceImpl implements UserService {
 
-    private final userMapper userMapper;
+    private final UserMapper userMapper;
 
     @Override
     public int regUser(Map<String, Object> params) {
-        qrUtill qr = new qrUtill();
+        QrUtill qr = new QrUtill();
 
         int sno = userMapper.cresno();
         String username = (String) params.get("username");
@@ -37,7 +36,7 @@ public class userServiceImpl implements userService {
     }
 
     @Override
-    public List<userVo> userList() {
+    public List<UserVo> userList() {
         return userMapper.userList();
     }
 
@@ -50,13 +49,13 @@ public class userServiceImpl implements userService {
     }
 
     @Override
-    public userVo userRead(int usernum) {
+    public UserVo userRead(int usernum) {
         return userMapper.userRead(usernum);
     }
 
     @Override
     public int updateUser(Map<String, Object> params) {
-        qrUtill qr = new qrUtill();
+        QrUtill qr = new QrUtill();
         int sno = (int) params.get("userNum");
         String username = (String) params.get("userName");
         String qrnameEx = (String) params.get("qrName");

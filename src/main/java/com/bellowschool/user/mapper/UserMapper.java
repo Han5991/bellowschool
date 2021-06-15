@@ -1,7 +1,6 @@
 package com.bellowschool.user.mapper;
 
-import com.bellowschool.vo.notiVo;
-import com.bellowschool.vo.userVo;
+import com.bellowschool.vo.UserVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -10,16 +9,16 @@ import java.util.Map;
 
 @Mapper
 @Repository
-public interface userMapper {
+public interface UserMapper {
     int regUser(Map<String, Object> params);
 
     int cresno();
 
-    List<userVo> userList();
+    List<UserVo> userList();
 
     int userDetele(Map<String, Object> params);
 
-    userVo userRead(int usernum);
+    UserVo userRead(int usernum);
 
     int updateUser(Map<String, Object> params);
 }

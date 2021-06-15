@@ -3,7 +3,7 @@ package com.bellowschool.vo;
 import lombok.Getter;
 
 @Getter
-public class notiVo {
+public class NotiVo {
     String title;
     String content;
     String reguser;

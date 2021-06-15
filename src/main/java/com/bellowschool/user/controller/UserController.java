@@ -1,25 +1,22 @@
 package com.bellowschool.user.controller;
 
-import com.bellowschool.noti.service.notiService;
-import com.bellowschool.user.service.userServiceImpl;
-import com.bellowschool.vo.notiVo;
-import com.bellowschool.vo.userVo;
+import com.bellowschool.user.service.UserServiceImpl;
+import com.bellowschool.vo.UserVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
 import java.util.List;
 import java.util.Map;
 
 @Log4j2
 @Controller
 @RequiredArgsConstructor
-public class userController {
+public class UserController {
 
-    private final userServiceImpl userService;
+    private final UserServiceImpl userService;
 
     @GetMapping("/user")
     public String user() {
@@ -33,7 +30,7 @@ public class userController {
 
     @PostMapping("/userList")
     @ResponseBody
-    public List<userVo> notiList() {
+    public List<UserVo> notiList() {
         return userService.userList();
     }
 

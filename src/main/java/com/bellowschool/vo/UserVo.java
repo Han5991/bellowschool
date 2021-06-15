@@ -3,7 +3,7 @@ package com.bellowschool.vo;
 import lombok.Getter;
 
 @Getter
-public class userVo {
+public class UserVo {
     int usernum;
     String username;
     String usertype;

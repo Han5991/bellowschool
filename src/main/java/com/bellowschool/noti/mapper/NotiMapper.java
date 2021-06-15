@@ -1,6 +1,6 @@
 package com.bellowschool.noti.mapper;
 
-import com.bellowschool.vo.notiVo;
+import com.bellowschool.vo.NotiVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -9,14 +9,14 @@ import java.util.Map;
 
 @Mapper
 @Repository
-public interface notiMapper {
-    List<notiVo> notiPagedList();
+public interface NotiMapper {
+    List<NotiVo> notiPagedList();
 
     int regNoti(Map<String, Object> params);
 
     int updateNoti(Map<String, Object> params);
 
-    notiVo notiReadPage(int sno);
+    NotiVo notiReadPage(int sno);
 
     int notiDetele(Map<String, Object> params);
 
