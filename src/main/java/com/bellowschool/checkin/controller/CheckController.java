@@ -6,6 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 
 @Log4j2
 @Controller
@@ -13,13 +16,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class CheckController {
 
     @GetMapping("/qrcheck")
-    public String createnoti(@RequestParam(value = "name") String name, @RequestParam(value = "id") int id) {
-        log.info(name + id);
+    public String createnoti(@RequestParam(value = "name") String name, @RequestParam(value = "id") int id) throws UnsupportedEncodingException {
+        log.info(URLDecoder.decode(name, "UTF-8") + id);
+
         return "redirect:https://hounjini.cafe24.com/sangwook/index.html";
     }
 
     @GetMapping("/qrtest")
-    public String qrcode (){
+    public String qrcode() {
         log.info("qrtest");
         return "checkin/qrcheckin";
     }

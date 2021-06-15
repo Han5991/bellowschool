@@ -11,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -36,8 +38,9 @@ public class qrtest {
 
 
         String codeurl = new String((27 + "_" + "테스트").getBytes("UTF-8"));
+        String urlencode = URLEncoder.encode(codeurl,"UTF-8");
 
-        System.out.println(codeurl);
+        System.out.println(URLDecoder.decode(urlencode,"UTF-8"));
 
     }
 }

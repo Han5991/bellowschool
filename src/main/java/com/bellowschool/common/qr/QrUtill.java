@@ -11,16 +11,18 @@ import org.springframework.context.annotation.Bean;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.net.URLEncoder;
 
 public class QrUtill {
 
     public boolean qrCreate(int sno, String name, String qrname) {
         try {
-            String codeurl = new String((sno + "_" + name).getBytes("UTF-8"),"UTF-8");
+            String codeurl = new String((sno + "_" + name).getBytes("UTF-8"));
+            String urlencode = URLEncoder.encode(codeurl,"UTF-8");
 
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
 
-            BitMatrix bitMatrix = qrCodeWriter.encode(codeurl, BarcodeFormat.QR_CODE, 200, 200);
+            BitMatrix bitMatrix = qrCodeWriter.encode(urlencode, BarcodeFormat.QR_CODE, 200, 200);
 
             BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
 
