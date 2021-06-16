@@ -2,14 +2,41 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bellowschool.checkin.mapper.CheckMapper">
-    <select id="notiPagedList" resultType="NotiVo">
-        SELECT SNO
-             , TITLE
-             , REGUSER
-             , HITCNT
-             , TO_CHAR(TO_DATE(REGTIME, 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD HH24:MI') REGTIME
-        FROM BSNOTI
-        ORDER BY SNO DESC
+    <select id="userattendanceList" resultType="UserVo">
+        SELECT usernum,
+               username,
+               usertype,
+               userclass,
+               CASE userclass
+                   WHEN '1' THEN
+                       (
+                           SELECT round((COUNT(1) / 11) * 100)
+                           FROM bscheckin b
+                           WHERE checktime BETWEEN '202106' AND '202107'
+                             AND b.usernum = a.usernum
+                       )
+                   WHEN '2' THEN
+                       (
+                           SELECT round((COUNT(1) / 11) * 100)
+                           FROM bscheckin b
+                           WHERE checktime BETWEEN '202106' AND '202107'
+                             AND b.usernum = a.usernum
+                       )
+                   WHEN '3' THEN
+                       (
+                           SELECT round((COUNT(1) / 11) * 100)
+                           FROM bscheckin b
+                           WHERE checktime BETWEEN '202106' AND '202107'
+                             AND b.usernum = a.usernum
+                       )
+                   END addtendance
+        FROM bsuser a
+        WHERE usertype != '0'
+        GROUP BY usernum,
+                 username,
+                 usertype,
+                 userclass
+        ORDER BY usernum
     </select>
 
     <insert id="regCheckIn" parameterType="hashMap">

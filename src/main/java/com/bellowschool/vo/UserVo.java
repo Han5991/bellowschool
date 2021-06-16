@@ -11,4 +11,5 @@ public class UserVo {
     String password;
     String qrname;
     String userdtime;
+    String addtendance;
 }
