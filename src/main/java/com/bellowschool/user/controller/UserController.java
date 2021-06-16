@@ -53,7 +53,7 @@ public class UserController {
     }
 
     @GetMapping("/userUpdateWin")
-    public String userUpdate(@RequestParam int usernum, Model model) {
+    public String userUpdate(@RequestParam(value = "usernum", required = false) int usernum, Model model) {
         model.addAttribute("user", userService.userRead(usernum));
         return "user/userUpdate";
     }

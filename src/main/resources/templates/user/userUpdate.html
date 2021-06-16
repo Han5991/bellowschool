@@ -32,7 +32,7 @@
                                 <option th:selected="${user.userclass}=='3'" th:value="3">중급</option>
                             </select>
                         </div>
-                        <input type="submit" class="btn btn-primary btn-sm" onclick="$.updateUser()" value="등록">
+                        <input type="submit" class="btn btn-primary btn-sm" onclick="$.updateUser()" value="수정">
                     </form>
                 </div>
             </div>
@@ -53,7 +53,7 @@
                                 userType: $('#usertype').val(),
                                 userClass: $('#userclass').val(),
                                 /*<![CDATA[*/
-                                qrName: '[[${param.qrname}]]'
+                                qrName: '[[${user.qrname}]]'
                                 /*]]*/
                             }),
                             success: function onData(data) {
