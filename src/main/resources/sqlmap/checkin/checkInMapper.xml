@@ -50,14 +50,11 @@
                , TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS'))
     </insert>
 
-    <select id="notiReadPage" resultType="NotiVo" parameterType="int">
-        SELECT SNO
-             , TITLE
-             , CONTENT
-             , REGUSER
-             , TO_CHAR(TO_DATE(REGTIME, 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD HH24:MI') REGTIME
-        FROM BSNOTI
-        WHERE SNO = #{sno}
+    <select id="duplicateCheck" resultType="int" parameterType="hashMap">
+        SELECT count(*)
+        FROM BSCHECKIN
+        WHERE CHECKTIME like #{checkTime}
+          and USERNUM = #{userNum}
     </select>
 
     <delete id="notiDetele" parameterType="hashMap">
