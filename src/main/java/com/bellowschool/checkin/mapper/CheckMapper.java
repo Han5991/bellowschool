@@ -11,6 +11,6 @@ import java.util.Map;
 @Repository
 public interface CheckMapper {
     int regCheckIn(Map<String, Object> params);
-    List<UserVo> userattendanceList();
+    List<UserVo> userattendanceList(Map<String, Object> params);
     int duplicateCheck(Map<String, Object> params);
 }

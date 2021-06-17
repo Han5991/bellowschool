@@ -2,7 +2,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bellowschool.checkin.mapper.CheckMapper">
-    <select id="userattendanceList" resultType="UserVo">
+    <select id="userattendanceList" resultType="UserVo" parameterType="hashMap">
         SELECT usernum,
                username,
                usertype,
@@ -12,21 +12,21 @@
                        (
                            SELECT round((COUNT(1) / 11) * 100)
                            FROM bscheckin b
-                           WHERE checktime BETWEEN '202106' AND '202107'
+                           WHERE checktime BETWEEN #{dateStart} AND #{dateEnd}
                              AND b.usernum = a.usernum
                        )
                    WHEN '2' THEN
                        (
                            SELECT round((COUNT(1) / 11) * 100)
                            FROM bscheckin b
-                           WHERE checktime BETWEEN '202106' AND '202107'
+                           WHERE checktime BETWEEN #{dateStart} AND #{dateEnd}
                              AND b.usernum = a.usernum
                        )
                    WHEN '3' THEN
                        (
                            SELECT round((COUNT(1) / 11) * 100)
                            FROM bscheckin b
-                           WHERE checktime BETWEEN '202106' AND '202107'
+                           WHERE checktime BETWEEN #{dateStart} AND #{dateEnd}
                              AND b.usernum = a.usernum
                        )
                    END addtendance

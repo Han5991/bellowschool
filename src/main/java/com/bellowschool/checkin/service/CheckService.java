@@ -7,5 +7,6 @@ import java.util.Map;
 
 public interface CheckService {
     int regCheckIn(Map<String, Object> params);
-    List<UserVo> userattendanceList();
+
+    List<UserVo> userattendanceList(Map<String, Object> params);
 }

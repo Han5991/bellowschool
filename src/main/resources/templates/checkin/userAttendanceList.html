@@ -19,6 +19,15 @@
                     <h3 class="m-0 font-weight-bold text-primary">출석부</h3>
                 </div>
                 <div class="card-body">
+                    <div class="navbar-form navbar-left">
+                        <div class="form-group">
+                            <input type="date" id="dateStart"> ~
+                            <input type="date" id="dateEnd">
+                            <button type="button" class="btn btn-primary" onclick="search();">조회</button>
+                        </div>
+
+                    </div>
+                    <div style="height:5px; clear:both;"></div>
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
@@ -38,47 +47,29 @@
         <script>
             var sno = 0;
             var qrname = '';
+
+            // function tableBuller() {
             var table = $("#dataTable").DataTable({
-                dom: 'Bfrtip',
+                dom: 'Blfrtip',
                 select: true,
-                buttons: [
-                    {
-                        text: '등록',
-                        action: function () {
-                            location.href = "/user";
-                        }
-                    },
-                    {
-                        text: '수정',
-                        action: function () {
-                            if (sno != 0) {
-                                location.href = "/userUpdateWin?usernum=" + sno;
-                                sno = 0;
-                            } else {
-                                alert("수정할 사용자를 선택해주세요.");
-                            }
-                        }
-                    },
-                    {
-                        text: '삭제',
-                        action: function (e, dt) {
-                            if (sno != 0) {
-                                if (confirm("정말 삭제하시겠습니까?") == true) {
-                                    $.fncuserDelete(sno, qrname);
-                                    dt.ajax.reload();
-                                    sno = 0;
-                                    qrname = '';
-                                }
-                            } else {
-                                alert("삭제할 게시물을 선택해주세요.");
-                            }
-                        }
-                    }
-                ],
+                // serverSide: true,
+                processing: true,
+                ordering: false,
+                buttons: [{
+                    extend: 'csvHtml5',
+                    text: 'Export CSV',
+                    footer: true,
+                    className: 'exportBtn'
+                }],
                 ajax: {
-                    'url': '/userattendanceList',
-                    'type': 'POST',
-                    'dataSrc': ''
+                    url: '/userattendanceList',
+                    type: 'POST',
+                    dataSrc: function (json) {
+                        // for (var i = 0, ien = json.length; i < ien; i++) {
+                        //     json[i][0] = '<a href="/message/' + json[i][0] + '>View message</a>';
+                        // }
+                        return json;
+                    }
                 },
                 columns: [
                     {data: 'usernum'},
@@ -105,7 +96,6 @@
                         "previous": "이전"
                     }
                 },
-                ordering: false,
                 columnDefs: [
                     {
                         'targets': 0,
@@ -191,24 +181,6 @@
                 table.column(colIndex + 1).search(this.value).draw();
             });
 
-            $.fncuserDelete = function (sno, qrname) {
-                $.ajax({
-                    url: '/deteleuser',
-                    type: 'POST',
-                    contentType: "application/json",
-                    data: JSON.stringify({
-                        usernum: sno,
-                        qrname: qrname
-                    }),
-                    success: function onData(data) {
-                        if (data >= 1) {
-                            alert('사용자가 삭제 되었습니다.');
-                        } else if (data == 0) {
-                            alert('사용자가 삭제 되지 않았습니다.');
-                        }
-                    }
-                });
-            }
             table
                 .on('select', function (e, dt, type, indexes) {
                     var rowData1 = table.rows(indexes).data().toArray();
@@ -219,6 +191,28 @@
             //     var rowData2 = table.rows(indexes).data().toArray();
             //     console.log(rowData2[0].sno);
             // });
+
+
+            // tableBuller();
+
+            function search() {
+                $.ajax({
+                    url: '/userattendanceList2',
+                    type: 'POST',
+                    async: false,
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        dateStart: $('#dateStart').val().replace(/-/g, ""),
+                        dateEnd: $('#dateEnd').val().replace(/-/g, ""),
+                    }),
+                    success: function onData(data) {
+                        table.clear();
+                        for (var i = 0; i < data.length; i++) {
+                            table.row.add(data[i]).draw();
+                        }
+                    }
+                });
+            }
         </script>
     </th:block>
 </th:block>

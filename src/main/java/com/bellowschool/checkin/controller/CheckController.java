@@ -5,13 +5,11 @@ import com.bellowschool.vo.UserVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,9 +23,9 @@ public class CheckController {
 
     @GetMapping("/qrcheck")
     public String createnoti(@RequestParam(value = "name") String name, @RequestParam(value = "id") int id) throws IOException {
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
         params.put("userNum", id);
-        params.put("userName", URLDecoder.decode(name, "UTF-8"));
+        params.put("userName", URLDecoder.decode(name, StandardCharsets.UTF_8));
         checkService.regCheckIn(params);
         return "redirect:https://hounjini.cafe24.com/sangwook/index.html";
     }
@@ -39,7 +37,13 @@ public class CheckController {
 
     @PostMapping("/userattendanceList")
     @ResponseBody
-    public List<UserVo> userattendanceList() {
-        return checkService.userattendanceList();
+    public List<UserVo> userattendanceList(Map<String, Object> params) {
+        return checkService.userattendanceList(params);
+    }
+
+    @PostMapping("/userattendanceList2")
+    @ResponseBody
+    public List<UserVo> userattendanceList2(@RequestBody Map<String, Object> params) {
+        return checkService.userattendanceList(params);
     }
 }
