@@ -31,7 +31,7 @@
                        )
                    END addtendance
         FROM bsuser a
-        WHERE usertype != '0'
+        WHERE usertype = '2'
         GROUP BY usernum,
                  username,
                  usertype,
