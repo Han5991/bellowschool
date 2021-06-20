@@ -181,8 +181,7 @@
                 table.column(colIndex + 1).search(this.value).draw();
             });
 
-            table
-                .on('select', function (e, dt, type, indexes) {
+            table.on('select', function (e, dt, type, indexes) {
                     var rowData1 = table.rows(indexes).data().toArray();
                     sno = rowData1[0].usernum;
                     qrname = rowData1[0].qrname;
@@ -191,9 +190,6 @@
             //     var rowData2 = table.rows(indexes).data().toArray();
             //     console.log(rowData2[0].sno);
             // });
-
-
-            // tableBuller();
 
             function search() {
                 $.ajax({
