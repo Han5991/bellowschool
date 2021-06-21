@@ -14,4 +14,9 @@ public class ScheduleController {
     public String schedule(){
         return "schedule/scheduleMF";
     }
+
+    @GetMapping("/scheduleReg")
+    public String schedule2Reg(){
+        return "schedule/scheduleReg";
+    }
 }

@@ -20,9 +20,9 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                             <thead>
-                            <tr style="text-align: center; vertical-align: middle">
+                            <tr>
                                 <th></th>
                                 <th>회원번호</th>
                                 <th>이름</th>
@@ -222,12 +222,11 @@
                     }
                 });
             }
-            table
-                .on('select', function (e, dt, type, indexes) {
-                    var rowData1 = table.rows(indexes).data().toArray();
-                    sno = rowData1[0].usernum;
-                    qrname = rowData1[0].qrname;
-                })
+            table.on('select', function (e, dt, type, indexes) {
+                var rowData1 = table.rows(indexes).data().toArray();
+                sno = rowData1[0].usernum;
+                qrname = rowData1[0].qrname;
+            })
             // .on('deselect', function (e, dt, type, indexes) {
             //     var rowData2 = table.rows(indexes).data().toArray();
             //     console.log(rowData2[0].sno);
