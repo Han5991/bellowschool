@@ -9,6 +9,15 @@
                 <div class="card-header py-3">
                     <h3 class="m-0 font-weight-bold text-primary">시간표 관리</h3>
                 </div>
+                <div ondragover="return false;" ondragenter="return false;" ondrop="drop(this, event);">
+                    <img ondragstart="drag(this, event)" id="kor1" alt="한국음식1"
+                         src="//t1.daumcdn.net/tistory_admin/static/images/xBoxReplace_250.png" draggable="true"
+                         width="250" height="250">
+                </div>
+                <div ondragover="return false;" ondragenter="return false;" class="fl" ondrop="drop(this, event);">
+                    <h2>한국음식</h2>
+                </div>
+
                 <div class="card-body">
                     <div class="btn-toolbar justify-content-lg-between">
                         <div class="btn-group">
@@ -24,6 +33,7 @@
                             <input type="text" class="form-control" placeholder="Input group example">
                         </div>
                     </div>
+
                     <table class="table table-bordered table-hover w-100 text-center" id="calendar">
                         <tr align="center">
                             <td><font color="#F79DC2"/>일</td>
@@ -36,6 +46,17 @@
                         </tr>
                     </table>
                     <script type="text/javascript">
+
+                        function drag(target, food) {       //드래그 시작시 호출 할 함수
+                            food.dataTransfer.setData('Text', target.id);
+                        };
+
+                        function drop(target, food) {       //드롭시 호출 할 함수
+                            var id = food.dataTransfer.getData('Text');
+                            target.appendChild(document.getElementById(id));
+                            food.preventDefault();
+                        };
+
                         var today = new Date();//오늘 날짜//내 컴퓨터 로컬을 기준으로 today에 Date 객체를 넣어줌
                         var date = new Date();//today의 Date를 세어주는 역할
                         buildCalendar(); //달력 cell 만들어 출력
@@ -70,7 +91,6 @@
                             //날짜를 찍을 테이블 변수 만듬, 일 까지 다 찍힘
                             var tbCalendarYM = $('#tbCalendarYM')[0];
                             //테이블에 정확한 날짜 찍는 변수
-                            //innerHTML : js 언어를 HTML의 권장 표준 언어로 바꾼다
                             //new를 찍지 않아서 month는 +1을 더해줘야 한다.
                             tbCalendarYM.innerHTML = today.getFullYear() + "년 " + (today.getMonth() + 1) + "월";
 

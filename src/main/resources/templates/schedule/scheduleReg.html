@@ -15,42 +15,22 @@
                         <img ondragstart="drag(this, event)" id="kor1" alt="한국음식1"
                              src="//t1.daumcdn.net/tistory_admin/static/images/xBoxReplace_250.png" draggable="true"
                              width="250" height="250">
-                        <img ondragstart="drag(this, event)" id="kor2" alt="한국음식2"
-                             src="//t1.daumcdn.net/tistory_admin/static/images/xBoxReplace_250.png" draggable="true"
-                             width="250" height="250">
-                        <img ondragstart="drag(this, event)" id="kor3" alt="한국음식3"
-                             src="//t1.daumcdn.net/tistory_admin/static/images/xBoxReplace_250.png" draggable="true"
-                             width="250" height="250">
-                        <img ondragstart="drag(this, event)" id="u1" alt="서양음식1"
-                             src="//t1.daumcdn.net/tistory_admin/static/images/xBoxReplace_250.png" draggable="true"
-                             width="250" height="250">
-                        <img ondragstart="drag(this, event)" id="u2" alt="서양음식2"
-                             src="//t1.daumcdn.net/tistory_admin/static/images/xBoxReplace_250.png" draggable="true"
-                             width="250" height="250">
-                        <img ondragstart="drag(this, event)" id="u3" alt="서양음식3"
-                             src="//t1.daumcdn.net/tistory_admin/static/images/xBoxReplace_250.png" draggable="true"
-                             width="250" height="250">
-                        <img ondragstart="drag(this, event)" id="ch1" alt="중국음식1"
-                             src="//t1.daumcdn.net/tistory_admin/static/images/xBoxReplace_250.png" draggable="true"
-                             width="250" height="250">
-                        <img ondragstart="drag(this, event)" id="ch2" alt="중국음식2"
-                             src="//t1.daumcdn.net/tistory_admin/static/images/xBoxReplace_250.png" draggable="true"
-                             width="250" height="250">
-                        <img ondragstart="drag(this, event)" id="ch3" alt="중국음식3"
-                             src="//t1.daumcdn.net/tistory_admin/static/images/xBoxReplace_250.png" draggable="true"
-                             width="250" height="250">
+
+                        <div id='external-events-list'>
+                            <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
+                                <div class='fc-event-main' ondragstart="drag(this, event)" draggable="true">My Event 1
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div ondragover="return false;" ondragenter="return false;" class="fl" ondrop="drop(this, event);">
                         <h2>한국음식</h2>
                     </div>
-                    <div ondragover="return false;" ondragenter="return false;" class="fl" ondrop="drop(this, event);">
-                        <h2>중국음식</h2>
-                    </div>
-                    <div ondragover="return false;" ondragenter="return false;" class="fl" ondrop="drop(this, event);">
-                        <h2>서양음식</h2>
-                    </div>
+
                     <script>
                         function drag(target, food) {       //드래그 시작시 호출 할 함수
+                            console.log(target);
+                            console.log(food);
                             food.dataTransfer.setData('Text', target.id);
                         };
 
@@ -58,7 +38,8 @@
                             var id = food.dataTransfer.getData('Text');
                             target.appendChild(document.getElementById(id));
                             food.preventDefault();
-                        };</script>
+                        };
+                    </script>
                     <form id="reguser">
                         <div class="mb-3">
                             <label for="username">담당 선생님</label>
