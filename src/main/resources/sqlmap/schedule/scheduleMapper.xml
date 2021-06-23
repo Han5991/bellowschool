@@ -12,7 +12,7 @@
         ORDER BY SNO DESC
     </select>
 
-    <insert id="regNoti" parameterType="hashMap">
+    <insert id="regClass" parameterType="hashMap">
         INSERT INTO bsnoti (TITLE
                             , CONTENT
                             , REGUSER
