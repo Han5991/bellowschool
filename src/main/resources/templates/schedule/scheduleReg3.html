@@ -11,8 +11,8 @@
                 <div class="card-body">
                     <form id="reguser">
                         <div class="mb-3">
-                            <label for="day">요일</label>
-                            <select class="form-control" id="day">
+                            <label for="classDay">요일</label>
+                            <select class="form-control" id="classDay">
                                 <option th:value="0">일요일</option>
                                 <option th:value="1" selected>월요일</option>
                                 <option th:value="2">화요일</option>
@@ -23,8 +23,8 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="class">반</label>
-                            <select class="form-control" id="class">
+                            <label for="classType">반</label>
+                            <select class="form-control" id="classType">
                                 <option th:value="1">고급2</option>
                                 <option th:value="2">고급1</option>
                                 <option th:value="3">중급</option>
@@ -52,8 +52,8 @@
                             type: 'POST',
                             contentType: "application/json",
                             data: JSON.stringify({
-                                day: $('#day').val(),
-                                class: $('#class').val(),
+                                classDay: $('#classDay').val(),
+                                classType: $('#classType').val(),
                                 startTime: $('#startTime').val(),
                                 endTime: $('#endTime').val()
                             }),

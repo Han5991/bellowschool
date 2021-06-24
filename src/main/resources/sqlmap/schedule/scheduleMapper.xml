@@ -12,19 +12,26 @@
         ORDER BY SNO DESC
     </select>
 
+    <select id="classList" resultType="ClassVo">
+        SELECT DISTINCT CASE CLASSTYPE
+                            WHEN '1' THEN '고급2'
+                            WHEN '2' THEN '고급1'
+                            WHEN '3' THEN '중급'
+            END CLASSTYPE
+                      , STARTTIME
+                      , ENDTIME
+        FROM BSCLASS
+    </select>
+
     <insert id="regClass" parameterType="hashMap">
-        INSERT INTO bsnoti (TITLE
-                            , CONTENT
-                            , REGUSER
-                            , SNO
-                            , REGTIME
-                            , HITCNT)
-        VALUES ( #{regnotititle}
-               , #{regnoticontent}
-               , #{regnotiuser}
-               , (SELECT max(SNO) from BSNOTI) + 1
-               , TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
-               , 0)
+        INSERT INTO BSCLASS ( CLASSDAY
+                            , CLASSTYPE
+                            , STARTTIME
+                            , ENDTIME)
+        VALUES ( #{classDay}
+               , #{classType}
+               , #{startTime}
+               , #{endTime})
     </insert>
 
     <select id="notiReadPage" resultType="NotiVo" parameterType="int">
@@ -39,8 +46,9 @@
 
     <delete id="notiDetele" parameterType="hashMap">
         DELETE
-        BSNOTI WHERE SNO =
-        #{sno}
+            BSNOTI
+        WHERE SNO =
+              #{sno}
     </delete>
 
     <update id="updateNoti" parameterType="hashMap">

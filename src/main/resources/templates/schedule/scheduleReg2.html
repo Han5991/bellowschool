@@ -4,87 +4,65 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
     <th:block th:fragment="content">
         <div class="container-fluid">
-
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <h3 class="m-0 font-weight-bold text-primary">시간표 등록</h3>
                 </div>
                 <div class="card-body">
                     <div id='wrap'>
-
                         <div id='external-events'>
-                            <h4>Draggable Events</h4>
-
-                            <div id='external-events-list' style="width: 20%">
-                                <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
-                                    <div class='fc-event-main'>My Event 1</div>
-                                </div>
-                                <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
-                                    <div class='fc-event-main'>My Event 2</div>
-                                </div>
-                                <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
-                                    <div class='fc-event-main'>My Event 3</div>
-                                </div>
-                                <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
-                                    <div class='fc-event-main'>My Event 4</div>
-                                </div>
-                                <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
-                                    <div class='fc-event-main'>My Event 5</div>
+                            <h4>풀무야간학교 반</h4>
+                            <div id='external-events-list' style="width: 5%">
+                                <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'
+                                     th:each="class : ${classList}">
+                                    <div class='fc-event-main' th:text="${class.classtype}"></div>
+                                    <div class='fc-event-main' th:text="${class.starttime}"></div>
+                                    <div class='fc-event-main' th:text="${class.endtime}"></div>
                                 </div>
                             </div>
-
-                            <p>
-                                <input type='checkbox' id='drop-remove' />
-                                <label for='drop-remove'>remove after drop</label>
-                            </p>
                         </div>
-
+                        <p>
+                            <input type='checkbox' id='drop-remove'/>
+                            <label for='drop-remove'>remove after drop</label>
+                        </p>
                         <div id='calendar-wrap'>
                             <div id='calendar'></div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
         <script>
-
-            document.addEventListener('DOMContentLoaded', function() {
-
-                /* initialize the external events
-                -----------------------------------------------------------------*/
-
-                var containerEl = document.getElementById('external-events-list');
-                new FullCalendar.Draggable(containerEl, {
-                    itemSelector: '.fc-event',
-                    eventData: function(eventEl) {
-                        return {
-                            title: eventEl.innerText.trim()
-                        }
+            const containerEl = $('#external-events-list')[0];
+            new FullCalendar.Draggable(containerEl, {
+                itemSelector: '.fc-event',
+                eventData: function (eventEl) {
+                    return {
+                        title: eventEl.innerText.trim()
                     }
-                });
-
-                var calendarEl = document.getElementById('calendar');
-                var calendar = new FullCalendar.Calendar(calendarEl, {
-                    headerToolbar: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-                    },
-                    editable: true,
-                    droppable: true, // this allows things to be dropped onto the calendar
-                    drop: function(arg) {
-                        // is the "remove after drop" checkbox checked?
-                        if (document.getElementById('drop-remove').checked) {
-                            // if so, remove the element from the "Draggable Events" list
-                            arg.draggedEl.parentNode.removeChild(arg.draggedEl);
-                        }
-                    }
-                });
-                calendar.render();
-
+                }
             });
 
+            const calendarEl = $('#calendar')[0];
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                locale: "ko",
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+                },
+                editable: true,
+                droppable: true,
+                contentHeight: 'auto',
+                drop: function (arg) {
+                    console.log(arg.dateStr);
+                    console.log(arg.draggedEl.innerText.substr(0, 3).trim());
+                    if (document.getElementById('drop-remove').checked) {
+                        arg.draggedEl.parentNode.removeChild(arg.draggedEl);
+                    }
+                }
+            });
+            calendar.render();
         </script>
     </th:block>
 </th:block>
