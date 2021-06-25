@@ -12,12 +12,11 @@
                     <div id='wrap'>
                         <div id='external-events'>
                             <h4>풀무야간학교 반</h4>
-                            <div id='external-events-list' style="width: 5%">
+                            <div id='external-events-list' style="width: 10%">
                                 <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'
                                      th:each="class : ${classList}">
-                                    <div class='fc-event-main' th:text="${class.classtype}"></div>
-                                    <div class='fc-event-main' th:text="${class.starttime}"></div>
-                                    <div class='fc-event-main' th:text="${class.endtime}"></div>
+                                    <div class='fc-event-main'
+                                         th:text="${class.classtype} + ' : '+ ${class.starttime}+' ~ '+${class.endtime}"></div>
                                 </div>
                             </div>
                         </div>
@@ -33,6 +32,39 @@
             </div>
         </div>
         <script>
+            function calDateWhenDragnDrop(event) {
+                // 드랍시 수정된 날짜반영
+                var newDates = {
+                    startDate: '',
+                    endDate: ''
+                }
+
+                // 날짜 & 시간이 모두 같은 경우
+                if(!event.end) {
+                    event.end = event.start;
+                }
+
+                // //하루짜리 all day
+                // if (event.allDay && event.end === event.start) {
+                //     newDates.startDate = moment(event.start._d).format('YYYY-MM-DD');
+                //     newDates.endDate = newDates.startDate;
+                // }
+                //
+                // //2일이상 all day
+                // else if (event.allDay && event.end !== null) {
+                //     newDates.startDate = moment(event.start._d).format('YYYY-MM-DD');
+                //     newDates.endDate = moment(event.end._d).subtract(1, 'days').format('YYYY-MM-DD');
+                // }
+                //
+                // //all day가 아님
+                // else if (!event.allDay) {
+                //     newDates.startDate = moment(event.start._d).format('YYYY-MM-DD HH:mm');
+                //     newDates.endDate = moment(event.end._d).format('YYYY-MM-DD HH:mm');
+                // }
+
+                return newDates;
+            }
+
             const containerEl = $('#external-events-list')[0];
             new FullCalendar.Draggable(containerEl, {
                 itemSelector: '.fc-event',
@@ -60,7 +92,57 @@
                     if (document.getElementById('drop-remove').checked) {
                         arg.draggedEl.parentNode.removeChild(arg.draggedEl);
                     }
+                },
+                eventDrop: function (event, delta, revertFunc, jsEvent, ui, view, arg) {
+                    // console.log(event.el.innerText.substr(0, 3).trim());
+                    // console.log(event.all);
+                    // console.log(arg.draggedEl);
+                    // console.log(arg.draggedEl.innerText.substr(0, 3).trim());
+                    //주,일 view일때 종일 <-> 시간 변경불가
+                    // if (view.type === 'agendaWeek' || view.type === 'agendaDay') {
+                    //     if (draggedEventIsAllDay !== event.allDay) {
+                    //         alert('드래그앤드롭으로 종일<->시간 변경은 불가합니다.');
+                    //         location.reload();
+                    //         return false;
+                    //     }
+                    // }
+                    //
+                    // // 드랍시 수정된 날짜반영
+                    console.log(event.event.start.toISOString());
+                    console.log(event.event.title);
+                    var newDates = calDateWhenDragnDrop(event);
+                    // $.ajax({
+                    //     type: "get",
+                    //     url: "",
+                    //     data: {
+                    //         //...
+                    //     },
+                    //     success: function (response) {
+                    //         alert('수정: ' + newDates.startDate + ' ~ ' + newDates.endDate);
+                    //     }
+                    // });
+
                 }
+                // events: function (start, end, timezone, callback) {
+                //     $.ajax({
+                //         type: "get",
+                //         url: "data.json",
+                //         data: {
+                //             // 화면이 바뀌면 Date 객체인 start, end 가 들어옴
+                //             //startDate : moment(start).format('YYYY-MM-DD'),
+                //             //endDate   : moment(end).format('YYYY-MM-DD')
+                //         },
+                //         success: function (response) {
+                //             var fixedDate = response.map(function (array) {
+                //                 if (array.allDay && array.start !== array.end) {
+                //                     array.end = moment(array.end).add(1, 'days'); // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력
+                //                 }
+                //                 return array;
+                //             });
+                //             callback(fixedDate);
+                //         }
+                //     });
+                // },
             });
             calendar.render();
         </script>
