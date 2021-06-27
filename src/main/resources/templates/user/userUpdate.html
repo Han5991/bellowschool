@@ -37,7 +37,7 @@
                 </div>
             </div>
         </div>
-        <script>
+        <script th:inline="javascript">
             $.updateUser = function () {
                 if (confirm("정말 수정하시겠습니까?") == true) {
                     if ($('#username').val() != "" && $('#password').val() != "") {
@@ -46,15 +46,11 @@
                             type: 'POST',
                             contentType: "application/json",
                             data: JSON.stringify({
-                                /*<![CDATA[*/
                                 userNum: [[${param.usernum}]],
-                                /*]]*/
                                 userName: $('#username').val(),
                                 userType: $('#usertype').val(),
                                 userClass: $('#userclass').val(),
-                                /*<![CDATA[*/
-                                qrName: '[[${user.qrname}]]'
-                                /*]]*/
+                                qrName: [[${user.qrname}]]
                             }),
                             success: function onData(data) {
                                 if (data >= 1) {
