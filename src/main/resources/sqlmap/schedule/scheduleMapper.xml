@@ -2,14 +2,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bellowschool.schedule.mapper.ScheduleMapper">
-    <select id="notiPagedList" resultType="NotiVo">
-        SELECT SNO
-             , TITLE
-             , REGUSER
-             , HITCNT
-             , TO_CHAR(TO_DATE(REGTIME, 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD HH24:MI') REGTIME
-        FROM BSNOTI
-        ORDER BY SNO DESC
+    <select id="scheduleList" resultType="ScheduleVo">
+        SELECT *
+        FROM BSSCHEDULE
     </select>
 
     <select id="classList" resultType="ClassVo">
@@ -34,6 +29,41 @@
                , #{endTime})
     </insert>
 
+    <insert id="regSchedule" parameterType="hashMap">
+        INSERT INTO BSSCHEDULE (ID
+        , TITLE
+        <if test="description != null">
+            , DESCRIPTION
+        </if>
+        <if test="start != null">
+            , "START"
+        </if>
+        <if test="end != null or end != ''">
+            , END
+        </if>
+        , TYPE
+        , USERNAME
+        , BACKGROUNDCOLOR
+        , ALLDAY)
+        VALUES ( SCHEDULE.nextval
+        , #{title}
+        <if test="description != null">
+            , #{description}
+        </if>
+        <if test="start != null">
+            , #{start}
+        </if>
+        <if test="end != null or end != ''">
+            , #{end}
+        </if>
+        , #{type}
+        , #{username}
+        , #{backgroundcolor}
+        , #{allday}
+        )
+    </insert>
+
+
     <select id="notiReadPage" resultType="NotiVo" parameterType="int">
         SELECT SNO
              , TITLE
@@ -44,31 +74,33 @@
         WHERE SNO = #{sno}
     </select>
 
-    <delete id="notiDetele" parameterType="hashMap">
+    <delete id="deleteSchedule" parameterType="hashMap">
         DELETE
-            BSNOTI
-        WHERE SNO =
-              #{sno}
+            BSSCHEDULE
+        WHERE ID =
+              #{id}
     </delete>
 
-    <update id="updateNoti" parameterType="hashMap">
-        UPDATE BSNOTI
+    <update id="updateSchedule" parameterType="hashMap">
+        UPDATE BSSCHEDULE
         <set>
-            TITLE = #{updateNotiTitle}
-            ,CONTENT =#{updateNotiContent}
+            TITLE = #{title}
+            <if test="description != null">
+                , DESCRIPTION = #{description}
+            </if>
+            <if test="start != null">
+                , "START" = #{start}
+            </if>
+            <if test="end != null or end != ''">
+                ,END =  #{end}
+            </if>
+            , TYPE = #{type}
+            , BACKGROUNDCOLOR = #{backgroundcolor}
+            , ALLDAY = #{allday}
         </set>
         <where>
-            SNO = #{sno}
+            ID = #{id}
         </where>
     </update>
 
-    <update id="updateNotiHitcnt" parameterType="int">
-        UPDATE BSNOTI
-        <set>
-            HITCNT=HITCNT+1
-        </set>
-        <where>
-            SNO = #{sno}
-        </where>
-    </update>
 </mapper>

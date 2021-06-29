@@ -1,6 +1,8 @@
 package com.bellowschool.schedule.mapper;
 
 import com.bellowschool.vo.ClassVo;
+import com.bellowschool.vo.NotiVo;
+import com.bellowschool.vo.ScheduleVo;
 import com.bellowschool.vo.UserVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -14,4 +16,9 @@ public interface ScheduleMapper {
 
     int regClass(Map<String, Object> params);
     List<ClassVo> classList();
+    int regSchedule(Map<String, Object> params);
+    List<ScheduleVo> scheduleList();
+    int deleteSchedule(Map<String, Object> params);
+    int updateSchedule(Map<String, Object> params);
+
 }
