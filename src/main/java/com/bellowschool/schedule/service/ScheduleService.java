@@ -8,10 +8,14 @@ import java.util.Map;
 
 public interface ScheduleService {
     int regClass(Map<String, Object> params);
-    List<ClassVo> classList();
-    int regSchedule(Map<String, Object> params);
-    List<ScheduleVo> scheduleList();
-    int deleteSchedule(Map<String, Object> params);
-    int updateSchedule(Map<String, Object> params);
 
+    List<ClassVo> classList();
+
+    int regSchedule(Map<String, Object> params);
+
+    List<ScheduleVo> scheduleList();
+
+    int deleteSchedule(Map<String, Object> params);
+
+    int updateSchedule(Map<String, Object> params);
 }

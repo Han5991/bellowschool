@@ -63,17 +63,6 @@
         )
     </insert>
 
-
-    <select id="notiReadPage" resultType="NotiVo" parameterType="int">
-        SELECT SNO
-             , TITLE
-             , CONTENT
-             , REGUSER
-             , TO_CHAR(TO_DATE(REGTIME, 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD HH24:MI') REGTIME
-        FROM BSNOTI
-        WHERE SNO = #{sno}
-    </select>
-
     <delete id="deleteSchedule" parameterType="hashMap">
         DELETE
             BSSCHEDULE
@@ -84,19 +73,27 @@
     <update id="updateSchedule" parameterType="hashMap">
         UPDATE BSSCHEDULE
         <set>
+            <if test="title != null">
             TITLE = #{title}
+            </if>
             <if test="description != null">
                 , DESCRIPTION = #{description}
             </if>
             <if test="start != null">
                 , "START" = #{start}
             </if>
-            <if test="end != null or end != ''">
+            <if test="end != null and end != ''">
                 ,END =  #{end}
             </if>
+            <if test="type != null">
             , TYPE = #{type}
+            </if>
+            <if test="backgroundcolor != null">
             , BACKGROUNDCOLOR = #{backgroundcolor}
+            </if>
+            <if test="allday != null">
             , ALLDAY = #{allday}
+            </if>
         </set>
         <where>
             ID = #{id}

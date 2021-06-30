@@ -1,7 +1,6 @@
 package com.bellowschool.schedule.controller;
 
 import com.bellowschool.schedule.service.ScheduleService;
-import com.bellowschool.vo.NotiVo;
 import com.bellowschool.vo.ScheduleVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -22,19 +21,14 @@ public class ScheduleController {
     private final ScheduleService scheduleService;
 
     @GetMapping("/schedule")
-    public String schedule() {
-        return "schedule/scheduleMF";
-    }
-
-    @GetMapping("/scheduleReg2")
     public String schedule2Reg(Model model) {
         model.addAttribute("classList", scheduleService.classList());
-        return "schedule/scheduleReg2";
+        return "schedule/schedule";
     }
 
-    @GetMapping("/scheduleReg")
+    @GetMapping("/classReg")
     public String schedule2Reg2() {
-        return "schedule/scheduleReg3";
+        return "schedule/classReg";
     }
 
     @PostMapping("/regclass")
