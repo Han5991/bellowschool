@@ -53,7 +53,7 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
         if (!JSON.parse(event.event.extendedProps.allday)) {
             date.end = event.event.endStr.substr(0, 16);
         }
-        if (confirm("수정하시겠습니까?") == true) {
+        // if (confirm("수정하시겠습니까?") == true) {
             $.ajax({
                 url: '/updateschedule',
                 type: 'POST',
@@ -68,7 +68,7 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
                     }
                 }
             });
-        }
+        // }
     },
     events: {
         url: '/scheduleList',

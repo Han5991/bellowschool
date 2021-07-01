@@ -3,40 +3,48 @@
 
 <mapper namespace="com.bellowschool.checkin.mapper.CheckMapper">
     <select id="userattendanceList" resultType="UserVo" parameterType="hashMap">
-        SELECT usernum,
-               username,
-               usertype,
-               userclass,
-               CASE userclass
+        SELECT usernum
+             , username
+             , usertype
+             , userclass
+             , CASE userclass
                    WHEN '1' THEN
                        (
-                           SELECT round((COUNT(1) / 11) * 100)
+                           SELECT round((COUNT(1) / #{class0}) * 100)
                            FROM bscheckin b
                            WHERE checktime BETWEEN #{dateStart} AND #{dateEnd}
                              AND b.usernum = a.usernum
                        )
                    WHEN '2' THEN
                        (
-                           SELECT round((COUNT(1) / 11) * 100)
+                           SELECT round((COUNT(1) / #{class1}) * 100)
                            FROM bscheckin b
                            WHERE checktime BETWEEN #{dateStart} AND #{dateEnd}
                              AND b.usernum = a.usernum
                        )
                    WHEN '3' THEN
                        (
-                           SELECT round((COUNT(1) / 11) * 100)
+                           SELECT round((COUNT(1) / #{class2}) * 100)
                            FROM bscheckin b
                            WHERE checktime BETWEEN #{dateStart} AND #{dateEnd}
                              AND b.usernum = a.usernum
                        )
-                   END addtendance
+            END addtendance
         FROM bsuser a
         WHERE usertype = '2'
-        GROUP BY usernum,
-                 username,
-                 usertype,
-                 userclass
+        GROUP BY usernum
+               , username
+               , usertype
+               , userclass
         ORDER BY usernum
+    </select>
+
+    <select id="scheduleClassCount" resultType="int" parameterType="hashMap">
+        SELECT COUNT(1)
+        FROM bsschedule
+        WHERE type = '0'
+          AND title = #{class}
+          AND end BETWEEN to_char(to_date(#{dateStart}), 'YYYY-MM-DD') AND to_char(to_date(#{dateEnd}), 'YYYY-MM-DD')
     </select>
 
     <insert id="regCheckIn" parameterType="hashMap">

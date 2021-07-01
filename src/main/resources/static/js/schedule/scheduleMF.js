@@ -53,7 +53,7 @@ function paramsReset() {
 }
 
 function regSchedule() {
-    if (confirm("등록하시겠습니까?") == true) {
+    // if (confirm("등록하시겠습니까?") == true) {
         if ($('#edit-title').val() != "") {
             $.ajax({
                 url: '/regschedule',
@@ -71,7 +71,7 @@ function regSchedule() {
                 }),
                 success: function onData(data) {
                     if (data >= 1) {
-                        alert('등록 되었습니다.');
+                        // alert('등록 되었습니다.');
                         $('.add').modal("hide");
                         calendar.refetchEvents();
                     } else if (data == 0) {
@@ -79,7 +79,7 @@ function regSchedule() {
                     }
                 }
             });
-        }
+        // }
     }
     paramsReset();
 }

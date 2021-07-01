@@ -28,7 +28,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public int regSchedule(Map<String, Object> params) {
-        log.info(params);
         return scheduleMapper.regSchedule(params);
     }
 

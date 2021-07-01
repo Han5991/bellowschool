@@ -1,6 +1,8 @@
 package com.bellowschool.checkin.service;
 
 import com.bellowschool.checkin.mapper.CheckMapper;
+import com.bellowschool.schedule.service.ScheduleService;
+import com.bellowschool.vo.ClassVo;
 import com.bellowschool.vo.UserVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -17,6 +19,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class CheckServiceImpl implements CheckService {
     private final CheckMapper checkMapper;
+    private final ScheduleService scheduleService;
 
     @Override
     public int regCheckIn(Map<String, Object> params) {
@@ -33,15 +36,24 @@ public class CheckServiceImpl implements CheckService {
         if (params.get("dateStart") == null) {
             Calendar mon = Calendar.getInstance();
             mon.add(Calendar.MONTH, -1);
-            String dateStart = new SimpleDateFormat("yyyyMM").format(mon.getTime());
+            String dateStart = new SimpleDateFormat("yyyyMMdd").format(mon.getTime());
             params.put("dateStart", dateStart);
         }
+
         if (params.get("dateEnd") == null) {
             Calendar mon = Calendar.getInstance();
             mon.add(Calendar.MONTH, +1);
-            String dateEnd = new SimpleDateFormat("yyyyMM").format(mon.getTime());
+            String dateEnd = new SimpleDateFormat("yyyyMMdd").format(mon.getTime());
             params.put("dateEnd", dateEnd);
         }
+
+        List<ClassVo> classList = scheduleService.classList();
+
+        for (int i = 0; i < classList.size(); i++) {
+            params.put("class", classList.get(i).getClasstype());
+            params.put("class" + i, checkMapper.scheduleClassCount(params));
+        }
+
         return checkMapper.userattendanceList(params);
     }
 }

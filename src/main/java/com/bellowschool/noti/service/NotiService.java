@@ -9,8 +9,11 @@ public interface NotiService {
     List<NotiVo> notiPagedList();
 
     int regNoti(Map<String, Object> params);
+
     NotiVo notiReadPage(int sno);
+
     int notiDetele(Map<String, Object> params);
+
     int updateNoti(Map<String, Object> params);
 
 }
