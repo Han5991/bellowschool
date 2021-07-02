@@ -33,14 +33,14 @@ public class CheckServiceImpl implements CheckService {
 
     @Override
     public List<UserVo> userattendanceList(Map<String, Object> params) {
-        if (params.get("dateStart") == null) {
+        if (params.get("dateStart") == null || params.get("dateStart") == "") {
             Calendar mon = Calendar.getInstance();
             mon.add(Calendar.MONTH, -1);
             String dateStart = new SimpleDateFormat("yyyyMMdd").format(mon.getTime());
             params.put("dateStart", dateStart);
         }
 
-        if (params.get("dateEnd") == null) {
+        if (params.get("dateEnd") == null || params.get("dateEnd") == "") {
             Calendar mon = Calendar.getInstance();
             mon.add(Calendar.MONTH, +1);
             String dateEnd = new SimpleDateFormat("yyyyMMdd").format(mon.getTime());
