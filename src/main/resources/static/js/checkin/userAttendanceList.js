@@ -18,7 +18,7 @@ var table = $("#dataTable").DataTable({
         url: '/userattendanceList',
         type: 'POST',
         dataSrc: function (json) {
-            // for (var i = 0, ien = json.length; i < ien; i++) {
+            // for (let i = 0, ien = json.length; i < ien; i++) {
             //     json[i][0] = '<a href="/message/' + json[i][0] + '>View message</a>';
             // }
             return json;
@@ -144,6 +144,17 @@ table.on('select', function (e, dt, type, indexes) {
 //     console.log(rowData2[0].sno);
 // });
 
+let today = new Date();
+let year = today.getFullYear();
+let month = today.getMonth();  // 월
+let date = today.getDate();  // 날짜
+
+$('#dataTable_length').append('<div><label id="date">' + year + '-' + month + '-' + date + ' ~ ' + year + '-' + (month + 2) + '-' + (date - 1) + '</label></div>');
+
+function setDate() {
+    $('#date').text($('#dateStart').val() + ' ~ ' + $('#dateEnd').val());
+}
+
 function search() {
     $.ajax({
         url: '/userattendanceList2',
@@ -156,7 +167,7 @@ function search() {
         }),
         success: function onData(data) {
             table.clear();
-            for (var i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
                 table.row.add(data[i]).draw();
             }
         }
