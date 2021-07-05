@@ -64,32 +64,4 @@
         WHERE CHECKTIME like #{checkTime}
           and USERNUM = #{userNum}
     </select>
-
-    <delete id="notiDetele" parameterType="hashMap">
-        DELETE
-            BSNOTI
-        WHERE SNO =
-              #{sno}
-    </delete>
-
-    <update id="updateNoti" parameterType="hashMap">
-        UPDATE BSNOTI
-        <set>
-            TITLE = #{updateNotiTitle}
-            ,CONTENT =#{updateNotiContent}
-        </set>
-        <where>
-            SNO = #{sno}
-        </where>
-    </update>
-
-    <update id="updateNotiHitcnt" parameterType="int">
-        UPDATE BSNOTI
-        <set>
-            HITCNT=HITCNT+1
-        </set>
-        <where>
-            SNO = #{sno}
-        </where>
-    </update>
 </mapper>
