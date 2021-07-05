@@ -149,7 +149,7 @@ let year = today.getFullYear();
 let month = today.getMonth();  // 월
 let date = today.getDate();  // 날짜
 
-$('#dataTable_length').append('<div><label id="date">' + year + '-' + month + '-' + date + ' ~ ' + year + '-' + (month + 2) + '-' + (date - 1) + '</label></div>');
+$('#dataTable_length').append('<div><label id="date">' + year + '-' + (month - 1) + '-' + date + ' ~ ' + year + '-' + (month + 1) + '-' + (date - 1) + '</label></div>');
 
 function setDate() {
     $('#date').text($('#dateStart').val() + ' ~ ' + $('#dateEnd').val());
