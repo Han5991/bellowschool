@@ -2,62 +2,151 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
-  <th:block th:fragment="content">
-    <div class="container-fluid">
-      <div class="card shadow mb-4">
-        <div class="card-header py-3">
-          <h3 class="m-0 font-weight-bold text-primary">사주세요</h3>
+    <th:block th:fragment="content">
+        <div class="container-fluid">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h3 class="m-0 font-weight-bold text-primary">사주세요</h3>
+                </div>
+                <div class="card-body">
+                    <input type="button" onclick="add()" value="사주세요!" class="btn btn-outline-primary">
+                    <table class="table table-bordered table-hover" style="color: #1b1e21" width="100%">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>번호</th>
+                            <th>작성자</th>
+                            <th>상태</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th><input type="checkbox" class="custom-checkbox"></th>
+                            <th>1</th>
+                            <th>한상욱</th>
+                            <th>구매완료</th>
+                        </tr>
+                        <tr>
+                            <th><input type="checkbox"></th>
+                            <th>2</th>
+                            <th>한상욱</th>
+                            <th>구매신청</th>
+                        </tr>
+                        <tr>
+                            <th><input type="checkbox"></th>
+                            <th>3</th>
+                            <th>한상욱</th>
+                            <th>구매중</th>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-            <table class="table table-bordered table-hover" style="color: #1b1e21" width="100%">
-              <thead>
-              <tr>
-                <th></th>
-                <th>사주세요</th>
-                <th>이름</th>
-                <th>상태</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <th></th>
-                <th>사주세요</th>
-                <th>이름</th>
-                <th>상태</th>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-      </div>
-    </div>
-    <script>
-      $.fncAutoTime = function (object) {
-        $('#endTime').val(object.value.substr(0, 2) * 1 + 2 + object.value.substr(2, 5));
-      }
-      $.fncregclass = function () {
-        if (confirm("정말 등록하시겠습니까?") == true) {
-          if ($('#startTime').val() != "") {
-            $.ajax({
-              url: '/regclass',
-              type: 'POST',
-              contentType: "application/json",
-              data: JSON.stringify({
-                classDay: $('#classDay').val(),
-                classType: $('#classType').val(),
-                startTime: $('#startTime').val(),
-                endTime: $('#endTime').val()
-              }),
-              success: function onData(data) {
-                if (data >= 1) {
-                  alert('수업이 등록 되었습니다.');
-                } else if (data == 0) {
-                  alert('수업 등록에 실패하였습니다.');
+
+        <!-- 일정 추가 MODAL -->
+        <div class="modal add" tabindex="-1" role="dialog" id="eventModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">사주세요!</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table">
+                            <tr>
+                                <td>번호</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>물품</td>
+                                <td><input type="text" class="form-control"></td>
+                            </tr>
+                            <tr>
+                                <td>갯수</td>
+                                <td><input type="number" class="form-control"></td>
+                            </tr>
+                            <tr>
+                                <td>개당가격</td>
+                                <td><input type="number" class="form-control"></td>
+                            </tr>
+                            <tr>
+                                <td>합계</td>
+                                <td><input type="number" class="form-control"></td>
+                            </tr>
+                            <tr>
+                                <td>옵션</td>
+                                <td><input type="text" class="form-control"></td>
+                            </tr>
+                            <tr>
+                                <td>url</td>
+                                <td><input type="text" class="form-control"></td>
+                            </tr>
+                            <tr>
+                                <td>택배</td>
+                                <td><input type="text" class="form-control"></td>
+                            </tr>
+                            <tr>
+                                <td>송장번호</td>
+                                <td><input type="text" class="form-control"></td>
+                            </tr>
+                            <tr>
+                                <td>배송예정일</td>
+                                <td><input type="date" class="form-control"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer modalBtnContainer-addEvent">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="paramsReset()">닫기
+                        </button>
+                        <button type="button" class="btn btn-primary" id="save-event" onclick="regSchedule()">저장
+                        </button>
+                    </div>
+                    <div class="modal-footer modalBtnContainer-modifyEvent">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="paramsReset()">닫기
+                        </button>
+                        <button type="button" class="btn btn-danger" id="delete-Event" onclick="deleteSchedule()">삭제
+                        </button>
+                        <button type="button" class="btn btn-primary" id="update-Event" onclick="updateSchedule()">저장
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function add() {
+                $(".add").modal('show');
+            }
+
+            $.fncAutoTime = function (object) {
+                $('#endTime').val(object.value.substr(0, 2) * 1 + 2 + object.value.substr(2, 5));
+            }
+            $.fncregclass = function () {
+                if (confirm("정말 등록하시겠습니까?") == true) {
+                    if ($('#startTime').val() != "") {
+                        $.ajax({
+                            url: '/regclass',
+                            type: 'POST',
+                            contentType: "application/json",
+                            data: JSON.stringify({
+                                classDay: $('#classDay').val(),
+                                classType: $('#classType').val(),
+                                startTime: $('#startTime').val(),
+                                endTime: $('#endTime').val()
+                            }),
+                            success: function onData(data) {
+                                if (data >= 1) {
+                                    alert('수업이 등록 되었습니다.');
+                                } else if (data == 0) {
+                                    alert('수업 등록에 실패하였습니다.');
+                                }
+                            }
+                        });
+                    }
                 }
-              }
-            });
-          }
-        }
-      }
-    </script>
-  </th:block>
+            }
+        </script>
+    </th:block>
 </th:block>
