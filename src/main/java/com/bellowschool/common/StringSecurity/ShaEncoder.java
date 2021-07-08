@@ -2,7 +2,7 @@ package com.bellowschool.common.StringSecurity;
 
 import java.security.MessageDigest;
 
-public class ShaPasswordEncoder {
+public class ShaEncoder {
 
     public String Sha256Encoder(String str) {
         try {
