@@ -1,24 +1,26 @@
 package com.bellowschool.common.StringSecurity;
 
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class ShaEncoder {
 
-    public String Sha256Encoder(String str) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(str.getBytes("UTF-8"));
-            StringBuffer hexString = new StringBuffer();
+    public static String Sha256Encoder(String str) throws UnsupportedEncodingException, NoSuchAlgorithmException {
 
-            for (int i = 0; i < hash.length; i++) {
-                String hex = Integer.toHexString(0xff & hash[i]);
-                if (hex.length() == 1) hexString.append('0');
-                hexString.append(hex);
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(str.getBytes("UTF-8"));
+        StringBuffer hexString = new StringBuffer();
+
+        for (byte b : hash) {
+            String hex = Integer.toHexString(0xff & b);
+            if (hex.length() == 1) {
+                hexString.append('0');
             }
-
-            return hexString.toString();
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
+            hexString.append(hex);
         }
+
+        return hexString.toString();
+
     }
 }
