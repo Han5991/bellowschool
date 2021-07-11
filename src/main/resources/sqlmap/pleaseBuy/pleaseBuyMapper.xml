@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bellowschool.pleaseBuy.mapper.PleaseBuyMapper">
+
+    <select id="pleaseBuyList" resultType="PleaseBuyVo" parameterType="hashMap">
+        SELECT ID
+             , STATUS
+             , GOODSTYPE
+             , B.USERNAME
+             , GOODS
+             , GOODSCOUNT
+             , GOODSPRICE
+             , "OPTION"
+             , COMPANY
+             , URL
+             , TO_CHAR(TO_DATE("START", 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD HH24:MI') "START"
+             , TO_CHAR(TO_DATE("END", 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD HH24:MI')   "END"
+        FROM BSPLEASEBUY
+                 left join BSUSER B on BSPLEASEBUY.USERNUM = B.USERNUM ORDER BY id desc
+    </select>
+
+    <insert id="regPleaseBuy" parameterType="hashMap">
+        INSERT INTO BSPLEASEBUY ( ID
+        , GOODSTYPE
+        , GOODS
+        , GOODSCOUNT
+        , GOODSPRICE
+        <if test="option != null or option != ''">
+            , "OPTION"
+        </if>
+        , "START"
+        , USERNUM)
+        VALUES ( PLEASEBUY.nextval
+        , #{goodstype}
+        , #{goods}
+        , #{goodscount}
+        , #{goodsprice}
+        <if test="option != null or option != ''">
+            , #{option}
+        </if>
+        , TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
+        , #{usernum}
+        )
+    </insert>
+
+    <delete id="deleteSchedule" parameterType="hashMap">
+        DELETE
+            BSSCHEDULE
+        WHERE ID =
+              #{id}
+    </delete>
+
+    <update id="updateSchedule" parameterType="hashMap">
+        UPDATE BSSCHEDULE
+        <set>
+            <if test="title != null">
+                TITLE = #{title}
+            </if>
+            <if test="description != null">
+                , DESCRIPTION = #{description}
+            </if>
+            <if test="start != null">
+                , "START" = #{start}
+            </if>
+            <if test="end != null and end != ''">
+                ,END = #{end}
+            </if>
+            <if test="type != null">
+                , TYPE = #{type}
+            </if>
+            <if test="backgroundcolor != null">
+                , BACKGROUNDCOLOR = #{backgroundcolor}
+            </if>
+            <if test="allday != null">
+                , ALLDAY = #{allday}
+            </if>
+        </set>
+        <where>
+            ID = #{id}
+        </where>
+    </update>
+
+</mapper>
