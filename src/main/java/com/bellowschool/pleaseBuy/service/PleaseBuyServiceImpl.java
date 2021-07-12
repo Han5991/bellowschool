@@ -1,11 +1,13 @@
 package com.bellowschool.pleaseBuy.service;
 
 import com.bellowschool.pleaseBuy.mapper.PleaseBuyMapper;
+import com.bellowschool.vo.PageRequestVo;
 import com.bellowschool.vo.PleaseBuyVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +23,10 @@ public class PleaseBuyServiceImpl implements PleaseBuyService {
     }
 
     @Override
-    public List<PleaseBuyVo> pleaseBuyList(Map<String, Object> params) {
+    public List<PleaseBuyVo> pleaseBuyList(PageRequestVo pageRequestVo) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("start", (1 + pageRequestVo.getSize() * (pageRequestVo.getPage() - 1)));
+        params.put("end", (pageRequestVo.getPage() * pageRequestVo.getSize()));
         return pleaseBuyMapper.pleaseBuyList(params);
     }
 }

@@ -4,20 +4,31 @@
 <mapper namespace="com.bellowschool.pleaseBuy.mapper.PleaseBuyMapper">
 
     <select id="pleaseBuyList" resultType="PleaseBuyVo" parameterType="hashMap">
-        SELECT ID
-             , STATUS
-             , GOODSTYPE
-             , B.USERNAME
-             , GOODS
-             , GOODSCOUNT
-             , GOODSPRICE
-             , "OPTION"
-             , COMPANY
-             , URL
-             , TO_CHAR(TO_DATE("START", 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD HH24:MI') "START"
-             , TO_CHAR(TO_DATE("END", 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD HH24:MI')   "END"
-        FROM BSPLEASEBUY
-                 left join BSUSER B on BSPLEASEBUY.USERNUM = B.USERNUM ORDER BY id desc
+        SELECT *
+        FROM (
+                 SELECT a.*,
+                        ROWNUM rnum
+                 FROM (
+                          SELECT ID
+                               , STATUS
+                               , GOODSTYPE
+                               , B.USERNAME
+                               , GOODS
+                               , GOODSCOUNT
+                               , GOODSPRICE
+                               , "OPTION"
+                               , COMPANY
+                               , URL
+                               , TO_CHAR(TO_DATE("START", 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD HH24:MI') "START"
+                               , TO_CHAR(TO_DATE("END", 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD HH24:MI')   "END"
+                               , COUNT(1) OVER ()                                                    totalcount
+                          FROM BSPLEASEBUY
+                                   left join BSUSER B on BSPLEASEBUY.USERNUM = B.USERNUM
+                          ORDER BY id desc
+                      ) a
+                 WHERE ROWNUM <![CDATA[<=]]> #{end}
+             )
+        WHERE rnum >= #{start}
     </select>
 
     <insert id="regPleaseBuy" parameterType="hashMap">

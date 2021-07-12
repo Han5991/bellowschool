@@ -1,7 +1,6 @@
 package com.bellowschool.schedule.service;
 
-import com.bellowschool.vo.ClassVo;
-import com.bellowschool.vo.ScheduleVo;
+import com.bellowschool.vo.*;
 
 import java.util.List;
 import java.util.Map;

@@ -1,7 +1,9 @@
 package com.bellowschool.pleaseBuy.controller;
 
+import com.bellowschool.common.page.PageResultVo;
 import com.bellowschool.pleaseBuy.service.PleaseBuyService;
 import com.bellowschool.vo.PageRequestVo;
+import com.bellowschool.vo.PleaseBuyVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Log4j2
@@ -22,17 +25,19 @@ public class PleaseBuyController {
 
     @GetMapping("/PleaseBuy")
     public String PleaseBuy(PageRequestVo pageRequestVo, Model model) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("page", pageRequestVo.getPage());
-        params.put("size", pageRequestVo.getSize());
-        log.info(params);
-        model.addAttribute("result", pleaseBuyService.pleaseBuyList(params));
+        List<PleaseBuyVo> result = pleaseBuyService.pleaseBuyList(pageRequestVo);
+        model.addAttribute("result", result);
+        pageRequestVo.setTotalcount(result.get(0).getTotalcount());
+
+        PageResultVo pageResultVo = new PageResultVo(pageRequestVo);
+
+        model.addAttribute("pageList", pageResultVo);
         return "pleaseBuy/pleaseBuy";
     }
 
     @PostMapping("/regPleaseBuy")
     @ResponseBody
-    public int regPleaseBuy(@RequestBody Map<String, Object> params){
+    public int regPleaseBuy(@RequestBody Map<String, Object> params) {
         return pleaseBuyService.regPleaseBuy(params);
     }
 }

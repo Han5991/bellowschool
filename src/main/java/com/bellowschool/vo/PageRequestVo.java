@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 public class PageRequestVo {
     private int page;
     private int size;
+    private int totalcount;
 
     public PageRequestVo(){
         this.page = 1;
@@ -20,8 +21,6 @@ public class PageRequestVo {
     }
 
     public Pageable getPageable(Sort sort){
-
         return PageRequest.of(page -1, size, sort);
-
     }
 }

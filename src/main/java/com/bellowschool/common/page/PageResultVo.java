@@ -1,5 +1,6 @@
-package com.bellowschool.vo;
+package com.bellowschool.common.page;
 
+import com.bellowschool.vo.PageRequestVo;
 import lombok.Data;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,7 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Data
-public class PageResultVo<VO, EN>  {
+public class PageResultVo<VO, EN> {
 
     //DTO리스트
     private List<VO> dtoList;
@@ -32,20 +33,19 @@ public class PageResultVo<VO, EN>  {
     //페이지 번호  목록
     private List<Integer> pageList;
 
-    public PageResultVo(Page<EN> result, Function<EN, VO> fn) {
-
-        dtoList = result.stream().map(fn).collect(Collectors.toList());
-
-        totalPage = result.getTotalPages();
-
-        makePageList(result.getPageable());
+    public PageResultVo(PageRequestVo pageRequestVo) {
+        makePageList(pageRequestVo);
     }
 
-
-    private void makePageList(Pageable pageable) {
-
-        this.page = pageable.getPageNumber() + 1; // 0부터 시작하므로 1을 추가
-        this.size = pageable.getPageSize();
+    private void makePageList(PageRequestVo pageRequestVo) {
+        this.page = pageRequestVo.getPage(); // 0부터 시작하므로 1을 추가
+        this.size = pageRequestVo.getSize();
+        int tempTotalCount = pageRequestVo.getTotalcount();
+        if (pageRequestVo.getTotalcount() / this.size == 0) {
+            this.totalPage = tempTotalCount / this.size;
+        } else {
+            this.totalPage = tempTotalCount / this.size + 1;
+        }
 
         //temp end page
         int tempEnd = (int) (Math.ceil(page / 10.0)) * 10;
