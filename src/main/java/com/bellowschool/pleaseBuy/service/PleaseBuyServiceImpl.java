@@ -23,13 +23,8 @@ public class PleaseBuyServiceImpl implements PleaseBuyService {
     }
 
     @Override
-    public PageResultVo pleaseBuyList(PageRequestVo pageRequestVo){
+    public PageResultVo pleaseBuyList(PageRequestVo pageRequestVo) {
         List<PleaseBuyVo> result = pleaseBuyMapper.pleaseBuyList(pageRequestVo);
-
-        pageRequestVo.setTotalcount(result.get(0).getTotalcount());
-        PageResultVo pageResultVo = new PageResultVo(pageRequestVo);
-        pageResultVo.setDtoList(result);
-
-        return pageResultVo;
+        return new PageResultVo(pageRequestVo, result, result.get(0).getTotalcount());
     }
 }

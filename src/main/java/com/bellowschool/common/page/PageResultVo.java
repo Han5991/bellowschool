@@ -1,5 +1,6 @@
 package com.bellowschool.common.page;
 
+import com.bellowschool.vo.PleaseBuyVo;
 import lombok.Data;
 
 import java.util.List;
@@ -31,14 +32,15 @@ public class PageResultVo<VO> {
     //페이지 번호  목록
     private List<Integer> pageList;
 
-    public PageResultVo(PageRequestVo pageRequestVo) {
-        makePageList(pageRequestVo);
+    public PageResultVo(PageRequestVo pageRequestVo, List<VO> result, int totalCount) {
+        makePageList(pageRequestVo, result, totalCount);
     }
 
-    private void makePageList(PageRequestVo pageRequestVo) {
+    private void makePageList(PageRequestVo pageRequestVo, List<VO> result, int totalCount) {
+        int tempTotalCount = totalCount;
+        this.dtoList = result;
         this.page = pageRequestVo.getPage();
         this.size = pageRequestVo.getSize();
-        int tempTotalCount = pageRequestVo.getTotalcount();
         this.totalPage = ((tempTotalCount / this.size) == 0) ? (tempTotalCount / this.size) : ((tempTotalCount / this.size) + 1);
 
         //temp end page
@@ -48,7 +50,5 @@ public class PageResultVo<VO> {
         end = min(totalPage, tempEnd);
         next = totalPage > tempEnd;
         pageList = IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());
-
     }
-
 }
