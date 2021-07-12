@@ -4,8 +4,8 @@ import lombok.Getter;
 
 @Getter
 public class CheckInVo {
-    String usernum;
-    String username;
-    String checktype;
-    String checktime;
+    private String usernum;
+    private String username;
+    private String checktype;
+    private String checktime;
 }

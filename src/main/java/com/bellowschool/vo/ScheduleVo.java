@@ -4,13 +4,13 @@ import lombok.Getter;
 
 @Getter
 public class ScheduleVo {
-    int id;
-    String title;
-    String description;
-    String start;
-    String end;
-    String type;
-    String username;
-    String backgroundColor;
-    String allday;
+    private int id;
+    private String title;
+    private String description;
+    private String start;
+    private String end;
+    private String type;
+    private String username;
+    private String backgroundColor;
+    private String allday;
 }

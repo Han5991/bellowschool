@@ -3,7 +3,7 @@
 
 <mapper namespace="com.bellowschool.pleaseBuy.mapper.PleaseBuyMapper">
 
-    <select id="pleaseBuyList" resultType="PleaseBuyVo" parameterType="com.bellowschool.common.page.PageRequestVo">
+    <select id="pleaseBuyList" resultType="PleaseBuyVo" parameterType="com.bellowschool.common.page.PageResultVo">
         SELECT *
         FROM (
                  SELECT a.*,

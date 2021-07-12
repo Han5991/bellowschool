@@ -4,10 +4,10 @@ import lombok.Getter;
 
 @Getter
 public class NotiVo {
-    String title;
-    String content;
-    String reguser;
-    int sno;
-    String regtime;
-    int hitcnt;
+    private String title;
+    private String content;
+    private String reguser;
+    private int sno;
+    private String regtime;
+    private int hitcnt;
 }

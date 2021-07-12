@@ -23,7 +23,7 @@ public class PleaseBuyServiceImpl implements PleaseBuyService {
     }
 
     @Override
-    public PageResultVo pleaseBuyList(PageRequestVo pageRequestVo) {
+    public PageResultVo pleaseBuyList(PageRequestVo pageRequestVo){
         List<PleaseBuyVo> result = pleaseBuyMapper.pleaseBuyList(pageRequestVo);
         return new PageResultVo(pageRequestVo, result, result.get(0).getTotalcount());
     }

@@ -4,18 +4,18 @@ import lombok.Getter;
 
 @Getter
 public class PleaseBuyVo {
-    int usernum;
-    String username;
-    int id;
-    String status;
-    String goodstype;
-    String goods;
-    int goodscount;
-    int goodsprice;
-    String option;
-    String company;
-    String url;
-    String start;
-    String end;
-    int totalcount;
+    private int usernum;
+    private String username;
+    private int id;
+    private String status;
+    private String goodstype;
+    private String goods;
+    private int goodscount;
+    private int goodsprice;
+    private String option;
+    private String company;
+    private String url;
+    private String start;
+    private String end;
+    private int totalcount;
 }

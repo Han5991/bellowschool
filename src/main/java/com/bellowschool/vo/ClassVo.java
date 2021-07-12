@@ -4,8 +4,8 @@ import lombok.Getter;
 
 @Getter
 public class ClassVo {
-    String classday;
-    String classtype;
-    String starttime;
-    String endtime;
+    private String classday;
+    private String classtype;
+    private String starttime;
+    private String endtime;
 }
