@@ -28,7 +28,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="pleaseBuyVo : ${result}" style="text-align: center; vertical-align: middle;"
+                        <tr th:each="pleaseBuyVo : ${result.dtoList}" style="text-align: center; vertical-align: middle;"
                             th:data-goodstype="${pleaseBuyVo.goodstype}" th:data-goods="${pleaseBuyVo.goods}"
                             th:data-goodsprice="${pleaseBuyVo.goodsprice}" th:data-option="${pleaseBuyVo.option}"
                             th:data-company="${pleaseBuyVo.company}" th:data-url="${pleaseBuyVo.url}"
@@ -50,18 +50,18 @@
                         </tbody>
                     </table>
                     <ul class="pagination h-100 justify-content-center align-items-center">
-                        <li class="page-item " th:if="${pageList.prev}">
-                            <a class="page-link" th:href="@{/PleaseBuy(page= ${pageList.start -1})}" tabindex="-1">이전</a>
+                        <li class="page-item " th:if="${result.prev}">
+                            <a class="page-link" th:href="@{/PleaseBuy(page= ${result.start -1})}" tabindex="-1">이전</a>
                         </li>
 
-                        <li th:class=" 'page-item ' + ${pageList.page == page?'active':''} " th:each="page: ${pageList.pageList}">
+                        <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
                             <a class="page-link" th:href="@{/PleaseBuy(page = ${page})}">
                                 [[${page}]]
                             </a>
                         </li>
 
-                        <li class="page-item" th:if="${pageList.next}">
-                            <a class="page-link" th:href="@{/PleaseBuy(page= ${pageList.end + 1} )}">다음</a>
+                        <li class="page-item" th:if="${result.next}">
+                            <a class="page-link" th:href="@{/PleaseBuy(page= ${result.end + 1} )}">다음</a>
                         </li>
                     </ul>
                 </div>

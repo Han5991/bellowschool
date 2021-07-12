@@ -1,5 +1,6 @@
 package com.bellowschool.pleaseBuy.service;
 
+import com.bellowschool.common.page.PageResultVo;
 import com.bellowschool.pleaseBuy.mapper.PleaseBuyMapper;
 import com.bellowschool.vo.PageRequestVo;
 import com.bellowschool.vo.PleaseBuyVo;
@@ -23,10 +24,13 @@ public class PleaseBuyServiceImpl implements PleaseBuyService {
     }
 
     @Override
-    public List<PleaseBuyVo> pleaseBuyList(PageRequestVo pageRequestVo) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("start", (1 + pageRequestVo.getSize() * (pageRequestVo.getPage() - 1)));
-        params.put("end", (pageRequestVo.getPage() * pageRequestVo.getSize()));
-        return pleaseBuyMapper.pleaseBuyList(params);
+    public PageResultVo pleaseBuyList(PageRequestVo pageRequestVo){
+        List<PleaseBuyVo> result = pleaseBuyMapper.pleaseBuyList(pageRequestVo);
+
+        pageRequestVo.setTotalcount(result.get(0).getTotalcount());
+        PageResultVo pageResultVo = new PageResultVo(pageRequestVo);
+        pageResultVo.setDtoList(result);
+
+        return pageResultVo;
     }
 }
