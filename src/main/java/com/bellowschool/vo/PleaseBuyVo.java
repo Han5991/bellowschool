@@ -17,5 +17,5 @@ public class PleaseBuyVo {
     String url;
     String start;
     String end;
-    private int totalcount;
+    int totalcount;
 }
