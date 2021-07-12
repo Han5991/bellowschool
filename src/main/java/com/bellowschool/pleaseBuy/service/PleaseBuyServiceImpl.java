@@ -2,13 +2,12 @@ package com.bellowschool.pleaseBuy.service;
 
 import com.bellowschool.common.page.PageResultVo;
 import com.bellowschool.pleaseBuy.mapper.PleaseBuyMapper;
-import com.bellowschool.vo.PageRequestVo;
+import com.bellowschool.common.page.PageRequestVo;
 import com.bellowschool.vo.PleaseBuyVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

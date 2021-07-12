@@ -1,7 +1,7 @@
 package com.bellowschool.pleaseBuy.service;
 
 import com.bellowschool.common.page.PageResultVo;
-import com.bellowschool.vo.PageRequestVo;
+import com.bellowschool.common.page.PageRequestVo;
 import java.util.Map;
 
 public interface PleaseBuyService {

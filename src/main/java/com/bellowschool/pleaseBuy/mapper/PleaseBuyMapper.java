@@ -1,6 +1,6 @@
 package com.bellowschool.pleaseBuy.mapper;
 
-import com.bellowschool.vo.PageRequestVo;
+import com.bellowschool.common.page.PageRequestVo;
 import com.bellowschool.vo.PleaseBuyVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;

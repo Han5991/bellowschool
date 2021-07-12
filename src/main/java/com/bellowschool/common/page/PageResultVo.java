@@ -1,6 +1,5 @@
 package com.bellowschool.common.page;
 
-import com.bellowschool.vo.PageRequestVo;
 import lombok.Data;
 
 import java.util.List;

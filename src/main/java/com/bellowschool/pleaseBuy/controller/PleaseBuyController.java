@@ -1,7 +1,7 @@
 package com.bellowschool.pleaseBuy.controller;
 
 import com.bellowschool.pleaseBuy.service.PleaseBuyService;
-import com.bellowschool.vo.PageRequestVo;
+import com.bellowschool.common.page.PageRequestVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
