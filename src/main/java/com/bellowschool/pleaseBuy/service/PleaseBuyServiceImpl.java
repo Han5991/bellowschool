@@ -27,4 +27,14 @@ public class PleaseBuyServiceImpl implements PleaseBuyService {
         List<PleaseBuyVo> result = pleaseBuyMapper.pleaseBuyList(pageRequestVo);
         return new PageResultVo(pageRequestVo, result, (result.size() != 0) ? result.get(0).getTotalcount() : 0);
     }
+
+    @Override
+    public int deletePleaseBuy(Map<String, Object> params) {
+        return pleaseBuyMapper.deletePleaseBuy(params);
+    }
+
+    @Override
+    public int updatePleaseBuy(Map<String, Object> params) {
+        return pleaseBuyMapper.updatePleaseBuy(params);
+    }
 }

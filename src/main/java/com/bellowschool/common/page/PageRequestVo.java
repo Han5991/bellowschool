@@ -4,7 +4,9 @@ import lombok.Data;
 
 @Data
 public class PageRequestVo {
+
     private int page;
+
     private int size;
 
     public PageRequestVo() {

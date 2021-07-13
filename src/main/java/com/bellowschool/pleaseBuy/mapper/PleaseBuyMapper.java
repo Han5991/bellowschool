@@ -12,5 +12,11 @@ import java.util.Map;
 @Repository
 public interface PleaseBuyMapper {
     int regPleaseBuy(Map<String, Object> params);
+
     List<PleaseBuyVo> pleaseBuyList(PageRequestVo pageRequestVo);
+
+    int deletePleaseBuy(Map<String, Object> params);
+
+    int updatePleaseBuy(Map<String, Object> params);
+
 }

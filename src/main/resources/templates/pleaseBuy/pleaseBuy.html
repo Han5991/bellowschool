@@ -10,7 +10,8 @@
                 </div>
                 <div class="card-body">
                     <input type="button" onclick="add()" value="사주세요!" class="btn btn-outline-info">
-                    <table class="table table-bordered table-hover" style="color: #1b1e21" width="100%">
+                    <table class="table table-bordered table-hover" id="pleaseBuyTable" style="color: #1b1e21"
+                           width="100%">
                         <colgroup>
                             <col style="width: 10%;">
                             <col style="width: 20%;">
@@ -28,13 +29,14 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="pleaseBuyVo : ${result.dtoList}" style="text-align: center; vertical-align: middle;"
+                        <tr th:each="pleaseBuyVo : ${result.dtoList}"
+                            style="text-align: center; vertical-align: middle;"
                             th:data-goodstype="${pleaseBuyVo.goodstype}" th:data-goods="${pleaseBuyVo.goods}"
                             th:data-goodsprice="${pleaseBuyVo.goodsprice}" th:data-option="${pleaseBuyVo.option}"
-                            th:data-company="${pleaseBuyVo.company}" th:data-url="${pleaseBuyVo.url}"
-                            th:data-goodscount="${pleaseBuyVo.goodscount}" th:data-id="${pleaseBuyVo.id}"
+                            th:data-company="${pleaseBuyVo.company}" th:data-goodscount="${pleaseBuyVo.goodscount}"
                             th:data-username="${pleaseBuyVo.username}" th:data-start="${pleaseBuyVo.start}"
-                            th:data-end="${pleaseBuyVo.end}" th:data-status="${pleaseBuyVo.status}">
+                            th:data-end="${pleaseBuyVo.end}" th:data-status="${pleaseBuyVo.status}"
+                            th:data-invoice="${pleaseBuyVo.invoice}" th:data-id="${pleaseBuyVo.id}">
 
                             <td th:text="${pleaseBuyVo.id}"></td>
                             <td th:text="${pleaseBuyVo.username}"></td>
@@ -54,7 +56,8 @@
                             <a class="page-link" th:href="@{/PleaseBuy(page= ${result.start -1})}" tabindex="-1">이전</a>
                         </li>
 
-                        <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
+                        <li th:class=" 'page-item ' + ${result.page == page?'active':''} "
+                            th:each="page: ${result.pageList}">
                             <a class="page-link" th:href="@{/PleaseBuy(page = ${page})}">
                                 [[${page}]]
                             </a>
@@ -74,18 +77,24 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">사주세요!</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                onclick="paramsReset()"><span
                                 aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
                         <table class="table" id="pleaseBuy">
                             <tr>
                                 <td class="align-middle">번호</td>
-                                <td id="pleaseBuyId">1</td>
+                                <td id="pleaseBuyId"></td>
                             </tr>
                             <tr>
-                                <td class="align-middle" id="pleaseBuyStatus">상태</td>
-                                <td>구매완료</td>
+                                <td class="align-middle">상태</td>
+                                <td><select class="form-control" id="pleaseBuyStatus">
+                                    <option value="0">구매신청</option>
+                                    <option value="1">구매접수</option>
+                                    <option value="2">구매중</option>
+                                    <option value="3">구매완료</option>
+                                </select></td>
                             </tr>
                             <tr>
                                 <td class="align-middle">물품종류</td>
@@ -119,10 +128,6 @@
                             <tr>
                                 <td class="align-middle">옵션</td>
                                 <td><input type="text" class="form-control" id="pleaseBuyOption"></td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle">url</td>
-                                <td><input type="text" class="form-control" id="pleaseBuyUrl"></td>
                             </tr>
                             <tr>
                                 <td class="align-middle">택배회사</td>
@@ -160,81 +165,14 @@
                     <div class="modal-footer modalBtnContainer-modifyEvent">
                         <button type="button" class="btn btn-default" data-dismiss="modal" onclick="paramsReset()">닫기
                         </button>
-                        <button type="button" class="btn btn-danger" id="delete-Event" onclick="deleteSchedule()">삭제
+                        <button type="button" class="btn btn-danger" id="delete-Event" onclick="deletePleaseBuy()">삭제
                         </button>
-                        <button type="button" class="btn btn-primary" id="update-Event" onclick="updateSchedule()">저장
+                        <button type="button" class="btn btn-primary" id="update-Event" onclick="updatePleaseBuy()">저장
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-
-        <script>
-            function paramsReset() {
-                $('#pleaseBuyType').val(0);
-                $('#pleaseBuyGoods').val('');
-                $('#pleaseBuyCount').val(0);
-                $('#pleaseBuySum').val(0);
-
-                $('#pleaseBuyPrice').val(0);
-                $('#pleaseBuyOption').val('');
-
-                $("#pleaseBuy > tbody > tr:nth-child(1)").show();
-                $("#pleaseBuy > tbody > tr:nth-child(2)").show();
-                $("#pleaseBuy > tbody > tr:nth-child(9)").show();
-                $("#pleaseBuy > tbody > tr:nth-child(10)").show();
-                $("#pleaseBuy > tbody > tr:nth-child(11)").show();
-                $("#pleaseBuy > tbody > tr:nth-child(12)").show();
-                $("#pleaseBuy > tbody > tr:nth-child(13)").show();
-            }
-
-            function add() {
-                $(".add").modal('show');
-                $("#pleaseBuy > tbody > tr:nth-child(1)").hide();
-                $("#pleaseBuy > tbody > tr:nth-child(2)").hide();
-                $("#pleaseBuy > tbody > tr:nth-child(9)").hide();
-                $("#pleaseBuy > tbody > tr:nth-child(10)").hide();
-                $("#pleaseBuy > tbody > tr:nth-child(11)").hide();
-                $("#pleaseBuy > tbody > tr:nth-child(12)").hide();
-                $("#pleaseBuy > tbody > tr:nth-child(13)").hide();
-                $(".modalBtnContainer-modifyEvent").hide();
-            }
-
-            function sum() {
-                let amount = $('#pleaseBuyCount').val();
-                let Price = $('#pleaseBuyPrice').val();
-                $('#pleaseBuySum').val(amount * Price);
-            }
-
-            $.fncAutoTime = function (object) {
-                $('#endTime').val(object.value.substr(0, 2) * 1 + 2 + object.value.substr(2, 5));
-            }
-            regPleaseBuy = function () {
-                if (confirm("정말 등록하시겠습니까?") == true) {
-                    if ($('#startTime').val() != "") {
-                        $.ajax({
-                            url: '/regPleaseBuy',
-                            type: 'POST',
-                            contentType: "application/json",
-                            data: JSON.stringify({
-                                usernum: 0,
-                                goodstype: $('#pleaseBuyType').val(),
-                                goods: $('#pleaseBuyGoods').val(),
-                                goodscount: $('#pleaseBuyCount').val(),
-                                goodsprice: $('#pleaseBuyPrice').val(),
-                                option: $('#pleaseBuyOption').val()
-                            }),
-                            success: function onData(data) {
-                                if (data >= 1) {
-                                    alert('사주세요~');
-                                } else if (data == 0) {
-                                    alert('수업 등록에 실패하였습니다.');
-                                }
-                            }
-                        });
-                    }
-                }
-            }
-        </script>
+        <script src="js/pleaseBuy/pleaseBuyMain.js"></script>
     </th:block>
 </th:block>

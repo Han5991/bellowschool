@@ -30,7 +30,7 @@ public class ScheduleController {
 
     @PostMapping("/regclass")
     @ResponseBody
-    public int createnoti(@RequestBody Map<String, Object> params) {
+    public int regclass(@RequestBody Map<String, Object> params) {
         return scheduleService.regClass(params);
     }
 
@@ -48,7 +48,7 @@ public class ScheduleController {
 
     @PostMapping("/deleteschedule")
     @ResponseBody
-    public int detelenoti(@RequestBody Map<String, Object> params) {
+    public int deteleschedule(@RequestBody Map<String, Object> params) {
         return scheduleService.deleteSchedule(params);
     }
 

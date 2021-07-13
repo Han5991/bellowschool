@@ -30,4 +30,16 @@ public class PleaseBuyController {
     public int regPleaseBuy(@RequestBody Map<String, Object> params) {
         return pleaseBuyService.regPleaseBuy(params);
     }
+
+    @PostMapping("/deletePleaseBuy")
+    @ResponseBody
+    public int detelePleaseBuy(@RequestBody Map<String, Object> params) {
+        return pleaseBuyService.deletePleaseBuy(params);
+    }
+
+    @PostMapping("/updatePleaseBuy")
+    @ResponseBody
+    public int updatePleaseBuy(@RequestBody Map<String, Object> params) {
+        return pleaseBuyService.updatePleaseBuy(params);
+    }
 }

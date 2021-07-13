@@ -36,12 +36,11 @@ public class PageResultVo<VO> {
         makePageList(pageRequestVo, result, totalCount);
     }
 
-    private void makePageList(PageRequestVo pageRequestVo, List<VO> result, int totalCount) {
-        int tempTotalCount = totalCount;
-        this.dtoList = result;
+    private void makePageList(PageRequestVo pageRequestVo, List<VO> dtoList, int totalCount) {
+        this.dtoList = dtoList;
         this.page = pageRequestVo.getPage();
         this.size = pageRequestVo.getSize();
-        this.totalPage = ((tempTotalCount / this.size) == 0) ? (tempTotalCount / this.size) : ((tempTotalCount / this.size) + 1);
+        this.totalPage = ((totalCount / this.size) == 0) ? (totalCount / this.size) : ((totalCount / this.size) + 1);
 
         //temp end page
         int tempEnd = (int) (ceil(page / 10.0)) * 10;

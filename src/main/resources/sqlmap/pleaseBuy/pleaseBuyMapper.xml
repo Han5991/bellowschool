@@ -18,10 +18,10 @@
                                , GOODSPRICE
                                , "OPTION"
                                , COMPANY
-                               , URL
-                               , TO_CHAR(TO_DATE("START", 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD HH24:MI') "START"
-                               , TO_CHAR(TO_DATE("END", 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD HH24:MI')   "END"
-                               , COUNT(1) OVER ()                                                    totalcount
+                               , INVOICE
+                               , TO_CHAR(TO_DATE("START", 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD') "START"
+                               , TO_CHAR(TO_DATE("END", 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD')   "END"
+                               , COUNT(1) OVER ()                                            totalcount
                           FROM BSPLEASEBUY
                                    LEFT JOIN BSUSER B on BSPLEASEBUY.USERNUM = B.USERNUM
                           ORDER BY id DESC
@@ -55,36 +55,42 @@
         )
     </insert>
 
-    <delete id="deleteSchedule" parameterType="hashMap">
+    <delete id="deletePleaseBuy" parameterType="hashMap">
         DELETE
-            BSSCHEDULE
+            BSPLEASEBUY
         WHERE ID =
               #{id}
     </delete>
 
-    <update id="updateSchedule" parameterType="hashMap">
-        UPDATE BSSCHEDULE
+    <update id="updatePleaseBuy" parameterType="hashMap">
+        UPDATE BSPLEASEBUY
         <set>
-            <if test="title != null">
-                TITLE = #{title}
+            <if test="status != null and status != ''">
+                STATUS = #{status}
             </if>
-            <if test="description != null">
-                , DESCRIPTION = #{description}
+            <if test="goodstype != null and goodstype != ''">
+                , GOODSTYPE = #{goodstype}
             </if>
-            <if test="start != null">
-                , "START" = #{start}
+            <if test="goodsprice != null and goodsprice != ''">
+                , GOODSPRICE = #{goodsprice}
+            </if>
+            <if test="goods != null and goods != ''">
+                , GOODS = #{goods}
+            </if>
+            <if test="goodscount != null and goodscount != ''">
+                , GOODSCOUNT = #{goodscount}
+            </if>
+            <if test="option != null and option != ''">
+                , "OPTION" = #{option}
+            </if>
+            <if test="company != null and company != ''">
+                , COMPANY = #{company}
+            </if>
+            <if test="invoice != null and invoice != ''">
+                , INVOICE = #{invoice}
             </if>
             <if test="end != null and end != ''">
-                ,END = #{end}
-            </if>
-            <if test="type != null">
-                , TYPE = #{type}
-            </if>
-            <if test="backgroundcolor != null">
-                , BACKGROUNDCOLOR = #{backgroundcolor}
-            </if>
-            <if test="allday != null">
-                , ALLDAY = #{allday}
+                , "END" = #{end}
             </if>
         </set>
         <where>
