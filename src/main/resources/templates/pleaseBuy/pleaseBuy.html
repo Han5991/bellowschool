@@ -10,6 +10,32 @@
                 </div>
                 <div class="card-body">
                     <input type="button" onclick="add()" value="사주세요!" class="btn btn-outline-info">
+                    <form action="/PleaseBuy" method="get" id="searchForm" class="form-inline mr-auto w-100 navbar-search">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <select class="custom-select" name="type">
+                                    <option value="" th:selected="${pageRequestVo.type == null}">-------</option>
+                                    <option value="s" th:selected="${pageRequestVo.type =='s'}">상태</option>
+                                    <option value="w" th:selected="${pageRequestVo.type =='w'}">작성자</option>
+                                    <option value="sw" th:selected="${pageRequestVo.type =='sw'}">상태 + 작성자</option>
+                                </select>
+                                <select class="custom-select" name="status">
+                                    <option value="" th:selected="${pageRequestVo.status == null}">-------</option>
+                                    <option value="0" th:selected="${pageRequestVo.status == '0'}">구매신청</option>
+                                    <option value="1" th:selected="${pageRequestVo.status == '1'}">구매접수</option>
+                                    <option value="2" th:selected="${pageRequestVo.status == '2'}">구매중</option>
+                                    <option value="3" th:selected="${pageRequestVo.status == '3'}">구매완료</option>
+                                </select>
+                            </div>
+                            <input class="form-control" name="keyword" th:value="${pageRequestVo.keyword}">
+                            <div class="input-group-append" id="button-addon4">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                                <button class="btn btn-outline-secondary btn-clear" type="reset">Clear</button>
+                            </div>
+                        </div>
+                    </form>
                     <table class="table table-bordered table-hover" id="pleaseBuyTable" style="color: #1b1e21"
                            width="100%">
                         <colgroup>
@@ -58,7 +84,8 @@
 
                         <li th:class=" 'page-item ' + ${result.page == page?'active':''} "
                             th:each="page: ${result.pageList}">
-                            <a class="page-link" th:href="@{/PleaseBuy(page = ${page})}">
+                            <a class="page-link"
+                               th:href="@{/PleaseBuy(page = ${page}, type=${pageRequestVo.type}, keyword = ${pageRequestVo.keyword})}">
                                 [[${page}]]
                             </a>
                         </li>
@@ -89,12 +116,14 @@
                             </tr>
                             <tr>
                                 <td class="align-middle">상태</td>
-                                <td><select class="form-control" id="pleaseBuyStatus">
-                                    <option value="0">구매신청</option>
-                                    <option value="1">구매접수</option>
-                                    <option value="2">구매중</option>
-                                    <option value="3">구매완료</option>
-                                </select></td>
+                                <td>
+                                    <select class="form-control" id="pleaseBuyStatus">
+                                        <option value="0">구매신청</option>
+                                        <option value="1">구매접수</option>
+                                        <option value="2">구매중</option>
+                                        <option value="3">구매완료</option>
+                                    </select>
+                                </td>
                             </tr>
                             <tr>
                                 <td class="align-middle">물품종류</td>

@@ -9,6 +9,11 @@ public class PageRequestVo {
 
     private int size;
 
+    private String type;
+
+    private String keyword;
+
+    private String status;
     public PageRequestVo() {
         this.page = 1;
         this.size = 10;
