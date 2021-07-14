@@ -2,6 +2,11 @@ $('#pleaseBuyTable tr').click(function () {
     read(this.dataset);
 });
 
+function reset() {
+    $(".type option:eq(0)").prop("selected", true);
+    $(".status option:eq(0)").prop("selected", true);
+}
+
 function read(dataset) {
     $('.add').modal('show');
     $('.modalBtnContainer-addEvent').hide();
