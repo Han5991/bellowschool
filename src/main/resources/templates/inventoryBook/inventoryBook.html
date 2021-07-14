@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+  <th:block th:fragment="content">
+    <div class="container-fluid">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h3 class="m-0 font-weight-bold text-primary">사주세요</h3>
+        </div>
+        <div class="card-body">
+          트리 형식으로 만들까?
+          아님 테이블 형식으로 만들까?
+        </div>
+      </div>
+    </div>
+
+    <!-- 일정 추가 MODAL -->
+    <div class="modal add" tabindex="-1" role="dialog" id="eventModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">사주세요!</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    onclick="paramsReset()"><span
+                    aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <table class="table" id="pleaseBuy">
+              <tr>
+                <td class="align-middle">번호</td>
+                <td id="pleaseBuyId"></td>
+              </tr>
+              <tr>
+                <td class="align-middle">상태</td>
+                <td>
+                  <select class="form-control" id="pleaseBuyStatus">
+                    <option value="0">구매신청</option>
+                    <option value="1">구매접수</option>
+                    <option value="2">구매중</option>
+                    <option value="3">구매완료</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="align-middle">물품종류</td>
+                <td>
+                  <select class="form-control" id="pleaseBuyType">
+                    <option value="0">간식</option>
+                    <option value="1">문구류</option>
+                    <option value="2">비품류</option>
+                    <option value="3">기타</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="align-middle">물품명</td>
+                <td><input type="text" class="form-control" id="pleaseBuyGoods"></td>
+              </tr>
+              <tr>
+                <td class="align-middle">갯수</td>
+                <td><input type="number" class="form-control" id="pleaseBuyCount" value="1"
+                           onchange="sum()"></td>
+              </tr>
+              <tr>
+                <td class="align-middle">개당가격</td>
+                <td><input type="number" class="form-control" id="pleaseBuyPrice" value="0"
+                           onchange="sum()"></td>
+              </tr>
+              <tr>
+                <td class="align-middle">합계</td>
+                <td><input type="number" class="form-control" id="pleaseBuySum" disabled value="0"></td>
+              </tr>
+              <tr>
+                <td class="align-middle">옵션</td>
+                <td><input type="text" class="form-control" id="pleaseBuyOption"></td>
+              </tr>
+              <tr>
+                <td class="align-middle">택배회사</td>
+                <td>
+                  <select class="form-control" id="pleaseBuyCompany">
+                    <option value="0">CJ대한통운</option>
+                    <option value="1">한진</option>
+                    <option value="2">롯대글로벌로지스</option>
+                    <option value="3">우체국택배</option>
+                    <option value="4">로젠택배</option>
+                    <option value="5">기타</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="align-middle">송장번호</td>
+                <td><input type="text" class="form-control" id="pleaseBuyInvoice"></td>
+              </tr>
+              <tr>
+                <td class="align-middle">신청일자</td>
+                <td><input type="date" class="form-control" disabled id="pleaseBuyStart"></td>
+              </tr>
+              <tr>
+                <td class="align-middle">배송예정일</td>
+                <td><input type="date" class="form-control" id="pleaseBuyEnd"></td>
+              </tr>
+            </table>
+          </div>
+          <div class="modal-footer modalBtnContainer-addEvent">
+            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="paramsReset()">닫기
+            </button>
+            <button type="button" class="btn btn-primary" id="save-event" onclick="regPleaseBuy()">저장
+            </button>
+          </div>
+          <div class="modal-footer modalBtnContainer-modifyEvent">
+            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="paramsReset()">닫기
+            </button>
+            <button type="button" class="btn btn-danger" id="delete-Event" onclick="deletePleaseBuy()">삭제
+            </button>
+            <button type="button" class="btn btn-primary" id="update-Event" onclick="updatePleaseBuy()">저장
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </th:block>
+</th:block>

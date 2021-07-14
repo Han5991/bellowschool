@@ -16,7 +16,7 @@ public interface UserMapper {
 
     List<UserVo> userList();
 
-    int userDetele(Map<String, Object> params);
+    int userDelete(Map<String, Object> params);
 
     UserVo userRead(int usernum);
 

@@ -10,7 +10,7 @@ public interface UserService {
 
     List<UserVo> userList();
 
-    int userDetele(Map<String, Object> params);
+    int userDelete(Map<String, Object> params);
 
     UserVo userRead(int usernum);
 

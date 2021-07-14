@@ -14,6 +14,7 @@ public class PageRequestVo {
     private String keyword;
 
     private String status;
+
     public PageRequestVo() {
         this.page = 1;
         this.size = 10;

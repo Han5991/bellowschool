@@ -40,11 +40,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int userDetele(Map<String, Object> params) {
+    public int userDelete(Map<String, Object> params) {
         String qrname = (String) params.get("qrname");
         File file = new File("C:\\Users\\admin\\IdeaProjects\\bellowschool\\src\\main\\resources\\static\\img\\qrcode\\" + qrname + ".png");
         file.delete();
-        return userMapper.userDetele(params);
+        return userMapper.userDelete(params);
     }
 
     @Override

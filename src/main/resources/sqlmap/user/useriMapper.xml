@@ -35,7 +35,7 @@
         FROM BSUSER
     </select>
 
-    <delete id="userDetele" parameterType="hashMap">
+    <delete id="userDelete" parameterType="hashMap">
         DELETE
             BSUSER
         WHERE USERNUM =

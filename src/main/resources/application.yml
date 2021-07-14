@@ -26,13 +26,13 @@ mybatis:
 logging:
   level:
     jdbc:
-      sqlonly: info
-      sqltiming: warn
-      audit: debug
-      resultset: false
-      resultsettable: trace
+      sqlonly: debug
+      sqltiming: off
+      audit: error
+      resultset: off
+      resultsettable: debug
     org.springframework.web: info
-    com.zaxxer.hikari.HikariDataSource: error
+    com.zaxxer.hikari.HikariDataSource: info
 
 server:
   error:

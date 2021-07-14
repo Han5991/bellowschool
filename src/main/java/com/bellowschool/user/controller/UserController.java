@@ -42,7 +42,7 @@ public class UserController {
     @PostMapping("/deteleuser")
     @ResponseBody
     public int detelenoti(@RequestBody Map<String, Object> params) {
-        return userService.userDetele(params);
+        return userService.userDelete(params);
     }
 
     @GetMapping("/userRead")
