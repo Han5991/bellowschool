@@ -21,7 +21,6 @@ public class PleaseBuyController {
 
     @GetMapping("/PleaseBuy")
     public String PleaseBuy(PageRequestVo pageRequestVo, Model model) {
-        log.info(pageRequestVo);
         model.addAttribute("result", pleaseBuyService.pleaseBuyList(pageRequestVo));
         return "pleaseBuy/pleaseBuy";
     }
