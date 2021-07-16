@@ -8,52 +8,90 @@
         <div class="container-fluid">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h3 class="m-0 font-weight-bold text-primary">사주세요</h3>
+                    <h3 class="m-0 font-weight-bold text-primary">풀무야간학교 물품 대장</h3>
                 </div>
                 <div class="card-body">
-                    <div id="container"></div>
+                    <div class="row">
+                        <div id="container" class="col-lg-4"></div>
+                        <div class="col-lg-8">
+                            <table class="table table-hover">
+                                <tr>
+                                    <td>관리번호</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>물품분류</td>
+                                    <td>비품</td>
+                                </tr>
+                                <tr>
+                                    <td>보관장소</td>
+                                    <td>교무실</td>
+                                </tr>
+                                <tr>
+                                    <td>물품명</td>
+                                    <td>노트북</td>
+                                </tr>
+                                <tr>
+                                    <td>수량</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>가격</td>
+                                    <td>1,600,000원</td>
+                                </tr>
+                                <tr>
+                                    <td>구입일자</td>
+                                    <td>2021-07-15</td>
+                                </tr>
 
-                    <div id="options">
-                        <a href="#" class="btn" onclick="n2.addChild(new TreeNode('' + count++)); view.reload();">Add
-                            new element</a>
-                        <a href="#" class="btn"
-                           onclick="if(n2.isLeaf()) return; n2.removeChild(n2.getChildren()[n2.getChildCount()-1]); count--; view.reload();">Remove
-                            element</a>
-                        <a href="#" class="btn" onclick="view.expandAllNodes(); view.reload();">Expand nodes</a>
-                        <a href="#" class="btn" onclick="view.collapseAllNodes(); view.reload();">Collapse nodes</a>
-                        <a href="#" class="btn"
-                           onclick="view.changeOption('show_root', !TreeUtil.getProperty(view.getOptions(), 'show_root', true)); view.reload();">Toggle
-                            show root</a>
-                        <br>
-                        <a href="#" class="btn" onclick="alert(view.getSelectedNodes().join('; '));">Show selected
-                            nodes</a>
-                        <a href="#" class="btn" onclick="root.toggleSelected(); view.reload();">Toggle selected</a>
-                        <a href="#" class="btn" onclick="n3.toggleEnabled(); view.reload();">Toggle enabled</a>
-                        <a href="#" class="btn"
-                           onclick="n11.changeOption('forceParent', !TreeUtil.getProperty(n11.getOptions(), 'forceParent', false)); view.reload();">Toggle
-                            force parent</a>
-                        <br>
-                        <a href="#" class="btn"
-                           onclick="changeIcons(this.innerHTML == 'Font-Awesome icons'); if(this.innerHTML == 'Font-Awesome icons') this.innerHTML = 'Default icons'; else this.innerHTML = 'Font-Awesome icons'">Font-Awesome
-                            icons</a>
-                        <a href="#" class="btn"
-                           onclick="toggleCustomIcon(TreeUtil.getProperty(root.getOptions(), 'icon', true));">Change
-                            custom icon</a>
+                            </table>
+                        </div>
+                        <div class="col-lg-4">
+                        </div>
+                        <div class="col-lg-8">
+                            <div id="options">
+                                <a href="#" class="btn btn-outline-info"
+                                   onclick="n2.addChild(new TreeNode('' + count++)); view.reload();">Add
+                                    new element</a>
+                                <a href="#" class="btn btn-outline-info"
+                                   onclick="if(n2.isLeaf()) return; n2.removeChild(n2.getChildren()[n2.getChildCount()-1]); count--; view.reload();">Remove
+                                    element</a>
+                                <a href="#" class="btn btn-outline-info"
+                                   onclick="view.expandAllNodes(); view.reload();">Expand nodes</a>
+                                <a href="#" class="btn btn-outline-info"
+                                   onclick="view.collapseAllNodes(); view.reload();">Collapse
+                                    nodes</a>
+                                <a href="#" class="btn btn-outline-info"
+                                   onclick="view.changeOption('show_root', !TreeUtil.getProperty(view.getOptions(), 'show_root', true)); view.reload();">Toggle
+                                    show root</a>
+                                <br>
+                                <a href="#" class="btn btn-outline-info"
+                                   onclick="alert(view.getSelectedNodes().join('; '));">Show
+                                    selected
+                                    nodes</a>
+                                <a href="#" class="btn btn-outline-info"
+                                   onclick="root.toggleSelected(); view.reload();">Toggle
+                                    selected</a>
+                                <a href="#" class="btn btn-outline-info" onclick="n3.toggleEnabled(); view.reload();">Toggle
+                                    enabled</a>
+                                <a href="#" class="btn btn-outline-info"
+                                   onclick="n11.changeOption('forceParent', !TreeUtil.getProperty(n11.getOptions(), 'forceParent', false)); view.reload();">Toggle
+                                    force parent</a>
+                                <br>
+                                <a href="#" class="btn btn-outline-info"
+                                   onclick="changeIcons(this.innerHTML == 'Font-Awesome icons'); if(this.innerHTML == 'Font-Awesome icons') this.innerHTML = 'Default icons'; else this.innerHTML = 'Font-Awesome icons'">Font-Awesome
+                                    icons</a>
+                                <a href="#" class="btn btn-outline-info"
+                                   onclick="toggleCustomIcon(TreeUtil.getProperty(root.getOptions(), 'icon', true));">Change
+                                    custom icon</a>
+                                <div id="description">
+                                    All of the options used here are specified in the <a
+                                        href="https://github.com/m-thalmann/treejs/blob/master/README.md"
+                                        target="_blank">readme-File</a>.
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    <div id="description">
-                        All of the options used here are specified in the <a
-                            href="https://github.com/m-thalmann/treejs/blob/master/README.md" target="_blank">readme-File</a>.
-                    </div>
-                    <pre>
-                       보관장소
-                       물품명
-                       관리번호
-                       구입일짜
-                       구입시 가격
-                       수량
-                       왼쪽에는 트리 오른쪽에는 정보를 표시하자
-                   </pre>
                 </div>
             </div>
         </div>
@@ -164,30 +202,45 @@
         </div>
 
         <script>
-
+            let data = {
+                id: 0,
+                goods: '노트북'
+            };
             var count = 1;
 
-            var root = new TreeNode("root");
-            var n1 = new TreeNode("1");
+            var root = new TreeNode("야학물품대장");
+            var n1 = new TreeNode("교무실");
             var n11 = new TreeNode("1.1");
-            var n2 = new TreeNode("2");
-            var n3 = new TreeNode("3");
+            var n12 = new TreeNode(data.goods,data);
+
+            var n2 = new TreeNode("큰교실");
+            var n3 = new TreeNode("작은교실");
             var n31 = new TreeNode("3.1");
             var n32 = new TreeNode("3.2");
             var n321 = new TreeNode("3.2.1");
             var n33 = new TreeNode("3.3");
+            var n4 = new TreeNode("화장실창고");
 
             root.addChild(n1);
             root.addChild(n2);
             root.addChild(n3);
+            root.addChild(n4);
+            n12.on('click', function () {
+                console.log(n12.getOptions());
+            });
+
+            root.getChildren()[0].addChild(n12);
 
             n1.addChild(n11);
+            n1.addChild(n12);
+            n2.addChild(n11);
+            n4.addChild(n11);
 
             n3.addChild(n31);
             n3.addChild(n32);
             n3.addChild(n33);
 
-            n3.setEnabled(false);
+            // n3.setEnabled(false);
 
             n32.addChild(n321);
 
