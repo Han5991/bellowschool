@@ -19,7 +19,7 @@ public class InventoryBookVo {
 
     private int amount;
 
-    private int price;
+    private String price;
 
     private String DATE;
 }

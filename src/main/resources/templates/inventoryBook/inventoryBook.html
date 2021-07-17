@@ -17,31 +17,31 @@
                             <table class="table table-hover">
                                 <tr>
                                     <td>관리번호</td>
-                                    <td>1</td>
+                                    <td id="id2"></td>
                                 </tr>
                                 <tr>
                                     <td>물품분류</td>
-                                    <td>비품</td>
+                                    <td id="type2"></td>
                                 </tr>
                                 <tr>
                                     <td>보관장소</td>
-                                    <td>교무실</td>
+                                    <td id="place2"></td>
                                 </tr>
                                 <tr>
                                     <td>물품명</td>
-                                    <td>노트북</td>
+                                    <td id="name2"></td>
                                 </tr>
                                 <tr>
                                     <td>수량</td>
-                                    <td>1</td>
+                                    <td id="amount2"></td>
                                 </tr>
                                 <tr>
                                     <td>가격</td>
-                                    <td>1,600,000원</td>
+                                    <td id="price2"></td>
                                 </tr>
                                 <tr>
                                     <td>구입일자</td>
-                                    <td>2021-07-15</td>
+                                    <td id="date2"></td>
                                 </tr>
 
                             </table>
@@ -167,12 +167,11 @@
         </div>
 
         <script>
+            let root = new TreeNode("야학물품대장");
+            let view = new TreeView(root, "#container");
             makeInventoryBookList();
 
             function makeInventoryBookList() {
-                let root = new TreeNode("야학물품대장");
-                let view = new TreeView(root, "#container");
-
                 $.ajax({
                     url: '/inventoryBookList',
                     type: 'POST',
@@ -193,6 +192,32 @@
                 });
             }
 
+            root.getChildren().forEach(value => {
+                value.getChildren().forEach(children => {
+                    children.on('click', function () {
+                        $('#id2').text(children.getOptions().id);
+                        $('#type2').text(children.getOptions().type);
+                        switch(children.getOptions().place) {
+                            case '0':
+                                $('#place2').text('교무실');
+                                break;
+                            case '1':
+                                $('#place2').text('큰교실');
+                                break;
+                            case '2':
+                                $('#place2').text('작은교실');
+                                break;
+                            case '3':
+                                $('#place2').text('화장실창고');
+                                break;
+                        }
+                        $('#name2').text(children.getOptions().name);
+                        $('#amount2').text(children.getOptions().amount);
+                        $('#price2').text(children.getOptions().price.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + ' 원');
+                        $('#date2').text(children.getOptions().date);
+                    })
+                })
+            });
 
             function add() {
                 $('.add').show();

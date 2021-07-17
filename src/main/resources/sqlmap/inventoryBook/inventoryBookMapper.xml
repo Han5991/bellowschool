@@ -8,7 +8,22 @@
     </select>
 
     <select id="inventoryBookList" resultType="inventoryBookVo">
-        SELECT *
+        SELECT ID
+             , CASE TYPE
+                   WHEN '0' THEN
+                       '간식류'
+                   WHEN '1' THEN
+                       '문구류'
+                   WHEN '2' THEN
+                       '비품류'
+                   WHEN '3' THEN
+                       '기타'
+            END                                                   TYPE
+             , PLACE
+             , PRICE
+             , NAME
+             , AMOUNT
+             , TO_CHAR(TO_DATE("DATE", 'YYYYMMDD'), 'YYYY-MM-DD') "DATE"
         FROM BSINVENTORYBOOK
     </select>
 
