@@ -11,4 +11,9 @@ public interface InventoryBookService {
     List<InventoryBookVo> inventoryBookList();
 
     int regInventoryBook(Map<String, Object> params);
+
+    int deleteInventoryBook(Map<String, Object> params);
+
+    int updateInventoryBook(Map<String, Object> params);
+
 }

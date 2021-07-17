@@ -50,40 +50,16 @@
                         </div>
                         <div class="col-lg-8">
                             <div id="options">
-                                <a href="#" class="btn btn-outline-info"
-                                   onclick="add()">Add
-                                    new element</a>
-                                <a href="#" class="btn btn-outline-info"
-                                   onclick="if(n2.isLeaf()) return; n2.removeChild(n2.getChildren()[n2.getChildCount()-1]); count--; view.reload();">Remove
-                                    element</a>
-                                <a href="#" class="btn btn-outline-info"
-                                   onclick="view.expandAllNodes(); view.reload();">Expand nodes</a>
-                                <a href="#" class="btn btn-outline-info"
-                                   onclick="view.collapseAllNodes(); view.reload();">Collapse
-                                    nodes</a>
-                                <a href="#" class="btn btn-outline-info"
-                                   onclick="view.changeOption('show_root', !TreeUtil.getProperty(view.getOptions(), 'show_root', true)); view.reload();">Toggle
-                                    show root</a>
-                                <br>
-                                <a href="#" class="btn btn-outline-info"
-                                   onclick="alert(view.getSelectedNodes().join('; '));">Show
-                                    selected
-                                    nodes</a>
-                                <a href="#" class="btn btn-outline-info"
-                                   onclick="root.toggleSelected(); view.reload();">Toggle
-                                    selected</a>
-                                <a href="#" class="btn btn-outline-info" onclick="n3.toggleEnabled(); view.reload();">Toggle
-                                    enabled</a>
-                                <a href="#" class="btn btn-outline-info"
-                                   onclick="n11.changeOption('forceParent', !TreeUtil.getProperty(n11.getOptions(), 'forceParent', false)); view.reload();">Toggle
-                                    force parent</a>
-                                <br>
-                                <a href="#" class="btn btn-outline-info"
-                                   onclick="changeIcons(this.innerHTML == 'Font-Awesome icons'); if(this.innerHTML == 'Font-Awesome icons') this.innerHTML = 'Default icons'; else this.innerHTML = 'Font-Awesome icons'">Font-Awesome
-                                    icons</a>
-                                <a href="#" class="btn btn-outline-info"
-                                   onclick="toggleCustomIcon(TreeUtil.getProperty(root.getOptions(), 'icon', true));">Change
-                                    custom icon</a>
+                                <a href="#" class="btn btn-outline-primary"
+                                   onclick="add()">물건 추가</a>
+                                <a href="#" class="btn btn-outline-warning"
+                                   onclick="update();">물품 수정</a>
+                                <a href="#" class="btn btn-outline-danger"
+                                   onclick="deleteInventoryBook(view.getSelectedNodes()[0].getOptions().id)">물품 삭제</a>
+                                <a href="#" class="btn btn-outline-secondary"
+                                   onclick="view.expandAllNodes(); view.reload();">전체보기</a>
+                                <a href="#" class="btn btn-outline-success"
+                                   onclick="view.collapseAllNodes(); view.reload();">전부 줄이기</a>
                                 <div id="description">
                                     All of the options used here are specified in the <a
                                         href="https://github.com/m-thalmann/treejs/blob/master/README.md"
@@ -149,139 +125,17 @@
                         </table>
                     </div>
                     <div class="modal-footer modalBtnContainer-addEvent">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="paramsReset()">닫기
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="reset()">닫기
                         </button>
                         <button type="button" class="btn btn-primary" id="save-event" onclick="regInventoryBook()">저장
                         </button>
-                    </div>
-                    <div class="modal-footer modalBtnContainer-modifyEvent">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="paramsReset()">닫기
-                        </button>
-                        <button type="button" class="btn btn-danger" id="delete-Event" onclick="deletePleaseBuy()">삭제
-                        </button>
-                        <button type="button" class="btn btn-primary" id="update-Event" onclick="updatePleaseBuy()">저장
+                        <button type="button" class="btn btn-warning" id="update-event"
+                                onclick="updateInventoryBook(view.getSelectedNodes()[0].getOptions().id)">수정
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-
-        <script>
-            let root = new TreeNode("야학물품대장");
-            let view = new TreeView(root, "#container");
-            makeInventoryBookList();
-
-            function makeInventoryBookList() {
-                $.ajax({
-                    url: '/inventoryBookList',
-                    type: 'POST',
-                    async: false,
-                    contentType: "application/json",
-                    success: function onData(data) {
-                        data.inventoryList.forEach(Vo => root.addChild(new TreeNode(Vo.inventoryname, Vo)));
-                        root.getChildren().forEach(value => {
-                            data.inventoryBookList.forEach(Vo => {
-                                if (value.getOptions().inventoryid == Vo.place) {
-                                    value.addChild(new TreeNode(Vo.name, Vo))
-                                }
-                            })
-                        });
-                        view.expandAllNodes();
-                        view.reload();
-                    }
-                });
-            }
-
-            root.getChildren().forEach(value => {
-                value.getChildren().forEach(children => {
-                    children.on('click', function () {
-                        $('#id2').text(children.getOptions().id);
-                        $('#type2').text(children.getOptions().type);
-                        switch(children.getOptions().place) {
-                            case '0':
-                                $('#place2').text('교무실');
-                                break;
-                            case '1':
-                                $('#place2').text('큰교실');
-                                break;
-                            case '2':
-                                $('#place2').text('작은교실');
-                                break;
-                            case '3':
-                                $('#place2').text('화장실창고');
-                                break;
-                        }
-                        $('#name2').text(children.getOptions().name);
-                        $('#amount2').text(children.getOptions().amount);
-                        $('#price2').text(children.getOptions().price.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + ' 원');
-                        $('#date2').text(children.getOptions().date);
-                    })
-                })
-            });
-
-            function add() {
-                $('.add').show();
-            }
-
-            function reset() {
-                $('.add').hide();
-            }
-
-
-            function changeIcons(fa_icons) {
-                if (fa_icons) {
-                    view.changeOption("leaf_icon", '<i class="fas fa-file"></i>');
-                    view.changeOption("parent_icon", '<i class="fas fa-folder"></i>');
-
-                    TreeConfig.open_icon = '<i class="fas fa-angle-down"></i>';
-                    TreeConfig.close_icon = '<i class="fas fa-angle-right"></i>';
-                } else {
-                    view.changeOption("leaf_icon", undefined);
-                    view.changeOption("parent_icon", undefined);
-
-                    TreeConfig.open_icon = TreeUtil.default_open_icon;
-                    TreeConfig.close_icon = TreeUtil.default_close_icon;
-                }
-
-                view.reload();
-            }
-
-            function regInventoryBook() {
-                if (confirm("정말 등록하시겠습니까?") == true) {
-                    if ($('#startTime').val() != "") {
-                        $.ajax({
-                            url: '/regInventoryBook',
-                            type: 'POST',
-                            contentType: "application/json",
-                            data: JSON.stringify({
-                                type: $('#type').val(),
-                                place: $('#place').val(),
-                                price: $('#price').val(),
-                                name: $('#name').val(),
-                                amount: $('#amount').val(),
-                                DATE: $('#date').val().replaceAll('-', '')
-                            }),
-                            success: function onData(data) {
-                                if (data >= 1) {
-                                    alert('사주세요~');
-                                } else if (data == 0) {
-                                    alert('수업 등록에 실패하였습니다.');
-                                }
-                            }
-                        });
-                    }
-                }
-            }
-
-            function toggleCustomIcon(n) {
-                if (n == true) {
-                    root.changeOption("icon", '<i class="fas fa-code-branch"></i>');
-                } else {
-                    root.changeOption("icon", undefined);
-                }
-
-                view.reload();
-            }
-        </script>
+        <script src="js/inventoryBook/inventoryBookMain.js"></script>
     </th:block>
 </th:block>

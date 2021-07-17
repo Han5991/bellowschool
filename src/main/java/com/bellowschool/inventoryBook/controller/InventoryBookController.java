@@ -38,5 +38,17 @@ public class InventoryBookController {
     public int regPleaseBuy(@RequestBody Map<String, Object> params) {
         return inventoryBookService.regInventoryBook(params);
     }
+
+    @PostMapping("/deleteInventoryBook")
+    @ResponseBody
+    public int deletePleaseBuy(@RequestBody Map<String, Object> params) {
+        return inventoryBookService.deleteInventoryBook(params);
+    }
+
+    @PostMapping("/updateInventoryBook")
+    @ResponseBody
+    public int updatePleaseBuy(@RequestBody Map<String, Object> params) {
+        return inventoryBookService.updateInventoryBook(params);
+    }
 }
 

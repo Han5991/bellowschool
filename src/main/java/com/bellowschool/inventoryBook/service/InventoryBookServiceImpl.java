@@ -29,4 +29,16 @@ public class InventoryBookServiceImpl implements InventoryBookService{
     public int regInventoryBook(Map<String, Object> params) {
         return inventoryBookMapper.regInventoryBook(params);
     }
+
+    @Override
+    public int deleteInventoryBook(Map<String, Object> params) {
+        return inventoryBookMapper.deleteInventoryBook(params);
+    }
+
+    @Override
+    public int updateInventoryBook(Map<String, Object> params) {
+        return inventoryBookMapper.updateInventoryBook(params);
+    }
+
+
 }

@@ -18,4 +18,8 @@ public interface InventoryBookMapper {
 
     int regInventoryBook(Map<String, Object> params);
 
+    int deleteInventoryBook(Map<String, Object> params);
+
+    int updateInventoryBook(Map<String, Object> params);
+
 }
