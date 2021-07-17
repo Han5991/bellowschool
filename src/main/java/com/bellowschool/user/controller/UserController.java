@@ -29,7 +29,7 @@ public class UserController {
 
     @PostMapping("/userList")
     @ResponseBody
-    public List<UserVo> notiList() {
+    public List<UserVo> userList() {
         return userService.userList();
     }
 

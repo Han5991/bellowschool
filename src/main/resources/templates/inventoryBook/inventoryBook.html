@@ -51,7 +51,7 @@
                         <div class="col-lg-8">
                             <div id="options">
                                 <a href="#" class="btn btn-outline-info"
-                                   onclick="n2.addChild(new TreeNode('' + count++)); view.reload();">Add
+                                   onclick="add()">Add
                                     new element</a>
                                 <a href="#" class="btn btn-outline-info"
                                    onclick="if(n2.isLeaf()) return; n2.removeChild(n2.getChildren()[n2.getChildCount()-1]); count--; view.reload();">Remove
@@ -102,31 +102,15 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">사주세요!</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                                onclick="paramsReset()"><span
-                                aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                onclick="reset()" aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
                         <table class="table" id="pleaseBuy">
                             <tr>
-                                <td class="align-middle">번호</td>
-                                <td id="pleaseBuyId"></td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle">상태</td>
+                                <td class="align-middle">물품분류</td>
                                 <td>
-                                    <select class="form-control" id="pleaseBuyStatus">
-                                        <option value="0">구매신청</option>
-                                        <option value="1">구매접수</option>
-                                        <option value="2">구매중</option>
-                                        <option value="3">구매완료</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle">물품종류</td>
-                                <td>
-                                    <select class="form-control" id="pleaseBuyType">
+                                    <select class="form-control" id="type">
                                         <option value="0">간식</option>
                                         <option value="1">문구류</option>
                                         <option value="2">비품류</option>
@@ -135,58 +119,39 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="align-middle">물품명</td>
-                                <td><input type="text" class="form-control" id="pleaseBuyGoods"></td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle">갯수</td>
-                                <td><input type="number" class="form-control" id="pleaseBuyCount" value="1"
-                                           onchange="sum()"></td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle">개당가격</td>
-                                <td><input type="number" class="form-control" id="pleaseBuyPrice" value="0"
-                                           onchange="sum()"></td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle">합계</td>
-                                <td><input type="number" class="form-control" id="pleaseBuySum" disabled value="0"></td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle">옵션</td>
-                                <td><input type="text" class="form-control" id="pleaseBuyOption"></td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle">택배회사</td>
+                                <td class="align-middle">보관장소</td>
                                 <td>
-                                    <select class="form-control" id="pleaseBuyCompany">
-                                        <option value="0">CJ대한통운</option>
-                                        <option value="1">한진</option>
-                                        <option value="2">롯대글로벌로지스</option>
-                                        <option value="3">우체국택배</option>
-                                        <option value="4">로젠택배</option>
-                                        <option value="5">기타</option>
+                                    <select class="form-control" id="place">
+                                        <option value="0">교무실</option>
+                                        <option value="1">큰교실</option>
+                                        <option value="2">작은교실</option>
+                                        <option value="3">화장실창고</option>
                                     </select>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="align-middle">송장번호</td>
-                                <td><input type="text" class="form-control" id="pleaseBuyInvoice"></td>
+                                <td class="align-middle">물품명</td>
+                                <td><input type="text" class="form-control" id="name"></td>
                             </tr>
                             <tr>
-                                <td class="align-middle">신청일자</td>
-                                <td><input type="date" class="form-control" disabled id="pleaseBuyStart"></td>
+                                <td class="align-middle">갯수</td>
+                                <td><input type="number" class="form-control" id="amount" value="1"></td>
                             </tr>
                             <tr>
-                                <td class="align-middle">배송예정일</td>
-                                <td><input type="date" class="form-control" id="pleaseBuyEnd"></td>
+                                <td class="align-middle">개당가격</td>
+                                <td><input type="number" class="form-control" id="price" value="0"
+                                           onchange="sum()"></td>
+                            </tr>
+                            <tr>
+                                <td class="align-middle">구입일자</td>
+                                <td><input type="date" class="form-control" id="date"></td>
                             </tr>
                         </table>
                     </div>
                     <div class="modal-footer modalBtnContainer-addEvent">
                         <button type="button" class="btn btn-default" data-dismiss="modal" onclick="paramsReset()">닫기
                         </button>
-                        <button type="button" class="btn btn-primary" id="save-event" onclick="regPleaseBuy()">저장
+                        <button type="button" class="btn btn-primary" id="save-event" onclick="regInventoryBook()">저장
                         </button>
                     </div>
                     <div class="modal-footer modalBtnContainer-modifyEvent">
@@ -202,49 +167,41 @@
         </div>
 
         <script>
-            let data = {
-                id: 0,
-                goods: '노트북'
-            };
-            var count = 1;
+            makeInventoryBookList();
 
-            var root = new TreeNode("야학물품대장");
-            var n1 = new TreeNode("교무실");
-            var n11 = new TreeNode("1.1");
-            var n12 = new TreeNode(data.goods,data);
+            function makeInventoryBookList() {
+                let root = new TreeNode("야학물품대장");
+                let view = new TreeView(root, "#container");
 
-            var n2 = new TreeNode("큰교실");
-            var n3 = new TreeNode("작은교실");
-            var n31 = new TreeNode("3.1");
-            var n32 = new TreeNode("3.2");
-            var n321 = new TreeNode("3.2.1");
-            var n33 = new TreeNode("3.3");
-            var n4 = new TreeNode("화장실창고");
+                $.ajax({
+                    url: '/inventoryBookList',
+                    type: 'POST',
+                    async: false,
+                    contentType: "application/json",
+                    success: function onData(data) {
+                        data.inventoryList.forEach(Vo => root.addChild(new TreeNode(Vo.inventoryname, Vo)));
+                        root.getChildren().forEach(value => {
+                            data.inventoryBookList.forEach(Vo => {
+                                if (value.getOptions().inventoryid == Vo.place) {
+                                    value.addChild(new TreeNode(Vo.name, Vo))
+                                }
+                            })
+                        });
+                        view.expandAllNodes();
+                        view.reload();
+                    }
+                });
+            }
 
-            root.addChild(n1);
-            root.addChild(n2);
-            root.addChild(n3);
-            root.addChild(n4);
-            n12.on('click', function () {
-                console.log(n12.getOptions());
-            });
 
-            root.getChildren()[0].addChild(n12);
+            function add() {
+                $('.add').show();
+            }
 
-            n1.addChild(n11);
-            n1.addChild(n12);
-            n2.addChild(n11);
-            n4.addChild(n11);
+            function reset() {
+                $('.add').hide();
+            }
 
-            n3.addChild(n31);
-            n3.addChild(n32);
-            n3.addChild(n33);
-
-            // n3.setEnabled(false);
-
-            n32.addChild(n321);
-
-            var view = new TreeView(root, "#container");
 
             function changeIcons(fa_icons) {
                 if (fa_icons) {
@@ -262,6 +219,33 @@
                 }
 
                 view.reload();
+            }
+
+            function regInventoryBook() {
+                if (confirm("정말 등록하시겠습니까?") == true) {
+                    if ($('#startTime').val() != "") {
+                        $.ajax({
+                            url: '/regInventoryBook',
+                            type: 'POST',
+                            contentType: "application/json",
+                            data: JSON.stringify({
+                                type: $('#type').val(),
+                                place: $('#place').val(),
+                                price: $('#price').val(),
+                                name: $('#name').val(),
+                                amount: $('#amount').val(),
+                                DATE: $('#date').val().replaceAll('-', '')
+                            }),
+                            success: function onData(data) {
+                                if (data >= 1) {
+                                    alert('사주세요~');
+                                } else if (data == 0) {
+                                    alert('수업 등록에 실패하였습니다.');
+                                }
+                            }
+                        });
+                    }
+                }
             }
 
             function toggleCustomIcon(n) {
