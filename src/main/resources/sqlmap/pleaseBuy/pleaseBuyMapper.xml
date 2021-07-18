@@ -63,10 +63,10 @@
         , "START"
         , USERNUM)
         VALUES ( PLEASEBUY.nextval
-        , #{goodstype}
-        , #{goods}
-        , #{goodscount}
-        , #{goodsprice}
+        , #{type}
+        , #{name}
+        , #{amount}
+        , #{price}
         <if test="option != null or option != ''">
             , #{option}
         </if>
@@ -89,16 +89,16 @@
                 STATUS = #{status}
             </if>
             <if test="goodstype != null and goodstype != ''">
-                , GOODSTYPE = #{goodstype}
+                , GOODSTYPE = #{type}
             </if>
             <if test="goodsprice != null and goodsprice != ''">
-                , GOODSPRICE = #{goodsprice}
+                , GOODSPRICE = #{price}
             </if>
             <if test="goods != null and goods != ''">
-                , GOODS = #{goods}
+                , GOODS = #{name}
             </if>
             <if test="goodscount != null and goodscount != ''">
-                , GOODSCOUNT = #{goodscount}
+                , GOODSCOUNT = #{amount}
             </if>
             <if test="option != null and option != ''">
                 , "OPTION" = #{option}
@@ -110,7 +110,7 @@
                 , INVOICE = #{invoice}
             </if>
             <if test="end != null and end != ''">
-                , "END" = #{end}
+                , "END" = #{DATE}
             </if>
         </set>
         <where>

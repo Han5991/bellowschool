@@ -144,14 +144,14 @@ function updatePleaseBuy() {
             data: JSON.stringify({
                 id: $('#pleaseBuyId').text(),
                 status: $('#pleaseBuyStatus').val(),
-                goodstype: $('#pleaseBuyType').val(),
-                goodsprice: $('#pleaseBuyPrice').val(),
-                goods: $('#pleaseBuyGoods').val(),
-                goodscount: $('#pleaseBuyCount').val(),
+                type: $('#pleaseBuyType').val(),
+                price: $('#pleaseBuyPrice').val(),
+                name: $('#pleaseBuyGoods').val(),
+                amount: $('#pleaseBuyCount').val(),
                 option: $('#pleaseBuyOption').val(),
                 company: $('#pleaseBuyCompany').val(),
                 invoice: $('#pleaseBuyInvoice').val(),
-                end: $('#pleaseBuyEnd').val().replaceAll('-', ''),
+                DATE: $('#pleaseBuyEnd').val().replaceAll('-', ''),
                 place: $('#pleaseBuyPlace').val()
             }),
             success: function onData(data) {

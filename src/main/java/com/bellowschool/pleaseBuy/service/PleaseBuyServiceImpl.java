@@ -38,11 +38,6 @@ public class PleaseBuyServiceImpl implements PleaseBuyService {
     @Override
     public int updatePleaseBuy(Map<String, Object> params) {
         if (params.get("status").equals("3")) {
-            params.put("type", params.get("goodstype"));
-            params.put("price", params.get("goodsprice"));
-            params.put("name", params.get("goods"));
-            params.put("DATE", params.get("end"));
-            params.put("amount", params.get("goodscount"));
             inventoryBookMapper.regInventoryBook(params);
         }
         return pleaseBuyMapper.updatePleaseBuy(params);
