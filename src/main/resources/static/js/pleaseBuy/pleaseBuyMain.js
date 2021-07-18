@@ -2,7 +2,7 @@ $('#pleaseBuyTable tr').click(function () {
     read(this.dataset);
 });
 
-function reset() {
+function resetSearch() {
     $(".type option:eq(0)").prop("selected", true);
     $(".status option:eq(0)").prop("selected", true);
 }
@@ -86,15 +86,17 @@ regPleaseBuy = function () {
             contentType: "application/json",
             data: JSON.stringify({
                 usernum: 0,
-                goodstype: $('#pleaseBuyType').val(),
-                goods: $('#pleaseBuyGoods').val(),
-                goodscount: $('#pleaseBuyCount').val(),
-                goodsprice: $('#pleaseBuyPrice').val(),
+                type: $('#pleaseBuyType').val(),
+                name: $('#pleaseBuyGoods').val(),
+                amount: $('#pleaseBuyCount').val(),
+                price: $('#pleaseBuyPrice').val(),
                 option: $('#pleaseBuyOption').val()
             }),
             success: function onData(data) {
                 if (data >= 1) {
                     alert('사주세요~');
+                    $(".add").modal('hide');
+                    window.location.reload();
                 } else if (data == 0) {
                     alert('수업 등록에 실패하였습니다.');
                 }

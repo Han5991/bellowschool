@@ -28,7 +28,7 @@ logging:
     jdbc:
       sqlonly: debug
       sqltiming: off
-      audit: error
+      audit: info
       resultset: off
       resultsettable: debug
     org.springframework.web: info
