@@ -27,7 +27,7 @@
                                     <option value="3" th:selected="${pageRequestVo.status == '3'}">구매완료</option>
                                 </select>
                             </div>
-                            <input class="form-control" name="keyword" th:value="${pageRequestVo.keyword}">
+                            <input class="form-control" name="keyword" th:value="${pageRequestVo.keyword}" placeholder="작성자">
                             <div class="input-group-append" id="button-addon4">
                                 <button class="btn btn-primary" type="submit">
                                     <i class="fas fa-search fa-sm"></i>
@@ -117,11 +117,22 @@
                             <tr>
                                 <td class="align-middle">상태</td>
                                 <td>
-                                    <select class="form-control" id="pleaseBuyStatus">
+                                    <select class="form-control" id="pleaseBuyStatus" onchange="statusCheck(this)">
                                         <option value="0">구매신청</option>
                                         <option value="1">구매접수</option>
                                         <option value="2">구매중</option>
                                         <option value="3">구매완료</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="display: none; background-color: #fadbd8">
+                                <td class="align-middle">보관장소</td>
+                                <td>
+                                    <select class="form-control" id="pleaseBuyPlace" onclick="$('#pleaseBuy > tbody > tr:nth-child(3)').css('background-color', '#aaebd3')">
+                                        <option value="0">교무실</option>
+                                        <option value="1">큰교실</option>
+                                        <option value="2">작은교실</option>
+                                        <option value="3">화장실창고</option>
                                     </select>
                                 </td>
                             </tr>
@@ -180,8 +191,8 @@
                                 <td><input type="date" class="form-control" disabled id="pleaseBuyStart"></td>
                             </tr>
                             <tr>
-                                <td class="align-middle">배송예정일</td>
-                                <td><input type="date" class="form-control" id="pleaseBuyEnd"></td>
+                                <td class="align-middle">구매완료일</td>
+                                <td><input type="date" class="form-control" id="pleaseBuyEnd" disabled></td>
                             </tr>
                         </table>
                     </div>

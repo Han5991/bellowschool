@@ -1,6 +1,7 @@
 package com.bellowschool.pleaseBuy.service;
 
 import com.bellowschool.common.page.PageResultVo;
+import com.bellowschool.inventoryBook.mapper.InventoryBookMapper;
 import com.bellowschool.pleaseBuy.mapper.PleaseBuyMapper;
 import com.bellowschool.common.page.PageRequestVo;
 import com.bellowschool.vo.PleaseBuyVo;
@@ -16,6 +17,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class PleaseBuyServiceImpl implements PleaseBuyService {
     private final PleaseBuyMapper pleaseBuyMapper;
+    private final InventoryBookMapper inventoryBookMapper;
 
     @Override
     public int regPleaseBuy(Map<String, Object> params) {
@@ -35,6 +37,14 @@ public class PleaseBuyServiceImpl implements PleaseBuyService {
 
     @Override
     public int updatePleaseBuy(Map<String, Object> params) {
+        if (params.get("status").equals("3")) {
+            params.put("type", params.get("goodstype"));
+            params.put("price", params.get("goodsprice"));
+            params.put("name", params.get("goods"));
+            params.put("DATE", params.get("end"));
+            params.put("amount", params.get("goodscount"));
+            inventoryBookMapper.regInventoryBook(params);
+        }
         return pleaseBuyMapper.updatePleaseBuy(params);
     }
 }

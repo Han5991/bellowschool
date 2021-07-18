@@ -10,10 +10,11 @@ function reset() {
 function read(dataset) {
     $('.add').modal('show');
     $('.modalBtnContainer-addEvent').hide();
-
     $('#pleaseBuyId').text(dataset.id);
     $('#pleaseBuyStatus').val(dataset.status);
-    // $('#pleaseBuyStatus').attr('disabled', true);
+    if (dataset.status == 3) {
+        $('#pleaseBuyStatus').attr('disabled', true);
+    }
     $('#pleaseBuyType').val(dataset.goodstype);
     $('#pleaseBuyPrice').val(dataset.goodsprice);
     $('#pleaseBuyGoods').val(dataset.goods);
@@ -39,7 +40,9 @@ function paramsReset() {
     $('#pleaseBuyInvoice').val('');
     $('#pleaseBuyStart').val('');
     $('#pleaseBuyEnd').val('');
+    $('#pleaseBuyPlace').val(0);
 
+    $('#pleaseBuy > tbody > tr:nth-child(3)').hide();
     $("#pleaseBuy > tbody > tr:nth-child(1)").show();
     $("#pleaseBuy > tbody > tr:nth-child(2)").show();
     $("#pleaseBuy > tbody > tr:nth-child(9)").show();
@@ -47,8 +50,11 @@ function paramsReset() {
     $("#pleaseBuy > tbody > tr:nth-child(11)").show();
     $("#pleaseBuy > tbody > tr:nth-child(12)").show();
     $("#pleaseBuy > tbody > tr:nth-child(13)").show();
+
     $(".modalBtnContainer-addEvent").show();
     $(".modalBtnContainer-modifyEvent").show();
+
+    $('#pleaseBuy > tbody > tr:nth-child(3)').css('background-color', '#fadbd8');
 }
 
 function add() {
@@ -74,28 +80,26 @@ $.fncAutoTime = function (object) {
 }
 regPleaseBuy = function () {
     if (confirm("정말 등록하시겠습니까?") == true) {
-        if ($('#startTime').val() != "") {
-            $.ajax({
-                url: '/regPleaseBuy',
-                type: 'POST',
-                contentType: "application/json",
-                data: JSON.stringify({
-                    usernum: 0,
-                    goodstype: $('#pleaseBuyType').val(),
-                    goods: $('#pleaseBuyGoods').val(),
-                    goodscount: $('#pleaseBuyCount').val(),
-                    goodsprice: $('#pleaseBuyPrice').val(),
-                    option: $('#pleaseBuyOption').val()
-                }),
-                success: function onData(data) {
-                    if (data >= 1) {
-                        alert('사주세요~');
-                    } else if (data == 0) {
-                        alert('수업 등록에 실패하였습니다.');
-                    }
+        $.ajax({
+            url: '/regPleaseBuy',
+            type: 'POST',
+            contentType: "application/json",
+            data: JSON.stringify({
+                usernum: 0,
+                goodstype: $('#pleaseBuyType').val(),
+                goods: $('#pleaseBuyGoods').val(),
+                goodscount: $('#pleaseBuyCount').val(),
+                goodsprice: $('#pleaseBuyPrice').val(),
+                option: $('#pleaseBuyOption').val()
+            }),
+            success: function onData(data) {
+                if (data >= 1) {
+                    alert('사주세요~');
+                } else if (data == 0) {
+                    alert('수업 등록에 실패하였습니다.');
                 }
-            });
-        }
+            }
+        });
     }
 }
 
@@ -121,6 +125,16 @@ function deletePleaseBuy() {
     }
 }
 
+function statusCheck(status) {
+    if (status.value == 3) {
+        alert("보관장소를 확인해주세요.");
+        $('#pleaseBuy > tbody > tr:nth-child(3)').show();
+        $('#pleaseBuyEnd').val(new Date().toISOString().slice(0, 10));
+    }else{
+        $('#pleaseBuy > tbody > tr:nth-child(3)').hide();
+    }
+}
+
 function updatePleaseBuy() {
     if (confirm("정말 수정하시겠습니까?") == true) {
         $.ajax({
@@ -137,7 +151,8 @@ function updatePleaseBuy() {
                 option: $('#pleaseBuyOption').val(),
                 company: $('#pleaseBuyCompany').val(),
                 invoice: $('#pleaseBuyInvoice').val(),
-                end: $('#pleaseBuyEnd').val().replaceAll('-','')
+                end: $('#pleaseBuyEnd').val().replaceAll('-', ''),
+                place: $('#pleaseBuyPlace').val()
             }),
             success: function onData(data) {
                 if (data >= 1) {
