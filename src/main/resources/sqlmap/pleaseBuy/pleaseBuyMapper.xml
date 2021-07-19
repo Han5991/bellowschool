@@ -51,6 +51,12 @@
         WHERE rnum >= 1 + #{size} * (#{page} - 1)
     </select>
 
+    <select id="requestPleaseBuy" resultType="int">
+        SELECT count(1)
+        FROM BSPLEASEBUY
+        WHERE GOODSTYPE = '0'
+    </select>
+
     <insert id="regPleaseBuy" parameterType="hashMap">
         INSERT INTO BSPLEASEBUY ( ID
         , GOODSTYPE

@@ -21,4 +21,6 @@ public interface UserMapper {
     UserVo userRead(int usernum);
 
     int updateUser(Map<String, Object> params);
+
+    int userCount();
 }

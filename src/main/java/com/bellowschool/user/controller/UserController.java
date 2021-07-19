@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +37,7 @@ public class UserController {
 
     @PostMapping("/reguser")
     @ResponseBody
-    public int createnoti(@RequestBody Map<String, Object> params) {
+    public int createnoti(@RequestBody Map<String, Object> params) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         return userService.regUser(params);
     }
 

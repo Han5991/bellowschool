@@ -37,13 +37,13 @@ public class CheckController {
 
     @PostMapping("/userattendanceList")
     @ResponseBody
-    public List<UserVo> userattendanceList(Map<String, Object> params) {
-        return checkService.userattendanceList(params);
+    public List<UserVo> userAttendanceList(Map<String, Object> params) {
+        return checkService.userAttendanceList(params);
     }
 
     @PostMapping("/userattendanceList2")
     @ResponseBody
-    public List<UserVo> userattendanceList2(@RequestBody Map<String, Object> params) {
-        return checkService.userattendanceList(params);
+    public List<UserVo> userAttendanceList2(@RequestBody Map<String, Object> params) {
+        return checkService.userAttendanceList(params);
     }
 }

@@ -42,4 +42,11 @@ public class PleaseBuyServiceImpl implements PleaseBuyService {
         }
         return pleaseBuyMapper.updatePleaseBuy(params);
     }
+
+    @Override
+    public int requestPleaseBuy() {
+        return pleaseBuyMapper.requestPleaseBuy();
+    }
+
+
 }

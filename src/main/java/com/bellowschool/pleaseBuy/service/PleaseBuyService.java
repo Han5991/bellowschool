@@ -13,4 +13,5 @@ public interface PleaseBuyService {
 
     int updatePleaseBuy(Map<String, Object> params);
 
+    int requestPleaseBuy();
 }

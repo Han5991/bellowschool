@@ -1,12 +1,15 @@
 package com.bellowschool.common.StringSecurity;
 
+import org.springframework.stereotype.Service;
+
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+@Service
 public class ShaEncoder {
 
-    public static String Sha256Encoder(String str) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public String Sha256Encoder(String str) throws UnsupportedEncodingException, NoSuchAlgorithmException {
 
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] hash = digest.digest(str.getBytes("UTF-8"));

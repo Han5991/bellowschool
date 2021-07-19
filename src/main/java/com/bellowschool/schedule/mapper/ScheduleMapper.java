@@ -26,4 +26,5 @@ public interface ScheduleMapper {
 
     int updateSchedule(Map<String, Object> params);
 
+    int scheduleCount(Map<String, Object> params);
 }

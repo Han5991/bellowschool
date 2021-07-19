@@ -7,6 +7,13 @@
         FROM BSSCHEDULE
     </select>
 
+    <select id="scheduleCount" resultType="int" parameterType="hashMap">
+        SELECT count(1)
+        FROM BSSCHEDULE
+        where "START" between #{dateStart} and #{dateEnd}
+          and TYPE = '0'
+    </select>
+
     <select id="classList" resultType="ClassVo">
         SELECT DISTINCT CASE CLASSTYPE
                             WHEN '1' THEN '고급2'

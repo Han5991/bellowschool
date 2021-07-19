@@ -30,6 +30,12 @@
                , TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS'))
     </insert>
 
+    <select id="userCount" resultType="int">
+        SELECT COUNT(1)
+        FROM BSUSER
+        WHERE USERTYPE = '2'
+    </select>
+
     <select id="cresno" resultType="int">
         SELECT MAX(USERNUM) + 1 usernum
         FROM BSUSER
@@ -56,7 +62,7 @@
     <update id="updateUser" parameterType="hashMap">
         UPDATE BSUSER
         <set>
-              USERNAME = #{userName}
+            USERNAME = #{userName}
             , USERTYPE = #{userType}
             , USERCLASS = #{userClass}
             , QRNAME = #{qrName}

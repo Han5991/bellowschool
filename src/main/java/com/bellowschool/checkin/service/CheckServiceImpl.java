@@ -32,7 +32,7 @@ public class CheckServiceImpl implements CheckService {
     }
 
     @Override
-    public List<UserVo> userattendanceList(Map<String, Object> params) {
+    public List<UserVo> userAttendanceList(Map<String, Object> params) {
         if (params.get("dateStart") == null || params.get("dateStart") == "") {
             Calendar mon = Calendar.getInstance();
             mon.add(Calendar.MONTH, -2);
@@ -53,6 +53,6 @@ public class CheckServiceImpl implements CheckService {
             params.put("class" + i, checkMapper.scheduleClassCount(params));
         }
 
-        return checkMapper.userattendanceList(params);
+        return checkMapper.userAttendanceList(params);
     }
 }

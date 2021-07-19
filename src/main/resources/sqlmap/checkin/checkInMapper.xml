@@ -2,7 +2,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bellowschool.checkin.mapper.CheckMapper">
-    <select id="userattendanceList" resultType="UserVo" parameterType="hashMap">
+    <select id="userAttendanceList" resultType="UserVo" parameterType="hashMap">
         SELECT usernum
              , username
              , usertype

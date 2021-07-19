@@ -6,6 +6,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,5 +46,23 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public int updateSchedule(Map<String, Object> params) {
         return scheduleMapper.updateSchedule(params);
+    }
+
+    @Override
+    public int scheduleCount() {
+        Map<String, Object> params = new HashMap<>();
+        if (params.get("dateStart") == null || params.get("dateStart") == "") {
+            Calendar mon = Calendar.getInstance();
+            mon.add(Calendar.MONTH, -2);
+            String dateStart = new SimpleDateFormat("yyyy-MM-dd").format(mon.getTime());
+            params.put("dateStart", dateStart);
+        }
+
+        if (params.get("dateEnd") == null || params.get("dateEnd") == "") {
+            Calendar mon = Calendar.getInstance();
+            String dateEnd = new SimpleDateFormat("yyyy-MM-dd").format(mon.getTime());
+            params.put("dateEnd", dateEnd);
+        }
+        return scheduleMapper.scheduleCount(params);
     }
 }

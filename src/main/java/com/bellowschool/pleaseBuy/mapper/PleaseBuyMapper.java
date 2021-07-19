@@ -19,4 +19,5 @@ public interface PleaseBuyMapper {
 
     int updatePleaseBuy(Map<String, Object> params);
 
+    int requestPleaseBuy();
 }

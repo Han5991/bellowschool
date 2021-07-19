@@ -17,4 +17,6 @@ public interface ScheduleService {
     int deleteSchedule(Map<String, Object> params);
 
     int updateSchedule(Map<String, Object> params);
+
+    int scheduleCount();
 }
