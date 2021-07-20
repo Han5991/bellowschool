@@ -3,7 +3,6 @@ package com.bellowschool.main.main.service;
 import com.bellowschool.checkin.service.CheckService;
 import com.bellowschool.pleaseBuy.service.PleaseBuyService;
 import com.bellowschool.schedule.service.ScheduleService;
-import com.bellowschool.user.mapper.UserMapper;
 import com.bellowschool.user.service.UserService;
 import com.bellowschool.vo.UserVo;
 import lombok.RequiredArgsConstructor;
