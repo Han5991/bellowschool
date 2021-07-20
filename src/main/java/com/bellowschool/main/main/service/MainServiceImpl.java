@@ -26,12 +26,10 @@ public class MainServiceImpl implements MainService {
         Map<String, Object> params = new HashMap<>();
         List<UserVo> result = checkService.userAttendanceList(params);
         double attendance = 0;
-        for (UserVo remove : result) {
-            if (!remove.getAddtendance().equals("0")) {
-                attendance++;
-            }
+        for (UserVo user : result) {
+            attendance += Integer.parseInt(user.getAddtendance());
         }
-        return Math.ceil(attendance / result.size() * 100.0 * 100) / 100.0;
+        return Math.ceil((attendance / result.size()) * 100.0) / 100.0;
     }
 
     @Override
