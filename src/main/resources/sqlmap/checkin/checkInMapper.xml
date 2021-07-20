@@ -12,21 +12,24 @@
                        (
                            SELECT round((COUNT(1) / #{class0}) * 100)
                            FROM bscheckin b
-                           WHERE checktime BETWEEN #{dateStart} AND #{dateEnd}
+                           WHERE checktime BETWEEN #{dateStart} AND TO_CHAR(
+                                   TO_DATE(TO_CHAR(TO_DATE(#{dateEnd}, 'YYYYMMDD') + 0.99999), 'YY/MM/DD'), 'YYYYMMDD')
                              AND b.usernum = a.usernum
                        )
                    WHEN '2' THEN
                        (
                            SELECT round((COUNT(1) / #{class1}) * 100)
                            FROM bscheckin b
-                           WHERE checktime BETWEEN #{dateStart} AND #{dateEnd}
+                           WHERE checktime BETWEEN #{dateStart} AND TO_CHAR(
+                                   TO_DATE(TO_CHAR(TO_DATE(#{dateEnd}, 'YYYYMMDD') + 0.99999), 'YY/MM/DD'), 'YYYYMMDD')
                              AND b.usernum = a.usernum
                        )
                    WHEN '3' THEN
                        (
                            SELECT round((COUNT(1) / #{class2}) * 100)
                            FROM bscheckin b
-                           WHERE checktime BETWEEN #{dateStart} AND #{dateEnd}
+                           WHERE checktime BETWEEN #{dateStart} AND TO_CHAR(
+                                   TO_DATE(TO_CHAR(TO_DATE(#{dateEnd}, 'YYYYMMDD') + 0.99999), 'YY/MM/DD'), 'YYYYMMDD')
                              AND b.usernum = a.usernum
                        )
             END addtendance
@@ -44,7 +47,7 @@
         FROM bsschedule
         WHERE type = '0'
           AND title = #{class}
-          AND end BETWEEN to_char(to_date(#{dateStart}), 'YYYY-MM-DD') AND to_char(to_date(#{dateEnd}), 'YYYY-MM-DD')
+          AND end BETWEEN to_char(to_date(#{dateStart}), 'YYYY-MM-DD') AND to_char(to_date(#{dateEnd} + 1), 'YYYY-MM-DD')
     </select>
 
     <insert id="regCheckIn" parameterType="hashMap">
@@ -57,6 +60,17 @@
                , '1'
                , TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS'))
     </insert>
+
+    <!--    <insert id="regCheckIn" parameterType="hashMap">-->
+    <!--        INSERT INTO BSCHECKIN ( USERNUM-->
+    <!--                              , USERNAME-->
+    <!--                              , CHECKTYPE-->
+    <!--                              , CHECKTIME)-->
+    <!--        VALUES ( #{userNum}-->
+    <!--               , #{userName}-->
+    <!--               , '1'-->
+    <!--               , #{time})-->
+    <!--    </insert>-->
 
     <select id="duplicateCheck" resultType="int" parameterType="hashMap">
         SELECT count(*)

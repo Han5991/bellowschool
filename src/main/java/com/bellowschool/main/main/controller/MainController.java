@@ -22,7 +22,7 @@ import java.util.Map;
 public class MainController {
     private final MainServiceImpl mainService;
 
-    @GetMapping({"/bellowschool", "/"})
+    @GetMapping("/bellowschool")
     public String mainIndex(Model model) {
         model.addAttribute("attendance", mainService.attendance());
         model.addAttribute("requestPleaseBuy", mainService.requestPleaseBuy());
@@ -30,6 +30,12 @@ public class MainController {
         model.addAttribute("scheduleCount", mainService.scheduleCount());
         return "index";
     }
+
+    @GetMapping("/")
+    public String login (){
+        return "longinout/login";
+    }
+
 
     @GetMapping("/test4")
     public String test2() {
