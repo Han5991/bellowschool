@@ -19,6 +19,11 @@ import java.util.Map;
 public class UserController {
     private final UserServiceImpl userService;
 
+//    @GetMapping("/user")
+//    public String user() {
+//        return "longinoit/register";
+//    }
+
     @GetMapping("/user")
     public String user() {
         return "user/userMF";

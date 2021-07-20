@@ -37,8 +37,7 @@
     </select>
 
     <select id="cresno" resultType="int">
-        SELECT MAX(USERNUM) + 1 usernum
-        FROM BSUSER
+        SELECT USERNUM.nextval FROM DUAL
     </select>
 
     <delete id="userDelete" parameterType="hashMap">
