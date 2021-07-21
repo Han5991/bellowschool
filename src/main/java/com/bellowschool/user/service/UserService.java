@@ -19,4 +19,6 @@ public interface UserService {
     int updateUser(Map<String, Object> params);
 
     int userCount();
+
+    UserVo findByAccount(String id);
 }

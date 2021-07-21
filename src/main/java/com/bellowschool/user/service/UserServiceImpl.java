@@ -75,4 +75,9 @@ public class UserServiceImpl implements UserService {
     public int userCount() {
         return userMapper.userCount();
     }
+
+    @Override
+    public UserVo findByAccount(String id) {
+        return userMapper.findByAccount(id);
+    }
 }

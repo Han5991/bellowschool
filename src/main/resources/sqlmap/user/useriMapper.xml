@@ -30,6 +30,12 @@
                , TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS'))
     </insert>
 
+    <select id="findByAccount" parameterType="String" resultType="UserVo">
+        SELECT *
+        FROM BSUSER
+        WHERE USERNUM LIKE #{id}
+    </select>
+
     <select id="userCount" resultType="int">
         SELECT COUNT(1)
         FROM BSUSER
@@ -37,7 +43,8 @@
     </select>
 
     <select id="cresno" resultType="int">
-        SELECT USERNUM.nextval FROM DUAL
+        SELECT USERNUM.nextval
+        FROM DUAL
     </select>
 
     <delete id="userDelete" parameterType="hashMap">

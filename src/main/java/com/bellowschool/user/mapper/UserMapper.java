@@ -23,4 +23,6 @@ public interface UserMapper {
     int updateUser(Map<String, Object> params);
 
     int userCount();
+
+    UserVo findByAccount(String id);
 }
