@@ -25,9 +25,9 @@ public class SecurityController {
     public String signup(HttpServletRequest request, HttpSession httpSession) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         UserVo user = userService.findByAccount(request.getParameter("userName"));
         String enPassword = shaEncoder.Sha256Encoder(request.getParameter("password"));
-        httpSession.setAttribute("user", user);
         if (user != null) {
             if (user.getPassword().equals(enPassword)) {
+                httpSession.setAttribute("user", user);
                 return "redirect:/bellowschool";
             }
         }

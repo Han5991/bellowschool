@@ -4,6 +4,7 @@ import com.bellowschool.vo.UserVo;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,13 +20,13 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession httpSession = request.getSession();
         UserVo user = (UserVo) httpSession.getAttribute("user");
-        log.info('?');
-        log.info("name : " + user.getUsername());
-        log.info("null? : " + user.getUsername() == null);
-        if (user.getUsername() == null) {
+        if (ObjectUtils.isEmpty(user)) {
+            response.sendRedirect("/");
             return false;
+        } else {
+            httpSession.setMaxInactiveInterval(30 * 60);
+            return true;
         }
-        return true;
     }
 
     @Override
