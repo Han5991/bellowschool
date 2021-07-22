@@ -13,7 +13,7 @@
                            SELECT round((COUNT(1) / #{class0}) * 100)
                            FROM bscheckin b
                            WHERE checktime BETWEEN #{dateStart} AND TO_CHAR(
-                                   TO_DATE(TO_CHAR(TO_DATE(#{dateEnd}, 'YYYYMMDD') + 0.99999), 'YY/MM/DD'), 'YYYYMMDD')
+                                   TO_DATE(TO_CHAR(TO_DATE(#{dateEnd}, 'YYYYMMDD') + 1), 'YY/MM/DD'), 'YYYYMMDD')
                              AND b.usernum = a.usernum
                        )
                    WHEN '2' THEN
@@ -21,7 +21,7 @@
                            SELECT round((COUNT(1) / #{class1}) * 100)
                            FROM bscheckin b
                            WHERE checktime BETWEEN #{dateStart} AND TO_CHAR(
-                                   TO_DATE(TO_CHAR(TO_DATE(#{dateEnd}, 'YYYYMMDD') + 0.99999), 'YY/MM/DD'), 'YYYYMMDD')
+                                   TO_DATE(TO_CHAR(TO_DATE(#{dateEnd}, 'YYYYMMDD') + 1), 'YY/MM/DD'), 'YYYYMMDD')
                              AND b.usernum = a.usernum
                        )
                    WHEN '3' THEN
@@ -29,7 +29,7 @@
                            SELECT round((COUNT(1) / #{class2}) * 100)
                            FROM bscheckin b
                            WHERE checktime BETWEEN #{dateStart} AND TO_CHAR(
-                                   TO_DATE(TO_CHAR(TO_DATE(#{dateEnd}, 'YYYYMMDD') + 0.99999), 'YY/MM/DD'), 'YYYYMMDD')
+                                   TO_DATE(TO_CHAR(TO_DATE(#{dateEnd}, 'YYYYMMDD') + 1), 'YY/MM/DD'), 'YYYYMMDD')
                              AND b.usernum = a.usernum
                        )
             END addtendance
@@ -39,7 +39,7 @@
                , username
                , usertype
                , userclass
-        ORDER BY usernum
+        ORDER BY USERCLASS, USERNUM
     </select>
 
     <select id="scheduleClassCount" resultType="int" parameterType="hashMap">
