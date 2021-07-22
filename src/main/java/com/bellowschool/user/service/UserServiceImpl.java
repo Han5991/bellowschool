@@ -7,6 +7,7 @@ import com.bellowschool.vo.UserVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -24,6 +25,7 @@ public class UserServiceImpl implements UserService {
     private final ShaEncoder shaEncoder;
 
     @Override
+    @Transactional
     public int regUser(Map<String, Object> params) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         int sno = userMapper.cresno();
         String username = (String) params.get("username");
@@ -39,11 +41,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public List<UserVo> userList() {
         return userMapper.userList();
     }
 
     @Override
+    @Transactional
     public int userDelete(Map<String, Object> params) {
         String qrname = (String) params.get("qrname");
         File file = new File("C:\\Users\\admin\\IdeaProjects\\bellowschool\\src\\main\\resources\\static\\img\\qrcode\\" + qrname + ".png");
@@ -52,11 +56,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserVo userRead(int usernum) {
         return userMapper.userRead(usernum);
     }
 
     @Override
+    @Transactional
     public int updateUser(Map<String, Object> params) {
         int sno = (int) params.get("userNum");
         String username = (String) params.get("userName");
@@ -72,11 +78,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public int userCount() {
         return userMapper.userCount();
     }
 
     @Override
+    @Transactional
     public UserVo findByAccount(String id) {
         return userMapper.findByAccount(id);
     }

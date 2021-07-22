@@ -5,6 +5,7 @@ import com.bellowschool.vo.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -19,6 +20,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     private final ScheduleMapper scheduleMapper;
 
     @Override
+    @Transactional
     public int regClass(Map<String, Object> params) {
         return scheduleMapper.regClass(params);
     }
@@ -29,6 +31,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
+    @Transactional
     public int regSchedule(Map<String, Object> params) {
         return scheduleMapper.regSchedule(params);
     }
@@ -39,11 +42,13 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
+    @Transactional
     public int deleteSchedule(Map<String, Object> params) {
         return scheduleMapper.deleteSchedule(params);
     }
 
     @Override
+    @Transactional
     public int updateSchedule(Map<String, Object> params) {
         return scheduleMapper.updateSchedule(params);
     }

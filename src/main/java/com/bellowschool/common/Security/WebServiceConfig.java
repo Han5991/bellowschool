@@ -16,7 +16,6 @@ public class WebServiceConfig implements WebMvcConfigurer {
         registry
                 .addInterceptor(loginInterceptor) //핸들러를 지정
                 .addPathPatterns("/**") //인터셉트할 기본 패턴을 지정
-                .excludePathPatterns("/vendor/**", "/js/**", "/signup", "/", "/css/**"); // 제외할 패턴들
-
+                .excludePathPatterns("/vendor/**", "/js/**", "/signup", "/", "/css/**", "/qrcheck", "/scss/**", "/img/**"); // 제외할 패턴들
     }
 }

@@ -5,6 +5,7 @@ import com.bellowschool.vo.InventoryBookVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -26,16 +27,19 @@ public class InventoryBookServiceImpl implements InventoryBookService{
     }
 
     @Override
+    @Transactional
     public int regInventoryBook(Map<String, Object> params) {
         return inventoryBookMapper.regInventoryBook(params);
     }
 
     @Override
+    @Transactional
     public int deleteInventoryBook(Map<String, Object> params) {
         return inventoryBookMapper.deleteInventoryBook(params);
     }
 
     @Override
+    @Transactional
     public int updateInventoryBook(Map<String, Object> params) {
         return inventoryBookMapper.updateInventoryBook(params);
     }

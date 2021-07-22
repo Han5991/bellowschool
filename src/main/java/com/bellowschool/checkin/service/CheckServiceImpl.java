@@ -7,6 +7,7 @@ import com.bellowschool.vo.UserVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -19,6 +20,7 @@ public class CheckServiceImpl implements CheckService {
     private final ScheduleService scheduleService;
 
     @Override
+    @Transactional
     public int regCheckIn(Map<String, Object> params) {
         String nowDate = new SimpleDateFormat("yyyyMMdd").format(new Date(System.currentTimeMillis())) + "%";
         params.put("checkTime", nowDate);

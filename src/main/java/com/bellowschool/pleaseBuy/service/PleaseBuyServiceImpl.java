@@ -8,6 +8,7 @@ import com.bellowschool.vo.PleaseBuyVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ public class PleaseBuyServiceImpl implements PleaseBuyService {
     private final InventoryBookMapper inventoryBookMapper;
 
     @Override
+    @Transactional
     public int regPleaseBuy(Map<String, Object> params) {
         return pleaseBuyMapper.regPleaseBuy(params);
     }
@@ -31,11 +33,13 @@ public class PleaseBuyServiceImpl implements PleaseBuyService {
     }
 
     @Override
+    @Transactional
     public int deletePleaseBuy(Map<String, Object> params) {
         return pleaseBuyMapper.deletePleaseBuy(params);
     }
 
     @Override
+    @Transactional
     public int updatePleaseBuy(Map<String, Object> params) {
         if (params.get("status").equals("3")) {
             inventoryBookMapper.regInventoryBook(params);
@@ -44,6 +48,7 @@ public class PleaseBuyServiceImpl implements PleaseBuyService {
     }
 
     @Override
+    @Transactional
     public int requestPleaseBuy() {
         return pleaseBuyMapper.requestPleaseBuy();
     }

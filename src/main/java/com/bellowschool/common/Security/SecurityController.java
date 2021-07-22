@@ -6,6 +6,7 @@ import com.bellowschool.vo.UserVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -25,7 +26,7 @@ public class SecurityController {
     public String signup(HttpServletRequest request, HttpSession httpSession) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         UserVo user = userService.findByAccount(request.getParameter("userName"));
         String enPassword = shaEncoder.Sha256Encoder(request.getParameter("password"));
-        if (user != null) {
+        if (!ObjectUtils.isEmpty(user)) {
             if (user.getPassword().equals(enPassword)) {
                 httpSession.setAttribute("user", user);
                 return "redirect:/bellowschool";
