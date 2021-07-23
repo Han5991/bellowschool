@@ -61,17 +61,6 @@
                , TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS'))
     </insert>
 
-    <!--    <insert id="regCheckIn" parameterType="hashMap">-->
-    <!--        INSERT INTO BSCHECKIN ( USERNUM-->
-    <!--                              , USERNAME-->
-    <!--                              , CHECKTYPE-->
-    <!--                              , CHECKTIME)-->
-    <!--        VALUES ( #{userNum}-->
-    <!--               , #{userName}-->
-    <!--               , '1'-->
-    <!--               , #{time})-->
-    <!--    </insert>-->
-
     <select id="duplicateCheck" resultType="int" parameterType="hashMap">
         SELECT count(*)
         FROM BSCHECKIN

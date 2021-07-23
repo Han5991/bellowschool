@@ -52,6 +52,4 @@ public class PleaseBuyServiceImpl implements PleaseBuyService {
     public int requestPleaseBuy() {
         return pleaseBuyMapper.requestPleaseBuy();
     }
-
-
 }

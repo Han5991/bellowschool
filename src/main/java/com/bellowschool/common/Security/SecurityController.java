@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
@@ -23,21 +26,30 @@ public class SecurityController {
     private final ShaEncoder shaEncoder;
 
     @PostMapping("/signup")
-    public String signup(HttpServletRequest request, HttpSession httpSession) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public String signup(HttpServletRequest request, HttpSession httpSession, HttpServletResponse response) throws IOException, NoSuchAlgorithmException {
         UserVo user = userService.findByAccount(request.getParameter("userName"));
         String enPassword = shaEncoder.Sha256Encoder(request.getParameter("password"));
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+
         if (!ObjectUtils.isEmpty(user)) {
             if (user.getPassword().equals(enPassword)) {
                 httpSession.setAttribute("user", user);
                 return "redirect:/bellowschool";
+            } else {
+                out.println("<script>alert('아이디/비밀번호가 틀렸습니다.'); location.href='/';</script>");
+                out.flush();
             }
+        } else {
+            out.println("<script>alert('계정이 존재하지 않습니다.'); location.href='/';</script>");
+            out.flush();
         }
+
         return "redirect:/";
     }
 
-    @GetMapping("/logout")
-    public String logout (HttpSession httpSession) {
-        httpSession.setMaxInactiveInterval(0);
+    @PostMapping("/logout")
+    public String logout(HttpSession httpSession) {
         httpSession.invalidate();
         return "redirect:/";
     }

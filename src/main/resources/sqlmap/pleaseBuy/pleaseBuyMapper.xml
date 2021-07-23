@@ -6,55 +6,55 @@
     <select id="pleaseBuyList" resultType="PleaseBuyVo" parameterType="com.bellowschool.common.page.PageResultVo">
         SELECT *
         FROM (
-                 SELECT a.*,
-                        ROWNUM rnum
-                 FROM (
-                          SELECT ID
-                               , STATUS
-                               , GOODSTYPE
-                               , B.USERNAME
-                               , GOODS
-                               , GOODSCOUNT
-                               , GOODSPRICE
-                               , "OPTION"
-                               , COMPANY
-                               , INVOICE
-                               , TO_CHAR(TO_DATE("START", 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD') "START"
-                               , TO_CHAR(TO_DATE("END", 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD')   "END"
-                               , COUNT(1) OVER ()                                            totalcount
-                          FROM BSPLEASEBUY
-                            LEFT JOIN BSUSER B on BSPLEASEBUY.USERNUM = B.USERNUM
-                            <if test='type != null and !type.equals("")'>
-                                <choose>
-                                    <when test='type.equals("sw")'>
-                                        <where>
-                                                STATUS = #{status}
-                                            AND B.USERNAME = #{keyword}
-                                        </where>
-                                    </when>
-                                    <when test='type.equals("w")'>
-                                        <where>
-                                            B.USERNAME = #{keyword}
-                                        </where>
-                                    </when>
-                                    <when test='type.equals("s")'>
-                                        <where>
-                                            STATUS = #{status}
-                                        </where>
-                                    </when>
-                                </choose>
-                            </if>
-                          ORDER BY id DESC
-                      ) a
-                 WHERE ROWNUM <![CDATA[<=]]> #{page} * #{size}
-             )
+        SELECT a.*,
+        ROWNUM rnum
+        FROM (
+        SELECT ID
+        , STATUS
+        , GOODSTYPE
+        , B.USERNAME
+        , GOODS
+        , GOODSCOUNT
+        , GOODSPRICE
+        , "OPTION"
+        , COMPANY
+        , INVOICE
+        , TO_CHAR(TO_DATE("START", 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD') "START"
+        , TO_CHAR(TO_DATE("END", 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD') "END"
+        , COUNT(1) OVER () totalcount
+        FROM BSPLEASEBUY
+        LEFT JOIN BSUSER B on BSPLEASEBUY.USERNUM = B.USERNUM
+        <if test='type != null and !type.equals("")'>
+            <choose>
+                <when test='type.equals("sw")'>
+                    <where>
+                        STATUS = #{status}
+                        AND B.USERNAME = #{keyword}
+                    </where>
+                </when>
+                <when test='type.equals("w")'>
+                    <where>
+                        B.USERNAME = #{keyword}
+                    </where>
+                </when>
+                <when test='type.equals("s")'>
+                    <where>
+                        STATUS = #{status}
+                    </where>
+                </when>
+            </choose>
+        </if>
+        ORDER BY id DESC
+        ) a
+        WHERE ROWNUM <![CDATA[<=]]> #{page} * #{size}
+        )
         WHERE rnum >= 1 + #{size} * (#{page} - 1)
     </select>
 
     <select id="requestPleaseBuy" resultType="int">
-        SELECT count(1)
+        SELECT COUNT(1)
         FROM BSPLEASEBUY
-        WHERE GOODSTYPE = '0'
+        WHERE STATUS = '0'
     </select>
 
     <insert id="regPleaseBuy" parameterType="hashMap">
@@ -63,7 +63,7 @@
         , GOODS
         , GOODSCOUNT
         , GOODSPRICE
-        <if test="option != null or option != ''">
+        <if test='option != null and !option.equals("")'>
             , "OPTION"
         </if>
         , "START"
@@ -73,7 +73,7 @@
         , #{name}
         , #{amount}
         , #{price}
-        <if test="option != null or option != ''">
+        <if test='option != null and !option.equals("")'>
             , #{option}
         </if>
         , TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')

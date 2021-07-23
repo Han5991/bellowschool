@@ -10,13 +10,13 @@ function makeInventoryBookList() {
         contentType: "application/json",
         success: function onData(data) {
             data.inventoryList.forEach(Vo => root.addChild(new TreeNode(Vo.inventoryname, Vo)));
-            root.getChildren().forEach(value => {
-                data.inventoryBookList.forEach(Vo => {
-                    if (value.getOptions().inventoryid == Vo.place) {
-                        value.addChild(new TreeNode(Vo.name, Vo))
-                    }
-                })
-            });
+                root.getChildren().forEach(value => {
+                    data.inventoryBookList.forEach(Vo => {
+                        if (value.getOptions().inventoryid == Vo.place) {
+                            value.addChild(new TreeNode(Vo.name, Vo))
+                        }
+                    })
+                });
             view.expandAllNodes();
             view.reload();
         }

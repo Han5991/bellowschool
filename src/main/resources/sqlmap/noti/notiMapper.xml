@@ -13,12 +13,12 @@
     </select>
 
     <insert id="regNoti" parameterType="hashMap">
-        INSERT INTO bsnoti (TITLE
-                            , CONTENT
-                            , REGUSER
-                            , SNO
-                            , REGTIME
-                            , HITCNT)
+        INSERT INTO bsnoti ( TITLE
+                           , CONTENT
+                           , REGUSER
+                           , SNO
+                           , REGTIME
+                           , HITCNT)
         VALUES ( #{regnotititle}
                , #{regnoticontent}
                , #{regnotiuser}
@@ -57,7 +57,7 @@
     <update id="updateNotiHitcnt" parameterType="int">
         UPDATE BSNOTI
         <set>
-            HITCNT=HITCNT+1
+            HITCNT = HITCNT+1
         </set>
         <where>
             SNO = #{sno}
