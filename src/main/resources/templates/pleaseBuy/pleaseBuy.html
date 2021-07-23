@@ -214,5 +214,33 @@
             </div>
         </div>
         <script th:inline="javascript" src="js/pleaseBuy/pleaseBuyMain.js"></script>
+        <script th:inline="javascript">
+            regPleaseBuy = function () {
+                if (confirm("정말 등록하시겠습니까?") == true) {
+                    $.ajax({
+                        url: '/regPleaseBuy',
+                        type: 'POST',
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            usernum: /*[[${session.user.usernum}]]*/'',
+                            type: $('#pleaseBuyType').val(),
+                            name: $('#pleaseBuyGoods').val(),
+                            amount: $('#pleaseBuyCount').val(),
+                            price: $('#pleaseBuyPrice').val(),
+                            option: $('#pleaseBuyOption').val()
+                        }),
+                        success: function onData(data) {
+                            if (data >= 1) {
+                                alert('사주세요~');
+                                $(".add").modal('hide');
+                                window.location.reload();
+                            } else if (data == 0) {
+                                alert('수업 등록에 실패하였습니다.');
+                            }
+                        }
+                    });
+                }
+            }
+        </script>
     </th:block>
 </th:block>

@@ -85,7 +85,7 @@ regPleaseBuy = function () {
             type: 'POST',
             contentType: "application/json",
             data: JSON.stringify({
-                usernum: /*[[${session.user.usernnum}]]*/'',
+                usernum: /*[[${session.user.usernum}]]*/'',
                 type: $('#pleaseBuyType').val(),
                 name: $('#pleaseBuyGoods').val(),
                 amount: $('#pleaseBuyCount').val(),

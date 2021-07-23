@@ -13,7 +13,7 @@ $.fncUpdateNoti = function () {
                 success: function onData(data) {
                     if (data >= 1) {
                         alert('공지사항이 수정 되었습니다.');
-                        location.href = "/noti";
+                        window.location.href = "/noti";
                     } else if (data == 0) {
                         alert('공지사항 수정에 실패하였습니다.');
                     }

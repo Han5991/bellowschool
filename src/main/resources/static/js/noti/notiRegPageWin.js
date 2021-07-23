@@ -8,7 +8,7 @@ $.fncregnoti = function () {
                 data: JSON.stringify({
                     regnotititle: $('#regnotititle').val(),
                     regnoticontent: $('#regnoticontent').val(),
-                    regnotiuser: '관리자'
+                    regnotiuser: $('#regNotiUser').val()
                 }),
                 success: function onData(data) {
                     if (data >= 1) {
