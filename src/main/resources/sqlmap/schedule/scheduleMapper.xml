@@ -14,6 +14,13 @@
           and TYPE = '0'
     </select>
 
+    <select id="scheduleToday" resultType="ScheduleVo" parameterType="hashMap">
+        SELECT *
+        FROM BSSCHEDULE
+        where "START" LIKE #{dateStart}
+          and TYPE = '0'
+    </select>
+
     <select id="classList" resultType="ClassVo">
         SELECT DISTINCT CASE CLASSTYPE
                             WHEN '1' THEN '고급2'
@@ -81,7 +88,7 @@
         UPDATE BSSCHEDULE
         <set>
             <if test="title != null">
-            TITLE = #{title}
+                TITLE = #{title}
             </if>
             <if test="description != null">
                 , DESCRIPTION = #{description}
@@ -90,16 +97,16 @@
                 , "START" = #{start}
             </if>
             <if test="end != null and end != ''">
-                ,END =  #{end}
+                ,END = #{end}
             </if>
             <if test="type != null">
-            , TYPE = #{type}
+                , TYPE = #{type}
             </if>
             <if test="backgroundcolor != null">
-            , BACKGROUNDCOLOR = #{backgroundcolor}
+                , BACKGROUNDCOLOR = #{backgroundcolor}
             </if>
             <if test="allday != null">
-            , ALLDAY = #{allday}
+                , ALLDAY = #{allday}
             </if>
         </set>
         <where>

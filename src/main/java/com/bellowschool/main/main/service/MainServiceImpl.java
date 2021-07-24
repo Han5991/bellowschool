@@ -4,6 +4,7 @@ import com.bellowschool.checkin.service.CheckService;
 import com.bellowschool.pleaseBuy.service.PleaseBuyService;
 import com.bellowschool.schedule.service.ScheduleService;
 import com.bellowschool.user.service.UserService;
+import com.bellowschool.vo.ScheduleVo;
 import com.bellowschool.vo.UserVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -44,5 +45,10 @@ public class MainServiceImpl implements MainService {
     @Override
     public int scheduleCount() {
         return scheduleService.scheduleCount();
+    }
+
+    @Override
+    public List<ScheduleVo> scheduleToday() {
+        return scheduleService.scheduleToday();
     }
 }

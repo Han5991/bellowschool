@@ -70,4 +70,14 @@ public class ScheduleServiceImpl implements ScheduleService {
         }
         return scheduleMapper.scheduleCount(params);
     }
+
+    @Override
+    public List<ScheduleVo> scheduleToday() {
+        Map<String, Object> params = new HashMap<>();
+        Calendar mon = Calendar.getInstance();
+        String dateEnd = new SimpleDateFormat("yyyy-MM-dd").format(mon.getTime());
+        params.put("dateStart", dateEnd + "%");
+        return scheduleMapper.scheduleToday(params);
+    }
+
 }

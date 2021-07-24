@@ -28,6 +28,7 @@ public class MainController {
         model.addAttribute("requestPleaseBuy", mainService.requestPleaseBuy());
         model.addAttribute("userCount", mainService.userCount());
         model.addAttribute("scheduleCount", mainService.scheduleCount());
+        model.addAttribute("scheduleToday", mainService.scheduleToday());
         return "index";
     }
 

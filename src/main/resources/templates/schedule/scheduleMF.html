@@ -118,5 +118,34 @@
         <script src="js/Fullcalendar.js"></script>
         <script src="js/schedule/scheduleMF.js"></script>
         <script src="js/schedule/scheduleMain.js"></script>
+        <script th:inline="javascript">
+            function regSchedule() {
+                if ($('#edit-title').val() != "") {
+                    $.ajax({
+                        url: '/regschedule',
+                        type: 'POST',
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            title: $('#edit-title').val(),
+                            description: $('#edit-desc').val(),
+                            start: date($('#edit-start-date').val(), $('#edit-start-time').val()),
+                            end: date($('#edit-end-date').val(), $('#edit-end-time').val()),
+                            type: $('#edit-type').val(),
+                            username: /*[[${session.user.username}]]*/'',
+                            backgroundcolor: $('#edit-color').val(),
+                            allday: $('#edit-allDay').is(":checked") ? 'true' : 'false',
+                        }),
+                        success: function onData(data) {
+                            if (data >= 1) {
+                                $('.add').modal("hide");
+                                calendar.refetchEvents();
+                            } else if (data == 0) {
+                            }
+                        }
+                    });
+                }
+                paramsReset();
+            }
+        </script>
     </th:block>
 </th:block>

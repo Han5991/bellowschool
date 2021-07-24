@@ -19,4 +19,7 @@ public interface ScheduleService {
     int updateSchedule(Map<String, Object> params);
 
     int scheduleCount();
+
+    List<ScheduleVo> scheduleToday();
+
 }
