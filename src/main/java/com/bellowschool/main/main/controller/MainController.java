@@ -8,6 +8,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -38,6 +40,11 @@ public class MainController {
     }
 
 
+    @PostMapping("/monthlyAttendanceList")
+    @ResponseBody
+    public List<Integer> userAttendanceList() {
+        return mainService.monthlyAttendanceList();
+    }
     @GetMapping("/test4")
     public String test2() {
         return "charts";

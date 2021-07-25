@@ -34,7 +34,7 @@
             <optional>true</optional>
         </dependency>
 
-            <!--web-->
+        <!--web-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -49,7 +49,7 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
-            <!--db, mybatis-->
+        <!--db, mybatis-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jdbc</artifactId>
@@ -79,12 +79,12 @@
             <scope>test</scope>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.apache.tomcat.embed</groupId>-->
-<!--            <artifactId>tomcat-embed-jasper</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.apache.tomcat.embed</groupId>-->
+        <!--            <artifactId>tomcat-embed-jasper</artifactId>-->
+        <!--        </dependency>-->
 
-<!--        qr-->
+        <!--        qr-->
         <dependency>
             <groupId>com.google.zxing</groupId>
             <artifactId>javase</artifactId>
@@ -96,11 +96,12 @@
             <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
             <version>1.16</version>
         </dependency>
-        
-<!--        <dependency>-->
-<!--            <groupId>org.thymeleaf.extras</groupId>-->
-<!--            <artifactId>thymeleaf-extras-springsecurity5</artifactId>-->
-<!--        </dependency>-->
+
+        <!--        <dependency>-->
+        <!--            <groupId>org.thymeleaf.extras</groupId>-->
+        <!--            <artifactId>thymeleaf-extras-springsecurity5</artifactId>-->
+        <!--        </dependency>-->
+
     </dependencies>
 
     <build>

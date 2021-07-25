@@ -17,4 +17,8 @@ public interface CheckMapper {
     int duplicateCheck(Map<String, Object> params);
 
     int scheduleClassCount(Map<String, Object> params);
+
+    int monthlyAttendance(Map<String, Object> params);
+
+    int monthlyClassCount(Map<String, Object> params);
 }

@@ -51,4 +51,9 @@ public class MainServiceImpl implements MainService {
     public List<ScheduleVo> scheduleToday() {
         return scheduleService.scheduleToday();
     }
+
+    @Override
+    public List<Integer> monthlyAttendanceList() {
+        return checkService.monthlyAttendanceList();
+    }
 }

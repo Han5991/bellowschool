@@ -30,11 +30,6 @@ public class CheckServiceImpl implements CheckService {
         return 0;
     }
 
-//    @Override
-//    public int regCheckIn(Map<String, Object> params) {
-//        return checkMapper.regCheckIn(params);
-//    }
-
     @Override
     public List<UserVo> userAttendanceList(Map<String, Object> params) {
         if (params.get("dateStart") == null || params.get("dateStart") == "") {
@@ -58,5 +53,34 @@ public class CheckServiceImpl implements CheckService {
         }
 
         return checkMapper.userAttendanceList(params);
+    }
+
+    @Override
+    public List<Integer> monthlyAttendanceList() {
+        ArrayList<Integer> monthlyAttendanceList = new ArrayList<>();
+        String monthlyList[] = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
+        List<ClassVo> classList = scheduleService.classList();
+
+        for (String monthly : monthlyList) {
+            Map<String, Object> params = new HashMap<>();
+
+            Calendar mon = Calendar.getInstance();
+            String dateStart = new SimpleDateFormat("yyyy").format(mon.getTime());
+            params.put("dateStart", dateStart + monthly + "%");
+            params.put("date", dateStart + "-" + monthly + "%");
+
+            for (int i = 0; i < classList.size(); i++) {
+                params.put("class", classList.get(i).getClasstype());
+                int countClass = checkMapper.monthlyClassCount(params);
+                if (0 != countClass) {
+                    params.put("class" + i, countClass);
+                } else {
+                    params.put("class" + i, 1);
+                }
+            }
+            monthlyAttendanceList.add(checkMapper.monthlyAttendance(params));
+        }
+
+        return monthlyAttendanceList;
     }
 }

@@ -9,4 +9,6 @@ public interface CheckService {
     int regCheckIn(Map<String, Object> params);
 
     List<UserVo> userAttendanceList(Map<String, Object> params);
+
+    List<Integer> monthlyAttendanceList();
 }
