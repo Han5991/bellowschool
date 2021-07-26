@@ -88,4 +88,9 @@ public class UserServiceImpl implements UserService {
     public UserVo findByAccount(String id) {
         return userMapper.findByAccount(id);
     }
+
+    @Override
+    public List<Integer> userClassCount() {
+        return userMapper.userClassCount();
+    }
 }

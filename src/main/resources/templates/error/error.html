@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <div class="container-fluid">
+            <div class="text-center">
+                <div class="error mx-auto" th:data-text='${error}' th:text='${error}'></div>
+                <p class="lead text-gray-800 mb-5">페이지를 찾을 수 없습니다.</p>
+                <p class="text-gray-500 mb-0">It looks like you found a glitch in the matrix...</p>
+                <a href="../index.html">&larr; Back to Dashboard</a>
+            </div>
+        </div>
+    </th:block>
+</th:block>

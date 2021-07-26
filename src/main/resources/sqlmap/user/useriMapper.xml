@@ -42,6 +42,15 @@
         WHERE USERTYPE = '2'
     </select>
 
+    <select id="userClassCount" resultType="int">
+        SELECT COUNT(USERNAME)
+        FROM BSUSER
+        WHERE USERTYPE = '2'
+        GROUP BY ROLLUP (USERCLASS)
+        HAVING GROUPING(USERCLASS) = 0
+        ORDER BY USERCLASS
+    </select>
+
     <select id="cresno" resultType="int">
         SELECT USERNUM.nextval
         FROM DUAL

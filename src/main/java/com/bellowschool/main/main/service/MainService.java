@@ -1,6 +1,7 @@
 package com.bellowschool.main.main.service;
 
 import com.bellowschool.vo.ScheduleVo;
+import com.bellowschool.vo.UserVo;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface MainService {
     List<ScheduleVo> scheduleToday();
 
     List<Integer> monthlyAttendanceList();
+
+    List<Integer> userClassCount();
 }

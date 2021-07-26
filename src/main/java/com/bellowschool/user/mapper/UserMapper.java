@@ -25,4 +25,6 @@ public interface UserMapper {
     int userCount();
 
     UserVo findByAccount(String id);
+
+    List<Integer> userClassCount();
 }

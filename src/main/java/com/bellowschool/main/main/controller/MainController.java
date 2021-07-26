@@ -45,9 +45,15 @@ public class MainController {
     public List<Integer> userAttendanceList() {
         return mainService.monthlyAttendanceList();
     }
+
+    @PostMapping("/userClassCount")
+    @ResponseBody
+    public List<Integer> userClassCount() {
+        return mainService.userClassCount();
+    }
+
     @GetMapping("/test4")
     public String test2() {
         return "charts";
     }
-
 }

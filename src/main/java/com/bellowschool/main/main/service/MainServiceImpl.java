@@ -56,4 +56,9 @@ public class MainServiceImpl implements MainService {
     public List<Integer> monthlyAttendanceList() {
         return checkService.monthlyAttendanceList();
     }
+
+    @Override
+    public List<Integer> userClassCount() {
+        return userService.userClassCount();
+    }
 }
