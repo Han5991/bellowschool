@@ -24,7 +24,7 @@ public class QrUtill {
             BitMatrix bitMatrix = qrCodeWriter.encode(urlencode, BarcodeFormat.QR_CODE, 200, 200);
 
             BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
-
+            String a = File.separator;
             File file = new File("C:\\Users\\admin\\IdeaProjects\\bellowschool\\src\\main\\resources\\static\\img\\qrcode\\" + qrname + ".png");
 
             return ImageIO.write(bufferedImage, "png", file);
