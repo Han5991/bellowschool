@@ -14,18 +14,29 @@ import java.net.URLEncoder;
 @Service
 public class QrUtill {
 
+    public static String uploadPath = "C:" + File.separatorChar
+            + "Users" + File.separatorChar
+            + "admin" + File.separatorChar
+            + "IdeaProjects" + File.separatorChar
+            + "bellowschool" + File.separatorChar
+            + "src" + File.separatorChar
+            + "main" + File.separatorChar
+            + "resources" + File.separatorChar
+            + "static" + File.separatorChar
+            + "img" + File.separatorChar
+            + "qrcode" + File.separatorChar;
+
     public boolean qrCreate(int sno, String name, String qrname) {
         try {
             String codeurl = new String((sno + "_" + name).getBytes("UTF-8"));
-            String urlencode = URLEncoder.encode(codeurl,"UTF-8");
-
+            String urlencode = URLEncoder.encode(codeurl, "UTF-8");
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
 
             BitMatrix bitMatrix = qrCodeWriter.encode(urlencode, BarcodeFormat.QR_CODE, 200, 200);
 
             BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
-            String a = File.separator;
-            File file = new File("C:\\Users\\admin\\IdeaProjects\\bellowschool\\src\\main\\resources\\static\\img\\qrcode\\" + qrname + ".png");
+
+            File file = new File(uploadPath + qrname + ".png");
 
             return ImageIO.write(bufferedImage, "png", file);
 

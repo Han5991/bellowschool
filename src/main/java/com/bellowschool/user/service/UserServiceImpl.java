@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -49,8 +50,9 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public int userDelete(Map<String, Object> params) {
+
         String qrname = (String) params.get("qrname");
-        File file = new File("C:\\Users\\admin\\IdeaProjects\\bellowschool\\src\\main\\resources\\static\\img\\qrcode\\" + qrname + ".png");
+        File file = new File(QrUtill.uploadPath + qrname + ".png");
         file.delete();
         return userMapper.userDelete(params);
     }
@@ -64,15 +66,17 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public int updateUser(Map<String, Object> params) {
-        int sno = (int) params.get("userNum");
+        ArrayList<Integer> sno = (ArrayList<Integer>) params.get("userNum");
+        int snoInt = Integer.parseInt(String.valueOf(sno.get(0)));
         String username = (String) params.get("userName");
         String qrnameEx = (String) params.get("qrName");
         String qrnameNew = UUID.randomUUID().toString();
 
         params.put("qrName", qrnameNew);
-        qr.qrCreate(sno, username, qrnameNew);
+        params.put("userNum", snoInt);
+        qr.qrCreate(snoInt, username, qrnameNew);
 
-        File file = new File("C:\\Users\\admin\\IdeaProjects\\bellowschool\\src\\main\\resources\\static\\img\\qrcode\\" + qrnameEx + ".png");
+        File file = new File(QrUtill.uploadPath + qrnameEx + ".png");
         file.delete();
         return userMapper.updateUser(params);
     }
