@@ -2,23 +2,50 @@ package com.bellowschool.common.Security;
 
 import com.bellowschool.vo.UserVo;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Enumeration;
 
 @Log4j2
 @Component
-public class LoginInterceptor implements HandlerInterceptor {
+public class LoginInterceptor implements HandlerInterceptor, ErrorController {
+
+    @RequestMapping(value = "/error")
+    public String handleError(HttpServletRequest request) {
+        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+        if (status != null) {
+            int statusCode = Integer.valueOf(status.toString());
+            if (statusCode == HttpStatus.NOT_FOUND.value()) {
+                return "error/404";
+            } else if (statusCode == HttpStatus.FORBIDDEN.value()) {
+                return "error/500";
+            }
+            return "error/error";
+        }
+        return "error";
+    }
 
     //컨트롤러에 도착전 호출 되는 메서드
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        log.info("Request URL : " + request.getRequestURL().toString());
+        Enumeration<String> paramKeys = request.getParameterNames();
+        while (paramKeys.hasMoreElements()) {
+            String key = paramKeys.nextElement();
+            log.info("key (" + key + ") : " + request.getParameter(key));
+        }
+        handleError(request);
         HttpSession httpSession = request.getSession();
         UserVo user = (UserVo) httpSession.getAttribute("user");
         if (ObjectUtils.isEmpty(user)) {

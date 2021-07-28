@@ -4,7 +4,6 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
     <th:block th:fragment="content">
         <div class="container-fluid">
-            <!-- DataTales Example -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <h3 class="m-0 font-weight-bold text-primary">공지사항</h3>
@@ -27,7 +26,7 @@
                                 </tr>
                                 <tr>
                                     <th style="vertical-align: middle; text-align: center">제목</th>
-                                    <th><input type="text" th:value='${noti.title}' id="updateNotiTitle" requiredth:src
+                                    <th><input type="text" th:value='${noti.title}' id="updateNotiTitle" required
                                                class="form-control text-left" style="width: 100%"
                                                maxlength="20" oninput="numberMaxLength(this);"></th>
                                     </th>
