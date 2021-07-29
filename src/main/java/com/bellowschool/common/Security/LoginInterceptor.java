@@ -19,22 +19,7 @@ import java.util.Enumeration;
 
 @Log4j2
 @Component
-public class LoginInterceptor implements HandlerInterceptor, ErrorController {
-
-    @RequestMapping(value = "/error")
-    public String handleError(HttpServletRequest request) {
-        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-        if (status != null) {
-            int statusCode = Integer.valueOf(status.toString());
-            if (statusCode == HttpStatus.NOT_FOUND.value()) {
-                return "error/404";
-            } else if (statusCode == HttpStatus.FORBIDDEN.value()) {
-                return "error/500";
-            }
-            return "error/error";
-        }
-        return "error";
-    }
+public class LoginInterceptor implements HandlerInterceptor{
 
     //컨트롤러에 도착전 호출 되는 메서드
     @Override
@@ -45,7 +30,6 @@ public class LoginInterceptor implements HandlerInterceptor, ErrorController {
             String key = paramKeys.nextElement();
             log.info("key (" + key + ") : " + request.getParameter(key));
         }
-        handleError(request);
         HttpSession httpSession = request.getSession();
         UserVo user = (UserVo) httpSession.getAttribute("user");
         if (ObjectUtils.isEmpty(user)) {

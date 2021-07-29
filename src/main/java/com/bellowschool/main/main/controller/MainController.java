@@ -47,6 +47,6 @@ public class MainController {
 
     @GetMapping("/test4")
     public String test2() {
-        return "charts";
+        return "error/404";
     }
 }
