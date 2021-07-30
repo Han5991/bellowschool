@@ -1,12 +1,12 @@
 function allDayCheck() {
     if ($('#edit-allDay').is(":checked")) {
-        $('#edit-start-time').attr("disabled",true);
-        $('#edit-end-date').attr("disabled",true);
-        $('#edit-end-time').attr("disabled",true);
-    }else{
-        $('#edit-start-time').attr("disabled",false);
-        $('#edit-end-date').attr("disabled",false);
-        $('#edit-end-time').attr("disabled",false);
+        $('#edit-start-time').attr("disabled", true);
+        $('#edit-end-date').attr("disabled", true);
+        $('#edit-end-time').attr("disabled", true);
+    } else {
+        $('#edit-start-time').attr("disabled", false);
+        $('#edit-end-date').attr("disabled", false);
+        $('#edit-end-time').attr("disabled", false);
     }
 }
 
@@ -47,38 +47,10 @@ function paramsReset() {
     $('#edit-color').val('#D25565');
     $('#edit-allDay').prop("checked", false);
 
-    $('#edit-start-time').attr("disabled",false);
-    $('#edit-end-date').attr("disabled",false);
-    $('#edit-end-time').attr("disabled",false);
+    $('#edit-start-time').attr("disabled", false);
+    $('#edit-end-date').attr("disabled", false);
+    $('#edit-end-time').attr("disabled", false);
 }
-
-// function regSchedule() {
-//         if ($('#edit-title').val() != "") {
-//             $.ajax({
-//                 url: '/regschedule',
-//                 type: 'POST',
-//                 contentType: "application/json",
-//                 data: JSON.stringify({
-//                     title: $('#edit-title').val(),
-//                     description: $('#edit-desc').val(),
-//                     start: date($('#edit-start-date').val(), $('#edit-start-time').val()),
-//                     end: date($('#edit-end-date').val(), $('#edit-end-time').val()),
-//                     type: $('#edit-type').val(),
-//                     username: '관리자',
-//                     backgroundcolor: $('#edit-color').val(),
-//                     allday: $('#edit-allDay').is(":checked") ? 'true' : 'false',
-//                 }),
-//                 success: function onData(data) {
-//                     if (data >= 1) {
-//                         $('.add').modal("hide");
-//                         calendar.refetchEvents();
-//                     } else if (data == 0) {
-//                     }
-//                 }
-//             });
-//     }
-//     paramsReset();
-// }
 
 function updateSchedule() {
     if (confirm("수정하시겠습니까?") == true) {

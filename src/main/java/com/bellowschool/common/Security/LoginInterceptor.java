@@ -24,12 +24,6 @@ public class LoginInterceptor implements HandlerInterceptor{
     //컨트롤러에 도착전 호출 되는 메서드
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        log.info("Request URL : " + request.getRequestURL().toString());
-        Enumeration<String> paramKeys = request.getParameterNames();
-        while (paramKeys.hasMoreElements()) {
-            String key = paramKeys.nextElement();
-            log.info("key (" + key + ") : " + request.getParameter(key));
-        }
         HttpSession httpSession = request.getSession();
         UserVo user = (UserVo) httpSession.getAttribute("user");
         if (ObjectUtils.isEmpty(user)) {
