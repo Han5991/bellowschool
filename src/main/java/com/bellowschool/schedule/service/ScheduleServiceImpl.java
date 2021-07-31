@@ -72,6 +72,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
+    @Transactional
     public List<ScheduleVo> scheduleToday() {
         Map<String, Object> params = new HashMap<>();
         Calendar mon = Calendar.getInstance();
