@@ -51,17 +51,18 @@
                                 userClass: $('#userclass').val(),
                                 qrName: [[${user.qrname}]]
                             }),
-                            success: function onData(data) {
+                            success: function onData(data, status, aa) {
                                 if (data >= 1) {
                                     alert('사용자가 수정 되었습니다.');
+                                    location.href = "/userListWin";
                                 } else if (data == 0) {
                                     alert('사용자 수정에 실패하였습니다.');
                                 }
                             }
                         });
                     }
+
                 }
-                window.location.href = "/userListWin";
             }
         </script>
     </th:block>
