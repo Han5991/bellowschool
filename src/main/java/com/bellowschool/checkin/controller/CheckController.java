@@ -14,14 +14,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 @Log4j2
 @Controller
 @RequiredArgsConstructor
 public class CheckController {
     private final CheckService checkService;
 
-    @GetMapping("/qrcheck")
+    @GetMapping("/qrCheck")
     public String createCheck(@RequestParam(value = "name") String name, @RequestParam(value = "id") int id) throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("userNum", id);

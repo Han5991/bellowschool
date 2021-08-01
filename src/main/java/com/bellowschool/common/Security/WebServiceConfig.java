@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebServiceConfig implements WebMvcConfigurer {
     private final LoginInterceptor loginInterceptor;
     private static final String[] EXCLUDE_PATHS = {
-            "/vendor/**", "/js/**", "/signup", "/", "/css/**", "/qrcheck", "/scss/**", "/img/**"
+            "/vendor/**", "/js/**", "/signup", "/", "/css/**", "/qrCheck", "/scss/**", "/img/**"
     };
 
     public void addInterceptors(InterceptorRegistry registry) {
