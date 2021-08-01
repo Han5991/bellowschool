@@ -49,7 +49,8 @@ public class CheckServiceImpl implements CheckService {
 
         for (int i = 0; i < classList.size(); i++) {
             params.put("class", classList.get(i).getClasstype());
-            params.put("class" + i, checkMapper.scheduleClassCount(params));
+            int count = checkMapper.scheduleClassCount(params);
+            params.put("class" + i, (count != 0) ? count : 1);
         }
 
         return checkMapper.userAttendanceList(params);
@@ -72,11 +73,7 @@ public class CheckServiceImpl implements CheckService {
             for (int i = 0; i < classList.size(); i++) {
                 params.put("class", classList.get(i).getClasstype());
                 int countClass = checkMapper.monthlyClassCount(params);
-                if (0 != countClass) {
-                    params.put("class" + i, countClass);
-                } else {
-                    params.put("class" + i, 1);
-                }
+                params.put("class" + i, (countClass != 0) ? countClass : 1);
             }
             monthlyAttendanceList.add(checkMapper.monthlyAttendance(params));
         }
