@@ -1,18 +1,14 @@
-var sno = 0;
-var qrname = '';
+let sno = 0;
+let qrname = '';
 
-// function tableBuller() {
-var table = $("#dataTable").DataTable({
-    dom: 'Blfrtip',
+let table = $("#dataTable").DataTable({
+    dom: 'lfrtip',
     select: true,
-    // serverSide: true,
     processing: true,
     ordering: false,
     buttons: [{
         extend: 'csvHtml5',
-        text: 'Export CSV',
-        footer: true,
-        className: 'exportBtn'
+        footer: true
     }],
     ajax: {
         url: '/userattendanceList',
@@ -130,26 +126,22 @@ $('#dataTable > thead > tr').children().each(function (indexInArray, valueOfElem
 });
 
 $('.dataTables_filter input').unbind().bind('keyup', function () {
-    var colIndex = document.querySelector('#select').selectedIndex;
+    let colIndex = document.querySelector('#select').selectedIndex;
     table.column(colIndex + 1).search(this.value).draw();
 });
 
 table.on('select', function (e, dt, type, indexes) {
-    var rowData1 = table.rows(indexes).data().toArray();
+    let rowData1 = table.rows(indexes).data().toArray();
     sno = rowData1[0].usernum;
     qrname = rowData1[0].qrname;
 })
-// .on('deselect', function (e, dt, type, indexes) {
-//     var rowData2 = table.rows(indexes).data().toArray();
-//     console.log(rowData2[0].sno);
-// });
 
 let today = new Date();
 let year = today.getFullYear();
 let month = today.getMonth();  // 월
 let date = today.getDate();  // 날짜
 
-$('#dataTable_length').append('<div><label id="date">' + year + '-' + (month - 1) + '-' + date + ' ~ ' + year + '-' + (month + 1) + '-' + (date - 1) + '</label></div>');
+$('#dataTable_length').append('<div><label id="date">' + year + '-' + (month - 1) + '-' + date + ' ~ ' + year + '-' + (month + 1) + '-' + (date) + '</label></div>');
 
 function setDate() {
     $('#date').text($('#dateStart').val() + ' ~ ' + $('#dateEnd').val());
