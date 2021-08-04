@@ -138,8 +138,8 @@ table.on('select', function (e, dt, type, indexes) {
 
 let today = new Date();
 let year = today.getFullYear();
-let month = today.getMonth();  // 월
-let date = today.getDate();  // 날짜
+let month = today.getMonth();
+let date = today.getDate();
 
 $('#dataTable_length').append('<div><label id="date">' + year + '-' + (month - 1) + '-' + date + ' ~ ' + year + '-' + (month + 1) + '-' + (date) + '</label></div>');
 

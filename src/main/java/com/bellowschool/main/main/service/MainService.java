@@ -1,7 +1,6 @@
 package com.bellowschool.main.main.service;
 
 import com.bellowschool.vo.ScheduleVo;
-import com.bellowschool.vo.UserVo;
 
 import java.util.List;
 

@@ -1,9 +1,7 @@
 package com.bellowschool.schedule.mapper;
 
 import com.bellowschool.vo.ClassVo;
-import com.bellowschool.vo.NotiVo;
 import com.bellowschool.vo.ScheduleVo;
-import com.bellowschool.vo.UserVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

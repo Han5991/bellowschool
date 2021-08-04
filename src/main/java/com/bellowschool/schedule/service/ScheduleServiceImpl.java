@@ -1,7 +1,8 @@
 package com.bellowschool.schedule.service;
 
 import com.bellowschool.schedule.mapper.ScheduleMapper;
-import com.bellowschool.vo.*;
+import com.bellowschool.vo.ClassVo;
+import com.bellowschool.vo.ScheduleVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
