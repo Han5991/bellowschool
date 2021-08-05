@@ -12,7 +12,7 @@
                     <form id="reguser">
                         <div class="mb-3">
                             <label for="username">이름</label>
-                            <input class="form-control" id="username" type="text" th:value='${user.username}'>
+                            <input class="form-control" id="username" type="text" th:value='${user.username}' onkeyup="numberMaxLength(this)" maxlength="3">
                         </div>
                         <div class="mb-3">
                             <label for="usertype">사용자 종류</label>
