@@ -18,7 +18,6 @@
         SELECT *
         FROM BSSCHEDULE
         where "START" LIKE #{dateStart}
-          and TYPE = '0'
     </select>
 
     <select id="classList" resultType="ClassVo">

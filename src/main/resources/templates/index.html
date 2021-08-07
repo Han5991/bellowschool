@@ -160,7 +160,12 @@
                                 </tr>
                                 <tr th:each="today : ${scheduleToday}">
                                     <td th:text="${today.title}"></td>
-                                    <td th:text="${today.start} + ' ~ ' + ${today.end}"></td>
+                                    <td th:if ="!${today.allday}">
+                                        [[${today.start}]] ~ [[${today.end}]]
+                                    </td>
+                                    <td th:if ="${today.allday}">
+                                        하루종일
+                                    </td>
                                     <td th:text="${today.description}"></td>
                                 </tr>
                                 </tbody>
