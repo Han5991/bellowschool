@@ -103,4 +103,12 @@
         WHERE CHECKTIME like #{checkTime}
           and USERNUM = #{userNum}
     </select>
+
+    <select id="findUserCheckTime" resultType="UserVo" parameterMap="hashMap">
+        select USERNAME, CHECKTIME
+        from bscheckin
+        where checktime between #{dateStart} and to_char(
+                to_date(to_char(to_date(#{dateEnd}, 'YYYYMMDD') + 1), 'YY/MM/DD'), 'YYYYMMDD')
+          and USERNUM = #{userNum}
+    </select>
 </mapper>
