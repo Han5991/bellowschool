@@ -68,15 +68,15 @@ public class UserServiceImpl implements UserService {
     public int updateUser(Map<String, Object> params) {
         ArrayList<Integer> sno = (ArrayList<Integer>) params.get("userNum");
         int snoInt = Integer.parseInt(String.valueOf(sno.get(0)));
-        String username = (String) params.get("userName");
-        String qrnameEx = (String) params.get("qrName");
-        String qrnameNew = UUID.randomUUID().toString();
+        String userName = (String) params.get("userName");
+        String qrNameEx = (String) params.get("qrName");
+        String qrNameNew = UUID.randomUUID().toString();
 
-        params.put("qrName", qrnameNew);
+        params.put("qrName", qrNameNew);
         params.put("userNum", snoInt);
-        qr.qrCreate(snoInt, username, qrnameNew);
+        qr.qrCreate(snoInt, userName, qrNameNew);
 
-        File file = new File(QrUtill.uploadPath + qrnameEx + ".png");
+        File file = new File(QrUtill.uploadPath + qrNameEx + ".png");
         file.delete();
         return userMapper.updateUser(params);
     }

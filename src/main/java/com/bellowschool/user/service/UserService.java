@@ -23,4 +23,5 @@ public interface UserService {
     UserVo findByAccount(String id);
 
     List<Integer> userClassCount();
+
 }

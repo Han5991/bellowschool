@@ -104,7 +104,7 @@
           and USERNUM = #{userNum}
     </select>
 
-    <select id="findUserCheckTime" resultType="UserVo" parameterMap="hashMap">
+    <select id="findUserCheckTime" resultType="UserVo" parameterType="hashMap">
         select USERNAME, CHECKTIME
         from bscheckin
         where checktime between #{dateStart} and to_char(

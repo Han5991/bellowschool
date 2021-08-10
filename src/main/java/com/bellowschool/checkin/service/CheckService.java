@@ -11,4 +11,7 @@ public interface CheckService {
     List<UserVo> userAttendanceList(Map<String, Object> params);
 
     List<Integer> monthlyAttendanceList();
+
+    List<UserVo> findUserCheckTime(Map<String, Object> params);
+
 }

@@ -21,4 +21,6 @@ public interface CheckMapper {
     int monthlyAttendance(Map<String, Object> params);
 
     int monthlyClassCount(Map<String, Object> params);
+
+    List<UserVo> findUserCheckTime(Map<String, Object> params);
 }

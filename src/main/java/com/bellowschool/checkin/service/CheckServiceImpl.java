@@ -80,4 +80,9 @@ public class CheckServiceImpl implements CheckService {
 
         return monthlyAttendanceList;
     }
+
+    @Override
+    public List<UserVo> findUserCheckTime(Map<String, Object> params) {
+        return checkMapper.findUserCheckTime(params);
+    }
 }
