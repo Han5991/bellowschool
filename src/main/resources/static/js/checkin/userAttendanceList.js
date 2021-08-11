@@ -138,10 +138,14 @@ table.on('select', function (e, dt, type, indexes) {
 
 let today = new Date();
 let year = today.getFullYear();
-let month = today.getMonth();
-let date = today.getDate();
+let monthEx = today.getMonth() - 1 < 10 ? "0" + (today.getMonth() - 1) : today.getMonth() - 1;
+let monthNew = today.getMonth() + 1 < 10 ? "0" + (today.getMonth() + 1) : today.getMonth() + 1;
+let date = today.getDate() < 10 ? "0" + today.getDate() : today.getDate();
 
-$('#dataTable_length').append('<div><label id="date">' + year + '-' + (month - 1) + '-' + date + ' ~ ' + year + '-' + (month + 1) + '-' + (date) + '</label></div>');
+let dateStart = year + '-' + monthEx + '-' + date;
+let dateEnd = year + '-' + monthNew + '-' + date;
+
+$('#dataTable_length').append('<div><label id="date">' + dateStart + ' ~ ' + dateEnd + '</label></div>');
 
 function setDate() {
     $('#date').text($('#dateStart').val() + ' ~ ' + $('#dateEnd').val());
