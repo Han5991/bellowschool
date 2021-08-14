@@ -46,4 +46,11 @@ public class CheckController {
         return checkService.userAttendanceList(params);
     }
 
+
+    @PostMapping("/findUserCheckTime")
+    @ResponseBody
+    public List<UserVo> findUserCheckTime(@RequestBody Map<String, Object> params) {
+        return checkService.findUserCheckTime(params);
+    }
+
 }

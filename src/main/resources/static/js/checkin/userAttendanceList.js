@@ -57,7 +57,7 @@ let table = $("#dataTable").DataTable({
             "className": "text-center",
             'render': function (data, type, full, meta) {
                 // return '<a href="/userRead?usernum=' + full.usernum + '"><span style="font-weight: bold">' + data + '</span></a>';
-                return '<button class="btn btn-outline-primary" onclick="showUser()">' + data + '</button>';
+                return '<button class="btn btn-outline-primary" onclick="showUser(' + full.usernum + ')">' + data + '</button>';
             }
         },
         {
@@ -171,6 +171,20 @@ function search() {
     });
 }
 
-function showUser() {
+function showUser(userNum) {
+    date = $('#date').text().replaceAll(/[^0-9]/g,"");
     $('.add').modal('show');
+    $.ajax({
+        url: '/findUserCheckTime',
+        type: 'POST',
+        contentType: "application/json",
+        data: JSON.stringify({
+            userNum: userNum,
+            dateStart: date.substr(0,7),
+            dateEnd: date.substr(8,15),
+        }),
+        success: function onData(data) {
+            console.log(data);
+        }
+    });
 }
