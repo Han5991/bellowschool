@@ -172,7 +172,7 @@ function search() {
 }
 
 function showUser(userNum) {
-    date = $('#date').text().replaceAll(/[^0-9]/g,"");
+    date = $('#date').text().replaceAll(/[^0-9]/g, "");
     $('.add').modal('show');
     $.ajax({
         url: '/findUserCheckTime',
@@ -180,11 +180,12 @@ function showUser(userNum) {
         contentType: "application/json",
         data: JSON.stringify({
             userNum: userNum,
-            dateStart: date.substr(0,7),
-            dateEnd: date.substr(8,15),
+            dateStart: date.substr(0, 8),
+            dateEnd: date.substr(8, 15),
         }),
         success: function onData(data) {
-            console.log(data);
+            $('#checkTime').text('')
+            data.forEach(Vo => $('#checkTime').append(Vo.checktime+"</br>"));
         }
     });
 }

@@ -2,6 +2,7 @@ package com.bellowschool.checkin.service;
 
 import com.bellowschool.checkin.mapper.CheckMapper;
 import com.bellowschool.schedule.service.ScheduleService;
+import com.bellowschool.vo.CheckInVo;
 import com.bellowschool.vo.ClassVo;
 import com.bellowschool.vo.UserVo;
 import lombok.RequiredArgsConstructor;
@@ -82,7 +83,7 @@ public class CheckServiceImpl implements CheckService {
     }
 
     @Override
-    public List<UserVo> findUserCheckTime(Map<String, Object> params) {
+    public List<CheckInVo> findUserCheckTime(Map<String, Object> params) {
         return checkMapper.findUserCheckTime(params);
     }
 }

@@ -1,5 +1,6 @@
 package com.bellowschool.checkin.mapper;
 
+import com.bellowschool.vo.CheckInVo;
 import com.bellowschool.vo.UserVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -22,5 +23,5 @@ public interface CheckMapper {
 
     int monthlyClassCount(Map<String, Object> params);
 
-    List<UserVo> findUserCheckTime(Map<String, Object> params);
+    List<CheckInVo> findUserCheckTime(Map<String, Object> params);
 }

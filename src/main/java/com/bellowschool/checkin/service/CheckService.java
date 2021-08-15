@@ -1,5 +1,6 @@
 package com.bellowschool.checkin.service;
 
+import com.bellowschool.vo.CheckInVo;
 import com.bellowschool.vo.UserVo;
 
 import java.util.List;
@@ -12,6 +13,6 @@ public interface CheckService {
 
     List<Integer> monthlyAttendanceList();
 
-    List<UserVo> findUserCheckTime(Map<String, Object> params);
+    List<CheckInVo> findUserCheckTime(Map<String, Object> params);
 
 }

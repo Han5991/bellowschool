@@ -1,6 +1,7 @@
 package com.bellowschool.checkin.controller;
 
 import com.bellowschool.checkin.service.CheckService;
+import com.bellowschool.vo.CheckInVo;
 import com.bellowschool.vo.UserVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -49,7 +50,7 @@ public class CheckController {
 
     @PostMapping("/findUserCheckTime")
     @ResponseBody
-    public List<UserVo> findUserCheckTime(@RequestBody Map<String, Object> params) {
+    public List<CheckInVo> findUserCheckTime(@RequestBody Map<String, Object> params) {
         return checkService.findUserCheckTime(params);
     }
 
