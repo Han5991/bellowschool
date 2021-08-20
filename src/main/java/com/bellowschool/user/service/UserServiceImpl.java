@@ -50,11 +50,12 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public int userDelete(Map<String, Object> params) {
-
-        String qrname = (String) params.get("qrname");
-        File file = new File(QrUtill.uploadPath + qrname + ".png");
-        file.delete();
-        return userMapper.userDelete(params);
+        String qrName = (String) params.get("qrname");
+        File file = new File(QrUtill.uploadPath + qrName + ".png");
+        if (file.delete()) {
+            return userMapper.userDelete(params);
+        }
+        return 0;
     }
 
     @Override
