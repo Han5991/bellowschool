@@ -56,7 +56,6 @@ let table = $("#dataTable").DataTable({
             'width': '10%',
             "className": "text-center",
             'render': function (data, type, full, meta) {
-                // return '<a href="/userRead?usernum=' + full.usernum + '"><span style="font-weight: bold">' + data + '</span></a>';
                 return '<button class="btn btn-outline-primary" onclick="showUser(' + full.usernum + ')">' + data + '</button>';
             }
         },
