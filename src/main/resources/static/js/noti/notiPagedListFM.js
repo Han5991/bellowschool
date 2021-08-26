@@ -16,7 +16,7 @@ var table = $("#dataTable").DataTable({
                 if (sno != 0) {
                     location.href = "/updatenoti?sno=" + sno;
                     sno = 0;
-                }else{
+                } else {
                     alert("수정할 게시물을 선택해주세요.");
                 }
             }
