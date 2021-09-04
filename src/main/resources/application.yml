@@ -42,3 +42,10 @@ server:
     whitelabel:
       enabled: true
   port: 8080
+
+property:
+  test:
+    name: property depth test
+  propertyTestList: a,b,c
+
+propertyTest: test

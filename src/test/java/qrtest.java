@@ -1,46 +1,44 @@
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.client.j2se.MatrixToImageConfig;
-import com.google.zxing.client.j2se.MatrixToImageWriter;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertAll;
+import java.util.Map;
 
 @SpringBootTest
 public class qrtest {
-    @Value("${property.test.name}") // depth가 존재하는 값은 .으로 구분해서 값을 매핑
-    private static String propertyTestName;
-
-    @Value("${propertyTest}") // 단일 값을 매핑
-    private String propertyTest;
-
-    @Value("${noKey:default value}") // 키 값이 존재하지 않은 경우 default 값을 설정하여 매핑
-    private String defaultValue;
-
-    @Value("${propertyTestArray}") // 배열형으로 매핑
-    private String[] propertyTestArray;
-
-    @Value("#{'${propertyTestList}' .split(',')}") // ,을 기준으로 리스트형으로 매핑
-    private List<String> propertyTestList;
-
     public static void main(String[] args) throws Exception {
 
 
         String codeurl = new String((27 + "_" + "테스트").getBytes("UTF-8"));
-        String urlencode = URLEncoder.encode(codeurl,"UTF-8");
+        String urlencode = URLEncoder.encode(codeurl, "UTF-8");
 
-        System.out.println(URLDecoder.decode(urlencode,"UTF-8"));
+        System.out.println(URLDecoder.decode(urlencode, "UTF-8"));
 
+    }
+
+    public List<Map<String, Object>> a(List arr) {
+        List<Map<String, Object>> returnArray = new ArrayList<>();
+        for (int i = 0; i < arr.size(); i++) {
+            Map<String, Object> map = (Map) arr.get(i);
+            map.put("stationId", ((Map<String, Object>) arr.get(i)).get("stationId"));
+            map.put("stationName", ((Map<String, Object>) arr.get(i)).get("stationName"));
+            map.put("localInfo", ((Map<String, Object>) arr.get(i)).get("localInfo"));
+            map.put("kakaoId", (Integer.parseInt((String) ((Map<String, Object>) arr.get(i)).get("stationId"))) - 404961106);
+            returnArray.add(map);
+        }
+        if (returnArray.size() < 5) {
+            for (int i = 0; i < 5 - returnArray.size(); i++) {
+                Map<String, Object> map = (Map) arr.get(i);
+                map.put("stationId", "빈 값입니다.");
+                map.put("stationName", "빈 값입니다.");
+                map.put("localInfo", "빈 값입니다.");
+                map.put("kakaoId", 0);
+                returnArray.add(map);
+            }
+        }
+        return returnArray;
     }
 }
