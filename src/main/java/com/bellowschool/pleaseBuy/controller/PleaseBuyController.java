@@ -33,7 +33,7 @@ public class PleaseBuyController {
 
     @PostMapping("/deletePleaseBuy")
     @ResponseBody
-    public int detelePleaseBuy(@RequestBody Map<String, Object> params) {
+    public int deletePleaseBuy(@RequestBody Map<String, Object> params) {
         return pleaseBuyService.deletePleaseBuy(params);
     }
 
