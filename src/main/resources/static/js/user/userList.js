@@ -1,6 +1,6 @@
-var sno = 0;
-var qrname = '';
-var table = $("#dataTable").DataTable({
+let sno = 0;
+let qrname = '';
+let table = $("#dataTable").DataTable({
     dom: 'Bfrtip',
     select: true,
     buttons: [
@@ -13,7 +13,7 @@ var table = $("#dataTable").DataTable({
         {
             text: '수정',
             action: function () {
-                if (sno != 0) {
+                if (sno !== 0) {
                     location.href = "/userUpdateWin?usernum=" + sno;
                     sno = 0;
                 } else {
@@ -24,8 +24,8 @@ var table = $("#dataTable").DataTable({
         {
             text: '삭제',
             action: function (e, dt) {
-                if (sno != 0) {
-                    if (confirm("정말 삭제하시겠습니까?") == true) {
+                if (sno !== 0) {
+                    if (confirm("정말 삭제하시겠습니까?") === true) {
                         $.fncuserDelete(sno, qrname);
                         dt.ajax.reload();
                         sno = 0;
@@ -89,7 +89,7 @@ var table = $("#dataTable").DataTable({
             'targets': 2,
             'width': '10%',
             "className": "text-center",
-            'render': function (data, type, full, meta) {
+            'render': function (data, type, full) {
                 return '<a href="/userRead?usernum=' + full.usernum + '"><span style="font-weight: bold">' + data + '</span></a>';
             }
         },
@@ -97,17 +97,14 @@ var table = $("#dataTable").DataTable({
             'targets': 3,
             'width': '10%',
             "className": "text-center",
-            'render': function (data, type, full, meta) {
+            'render': function (data) {
                 switch (data) {
                     case '0':
                         return '관리자'
-                        break;
                     case '1':
                         return '선생님'
-                        break;
                     case '2':
                         return '어머님'
-                        break;
                 }
             }
         },
@@ -115,20 +112,16 @@ var table = $("#dataTable").DataTable({
             'targets': 4,
             'width': '10%',
             "className": "text-center",
-            'render': function (data, type, full, meta) {
+            'render': function (data) {
                 switch (data) {
                     case '0':
                         return '교무실'
-                        break;
                     case '1':
                         return '고급2'
-                        break;
                     case '2':
                         return '고급1'
-                        break;
                     case '3':
                         return '중급'
-                        break;
                 }
             }
         },
@@ -141,8 +134,8 @@ var table = $("#dataTable").DataTable({
             'targets': 6,
             'width': '10%',
             "className": "p-0 text-center",
-            'render': function (data, type, full, meta) {
-                return '<img style="width: 50%;" src="img\\qrcode\\' + data + '.png">';
+            'render': function (data) {
+                return '<img style="width: 50%;" src="img\\qrcode\\' + data + '.png" alt="qrCode">';
             }
         }
     ],
@@ -154,13 +147,13 @@ var table = $("#dataTable").DataTable({
 
 $('#dataTable_filter').prepend('<select id="select"></select>');
 $('#dataTable > thead > tr').children().each(function (indexInArray, valueOfElement) {
-    if (indexInArray != 0) {
+    if (indexInArray !== 0) {
         $('#select').append('<option>' + valueOfElement.innerHTML + '</option>');
     }
 });
 
 $('.dataTables_filter input').unbind().bind('keyup', function () {
-    var colIndex = document.querySelector('#select').selectedIndex;
+    let colIndex = document.querySelector('#select').selectedIndex;
     table.column(colIndex + 1).search(this.value).draw();
 });
 
@@ -176,18 +169,14 @@ $.fncuserDelete = function (sno, qrname) {
         success: function onData(data) {
             if (data >= 1) {
                 alert('사용자가 삭제 되었습니다.');
-            } else if (data == 0) {
+            } else if (data === 0) {
                 alert('사용자가 삭제 되지 않았습니다.');
             }
         }
     });
 }
 table.on('select', function (e, dt, type, indexes) {
-    var rowData1 = table.rows(indexes).data().toArray();
+    let rowData1 = table.rows(indexes).data().toArray();
     sno = rowData1[0].usernum;
     qrname = rowData1[0].qrname;
 })
-// .on('deselect', function (e, dt, type, indexes) {
-//     var rowData2 = table.rows(indexes).data().toArray();
-//     console.log(rowData2[0].sno);
-// });

@@ -32,7 +32,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="startTime">수업 시간</label>
-                            <input class="form-control" type="time" id="startTime" required onchange="$.fncAutoTime(this);return false;">~
+                            <input class="form-control" type="time" id="startTime" required
+                                   onchange="$.fncAutoTime(this);return false;">~
                             <input class="form-control" type="time" id="endTime" disabled>
                         </div>
                         <input type="submit" class="btn btn-primary" onclick="$.fncregclass()" value="등록">
@@ -41,11 +42,11 @@
             </div>
         </div>
         <script>
-            $.fncAutoTime = function (object) {
+            $.fncAutoTime = (object) => {
                 $('#endTime').val(object.value.substr(0, 2) * 1 + 2 + object.value.substr(2, 5));
             }
-            $.fncregclass = function () {
-                if (confirm("정말 등록하시겠습니까?") == true) {
+            $.fncregclass = () => {
+                if (confirm("정말 등록하시겠습니까?")) {
                     if ($('#startTime').val() != "") {
                         $.ajax({
                             url: '/regclass',

@@ -7,7 +7,8 @@
              , USERNAME
              , USERTYPE
              , USERCLASS
-             , TO_CHAR(TO_DATE(USERDTIME, 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD HH24:MI') USERDTIME
+             , TO_CHAR(TO_DATE(USERDTIME, 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD HH24:MI')
+             , USERDTIME
              , QRNAME
         FROM BSUSER
         ORDER BY USERNUM

@@ -47,7 +47,7 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
         }
     },
     eventDrop: function (event) {
-        let date = new Object();
+        let date = {};
         date.id = event.event.id;
         date.start = event.event.startStr.substr(0, 16);
         if (!JSON.parse(event.event.extendedProps.allday)) {
@@ -63,7 +63,7 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
                     if (data >= 1) {
                         alert('수정 되었습니다.');
                         calendar.refetchEvents();
-                    } else if (data == 0) {
+                    } else if (data === 0) {
                         alert('실패하였습니다.');
                     }
                 }
@@ -79,7 +79,7 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
         // color: 'yellow',   // a non-ajax option
         // textColor: 'black' // a non-ajax option
     },
-    eventSourceSuccess: function (content, xhr) {
+    eventSourceSuccess: function (content) {
         //여기서 수정 가능
         content.forEach(function (element) {
             // console.log(element.title);

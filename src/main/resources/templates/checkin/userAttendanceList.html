@@ -3,7 +3,7 @@
 
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
     <th:block th:fragment="content">
-        <!-- Begin Page Content -->
+
         <div class="container-fluid">
 
             <div class="card shadow mb-4">
@@ -13,8 +13,7 @@
                 <div class="card-body">
                     <div class="navbar-form navbar-left">
                         <div class="form-group">
-                            <input type="date" id="dateStart" onchange="setDate()"> ~ <input type="date" id="dateEnd"
-                                                                                             onchange="setDate()">
+                            <input type="date" id="dateStart" onchange="setDate()"> ~ <input type="date" id="dateEnd" onchange="setDate()">
                             <button type="button" class="btn btn-primary" onclick="search();">조회</button>
                         </div>
 

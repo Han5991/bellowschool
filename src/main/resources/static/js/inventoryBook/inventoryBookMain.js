@@ -12,7 +12,7 @@ function makeInventoryBookList() {
             data.inventoryList.forEach(Vo => root.addChild(new TreeNode(Vo.inventoryname, Vo)));
                 root.getChildren().forEach(value => {
                     data.inventoryBookList.forEach(Vo => {
-                        if (value.getOptions().inventoryid == Vo.place) {
+                        if (value.getOptions().inventoryid === Vo.place) {
                             value.addChild(new TreeNode(Vo.name, Vo))
                         }
                     })
@@ -94,7 +94,7 @@ function update() {
 }
 
 function regInventoryBook() {
-    if (confirm("정말 등록하시겠습니까?") == true) {
+    if (confirm("정말 등록하시겠습니까?")) {
         $.ajax({
             url: '/regInventoryBook',
             type: 'POST',
@@ -112,7 +112,7 @@ function regInventoryBook() {
                     alert('사주세요~');
                     reload();
                     reset();
-                } else if (data == 0) {
+                } else if (data === 0) {
                 }
             }
         });
@@ -120,7 +120,7 @@ function regInventoryBook() {
 }
 
 function updateInventoryBook(id) {
-    if (confirm("정말 수정하시겠습니까?") == true) {
+    if (confirm("정말 수정하시겠습니까?")) {
         $.ajax({
             url: '/updateInventoryBook',
             type: 'POST',
@@ -138,7 +138,7 @@ function updateInventoryBook(id) {
                 if (data >= 1) {
                     reload();
                     reset();
-                } else if (data == 0) {
+                } else if (data === 0) {
                     alert('수정실패');
                 }
             }
@@ -147,7 +147,7 @@ function updateInventoryBook(id) {
 }
 
 function deleteInventoryBook(id) {
-    if (confirm("정말 삭제하시겠습니까?") == true) {
+    if (confirm("정말 삭제하시겠습니까?")) {
         $.ajax({
             url: '/deleteInventoryBook',
             type: 'POST',
@@ -160,7 +160,7 @@ function deleteInventoryBook(id) {
                     alert('삭제완료');
                     reload();
                     reset();
-                } else if (data == 0) {
+                } else if (data === 0) {
                     alert('삭제실패');
                 }
             }

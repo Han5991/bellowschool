@@ -43,8 +43,9 @@
     </insert>
 
     <insert id="regSchedule" parameterType="hashMap">
-        INSERT INTO BSSCHEDULE (ID
-        , TITLE
+        INSERT INTO BSSCHEDULE (
+            ID
+            , TITLE
         <if test="description != null">
             , DESCRIPTION
         </if>
@@ -54,12 +55,13 @@
         <if test="end != null or end != ''">
             , END
         </if>
-        , TYPE
-        , USERNAME
-        , BACKGROUNDCOLOR
-        , ALLDAY)
+            , TYPE
+            , USERNAME
+            , BACKGROUNDCOLOR
+            , ALLDAY
+            )
         VALUES ( SCHEDULE.nextval
-        , #{title}
+            , #{title}
         <if test="description != null">
             , #{description}
         </if>
@@ -69,18 +71,17 @@
         <if test="end != null or end != ''">
             , #{end}
         </if>
-        , #{type}
-        , #{username}
-        , #{backgroundcolor}
-        , #{allday}
+            , #{type}
+            , #{username}
+            , #{backgroundcolor}
+            , #{allday}
         )
     </insert>
 
     <delete id="deleteSchedule" parameterType="hashMap">
         DELETE
             BSSCHEDULE
-        WHERE ID =
-              #{id}
+        WHERE ID = #{id}
     </delete>
 
     <update id="updateSchedule" parameterType="hashMap">

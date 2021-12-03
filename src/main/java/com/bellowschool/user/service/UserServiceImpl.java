@@ -1,7 +1,7 @@
 package com.bellowschool.user.service;
 
 import com.bellowschool.common.StringSecurity.ShaEncoder;
-import com.bellowschool.common.qr.QrUtill;
+import com.bellowschool.common.qr.QrUtil;
 import com.bellowschool.user.mapper.UserMapper;
 import com.bellowschool.vo.UserVo;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
-    private final QrUtill qr;
+    private final QrUtil qr;
     private final ShaEncoder shaEncoder;
 
     @Override
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public int userDelete(Map<String, Object> params) {
         String qrName = (String) params.get("qrname");
-        File file = new File(QrUtill.uploadPath + qrName + ".png");
+        File file = new File(QrUtil.uploadPath + qrName + ".png");
         if (file.delete()) {
             return userMapper.userDelete(params);
         }
@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
         params.put("userNum", snoInt);
         qr.qrCreate(snoInt, userName, qrNameNew);
 
-        File file = new File(QrUtill.uploadPath + qrNameEx + ".png");
+        File file = new File(QrUtil.uploadPath + qrNameEx + ".png");
         file.delete();
         return userMapper.updateUser(params);
     }

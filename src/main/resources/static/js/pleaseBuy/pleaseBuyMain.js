@@ -12,7 +12,7 @@ function read(dataset) {
     $('.modalBtnContainer-addEvent').hide();
     $('#pleaseBuyId').text(dataset.id);
     $('#pleaseBuyStatus').val(dataset.status);
-    if (dataset.status == 3) {
+    if (dataset.status === 3) {
         $('#pleaseBuyStatus').attr('disabled', true);
     }
     $('#pleaseBuyType').val(dataset.goodstype);
@@ -79,7 +79,7 @@ $.fncAutoTime = function (object) {
     $('#endTime').val(object.value.substr(0, 2) * 1 + 2 + object.value.substr(2, 5));
 }
 regPleaseBuy = function () {
-    if (confirm("정말 등록하시겠습니까?") == true) {
+    if (confirm("정말 등록하시겠습니까?") === true) {
         $.ajax({
             url: '/regPleaseBuy',
             type: 'POST',
@@ -97,7 +97,7 @@ regPleaseBuy = function () {
                     alert('사주세요~');
                     $(".add").modal('hide');
                     window.location.reload();
-                } else if (data == 0) {
+                } else if (data === 0) {
                     alert('수업 등록에 실패하였습니다.');
                 }
             }
@@ -106,7 +106,7 @@ regPleaseBuy = function () {
 }
 
 function deletePleaseBuy() {
-    if (confirm("정말 삭제하시겠습니까?") == true) {
+    if (confirm("정말 삭제하시겠습니까?") === true) {
         $.ajax({
             url: '/deletePleaseBuy',
             type: 'POST',
@@ -119,7 +119,7 @@ function deletePleaseBuy() {
                     alert('삭제 되었습니다');
                     $(".add").modal('hide');
                     window.location.reload();
-                } else if (data == 0) {
+                } else if (data === 0) {
                     alert('삭제에 실패하였습니다.');
                 }
             }
@@ -128,7 +128,7 @@ function deletePleaseBuy() {
 }
 
 function statusCheck(status) {
-    if (status.value == 3) {
+    if (status.value === 3) {
         alert("보관장소를 확인해주세요.");
         $('#pleaseBuy > tbody > tr:nth-child(3)').show();
         $('#pleaseBuyEnd').val(new Date().toISOString().slice(0, 10));
@@ -138,7 +138,7 @@ function statusCheck(status) {
 }
 
 function updatePleaseBuy() {
-    if (confirm("정말 수정하시겠습니까?") == true) {
+    if (confirm("정말 수정하시겠습니까?")) {
         $.ajax({
             url: '/updatePleaseBuy',
             type: 'POST',
@@ -161,7 +161,7 @@ function updatePleaseBuy() {
                     alert('수정 되었습니다');
                     $(".add").modal('hide');
                     window.location.reload();
-                } else if (data == 0) {
+                } else if (data === 0) {
                     alert('수정 되었습니다.');
                 }
             }

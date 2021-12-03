@@ -1,19 +1,19 @@
-var sno = 0;
-var table = $("#dataTable").DataTable({
+let sno = 0;
+let table = $("#dataTable").DataTable({
     dom: 'Bfrtip',
     select: true,
     buttons: [
         {
             text: '등록',
-            action: function () {
+            action: () => {
                 location.href = "/notiRegPageWin";
             }
         },
         {
             text: '수정',
-            action: function () {
+            action: () => {
                 this.sno = sno;
-                if (sno != 0) {
+                if (sno !== 0) {
                     location.href = "/updatenoti?sno=" + sno;
                     sno = 0;
                 } else {
@@ -23,10 +23,10 @@ var table = $("#dataTable").DataTable({
         },
         {
             text: '삭제',
-            action: function (e, dt) {
+            action: (e, dt) => {
                 this.sno = sno;
-                if (sno != 0) {
-                    if (confirm("정말 삭제하시겠습니까?") == true) {
+                if (sno !== 0) {
+                    if (confirm("정말 삭제하시겠습니까?")) {
                         $.fncDelete(sno);
                         dt.ajax.reload();
                         sno = 0;
@@ -114,14 +114,14 @@ var table = $("#dataTable").DataTable({
 });
 
 $('#dataTable_filter').prepend('<select id="select"></select>');
-$('#dataTable > thead > tr').children().each(function (indexInArray, valueOfElement) {
-    if (indexInArray != 0) {
+$('#dataTable > thead > tr').children().each((indexInArray, valueOfElement) => {
+    if (indexInArray !== 0) {
         $('#select').append('<option>' + valueOfElement.innerHTML + '</option>');
     }
 });
 
-$('.dataTables_filter input').unbind().bind('keyup', function () {
-    var colIndex = document.querySelector('#select').selectedIndex;
+$('.dataTables_filter input').unbind().bind('keyup', () => {
+    let colIndex = document.querySelector('#select').selectedIndex;
     table.column(colIndex + 1).search(this.value).draw();
 });
 
@@ -133,21 +133,17 @@ $.fncDelete = function (sno) {
         data: JSON.stringify({
             sno: sno
         }),
-        success: function onData(data) {
+        success: (data) => {
             if (data >= 1) {
                 alert('공지사항이 삭제 되었습니다.');
-            } else if (data == 0) {
+            } else if (data === 0) {
                 alert('공지사항이 삭제 되지 않았습니다.');
             }
         }
     });
 }
-table
-    .on('select', function (e, dt, type, indexes) {
-        var rowData1 = table.rows(indexes).data().toArray();
-        sno = rowData1[0].sno;
-    })
-// .on('deselect', function (e, dt, type, indexes) {
-//     var rowData2 = table.rows(indexes).data().toArray();
-//     console.log(rowData2[0].sno);
-// });
+
+table.on('select', (e, dt, type, indexes) => {
+    let rowData1 = table.rows(indexes).data().toArray();
+    sno = rowData1[0].sno;
+})
