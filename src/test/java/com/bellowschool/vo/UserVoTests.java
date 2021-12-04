@@ -1,7 +1,6 @@
 package com.bellowschool.vo;
 
 import lombok.extern.log4j.Log4j2;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 @SpringBootTest
 @Log4j2
@@ -30,12 +30,12 @@ public class UserVoTests {
 
     @Test
     public void userTest() {
-        assertThat(propertyTest, Matchers.is("test"));
-        assertThat(defaultValue, Matchers.is("default value"));
+        assertThat(propertyTest, is("test"));
+        assertThat(defaultValue, is("default value"));
 
-        assertThat(propertyTestArray[0], Matchers.is("a"));
-        assertThat(propertyTestList.get(1), Matchers.is("b"));
+        assertThat(propertyTestArray[0], is("a"));
+        assertThat(propertyTestList.get(1), is("b"));
 
-        assertThat(propertyTestName, Matchers.is("property depth test"));
+        assertThat(propertyTestName, is("property depth test"));
     }
 }

@@ -128,7 +128,11 @@ let table = $("#dataTable").DataTable({
         {
             'targets': 5,
             'width': '10%',
-            "className": "text-center"
+            "className": "text-center",
+            render : (data) => {
+                console.log(data);
+                return data;
+            }
         },
         {
             'targets': 6,

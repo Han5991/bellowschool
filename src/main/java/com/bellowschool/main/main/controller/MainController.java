@@ -1,6 +1,6 @@
 package com.bellowschool.main.main.controller;
 
-import com.bellowschool.main.main.service.MainServiceImpl;
+import com.bellowschool.main.main.service.MainService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -15,7 +15,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class MainController {
-    private final MainServiceImpl mainService;
+    private final MainService mainService;
 
     @GetMapping("/bellowschool")
     public String mainIndex(Model model) {
@@ -28,7 +28,7 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String login (){
+    public String login() {
         return "longinout/login";
     }
 

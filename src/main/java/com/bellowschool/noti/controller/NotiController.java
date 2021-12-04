@@ -1,6 +1,6 @@
 package com.bellowschool.noti.controller;
 
-import com.bellowschool.noti.service.NotiServiceImpl;
+import com.bellowschool.noti.service.NotiService;
 import com.bellowschool.vo.NotiVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -16,7 +16,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class NotiController {
 
-    private final NotiServiceImpl notiService;
+    private final NotiService notiService;
 
     @GetMapping("/noti")
     public String noti() {

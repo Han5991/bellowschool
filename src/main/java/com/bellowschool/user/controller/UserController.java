@@ -1,6 +1,6 @@
 package com.bellowschool.user.controller;
 
-import com.bellowschool.user.service.UserServiceImpl;
+import com.bellowschool.user.service.UserService;
 import com.bellowschool.vo.UserVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -17,7 +17,7 @@ import java.util.Map;
 @Controller
 @RequiredArgsConstructor
 public class UserController {
-    private final UserServiceImpl userService;
+    private final UserService userService;
 
     @GetMapping("/user")
     public String user() {

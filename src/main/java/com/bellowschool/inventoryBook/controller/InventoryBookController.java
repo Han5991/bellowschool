@@ -1,6 +1,6 @@
 package com.bellowschool.inventoryBook.controller;
 
-import com.bellowschool.inventoryBook.service.InventoryBookServiceImpl;
+import com.bellowschool.inventoryBook.service.InventoryBookService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -17,7 +17,7 @@ import java.util.Map;
 @Controller
 @RequiredArgsConstructor
 public class InventoryBookController {
-    private final InventoryBookServiceImpl inventoryBookService;
+    private final InventoryBookService inventoryBookService;
 
     @GetMapping("/inventoryBook")
     public String inventoryBook() {
