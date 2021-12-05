@@ -11,7 +11,7 @@ function allDayCheck() {
 }
 
 function date(date, time) {
-    if (time == '') {
+    if (time === '') {
         return date
     } else {
         return date + "T" + time;
@@ -53,8 +53,8 @@ function paramsReset() {
 }
 
 function updateSchedule() {
-    if (confirm("수정하시겠습니까?") == true) {
-        if ($('#edit-title').val() != "") {
+    if (confirm("수정하시겠습니까?")) {
+        if ($('#edit-title').val() !== "") {
             $.ajax({
                 url: '/updateschedule',
                 type: 'POST',
@@ -75,7 +75,7 @@ function updateSchedule() {
                         alert('수정 되었습니다.');
                         $('.add').modal("hide");
                         calendar.refetchEvents();
-                    } else if (data == 0) {
+                    } else if (data === 0) {
                         alert('실패하였습니다.');
                     }
                 }
@@ -86,8 +86,8 @@ function updateSchedule() {
 }
 
 function deleteSchedule() {
-    if (confirm("정말 삭제하시겠습니까?") == true) {
-        if ($('#edit-title').val() != "") {
+    if (confirm("정말 삭제하시겠습니까?")) {
+        if ($('#edit-title').val() !== "") {
             $.ajax({
                 url: '/deleteschedule',
                 type: 'POST',
@@ -101,7 +101,7 @@ function deleteSchedule() {
                         $('.add').modal("hide");
                         calendar.refetchEvents();
                         paramsReset();
-                    } else if (data == 0) {
+                    } else if (data === 0) {
                         alert('실패하였습니다.');
                     }
                 }

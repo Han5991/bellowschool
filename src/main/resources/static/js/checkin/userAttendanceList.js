@@ -55,7 +55,7 @@ let table = $("#dataTable").DataTable({
             'targets': 1,
             'width': '10%',
             "className": "text-center",
-            'render': function (data, type, full, meta) {
+            'render': function (data, type, full) {
                 return '<button class="btn btn-outline-primary" onclick="showUser(' + full.usernum + ')">' + data + '</button>';
             }
         },
@@ -63,17 +63,14 @@ let table = $("#dataTable").DataTable({
             'targets': 2,
             'width': '10%',
             "className": "text-center",
-            'render': function (data, type, full, meta) {
+            'render': function (data) {
                 switch (data) {
                     case '0':
                         return '관리자'
-                        break;
                     case '1':
                         return '선생님'
-                        break;
                     case '2':
                         return '어머님'
-                        break;
                 }
             }
         },
@@ -81,20 +78,16 @@ let table = $("#dataTable").DataTable({
             'targets': 3,
             'width': '10%',
             "className": "text-center",
-            'render': function (data, type, full, meta) {
+            'render': function (data) {
                 switch (data) {
                     case '0':
                         return '교무실'
-                        break;
                     case '1':
                         return '고급2'
-                        break;
                     case '2':
                         return '고급1'
-                        break;
                     case '3':
                         return '중급'
-                        break;
                 }
             }
         },
@@ -102,12 +95,12 @@ let table = $("#dataTable").DataTable({
             'targets': 4,
             'width': '10%',
             "className": "text-center",
-            "createdCell": function (td, cellData, rowData, row, col) {
+            "createdCell": function (td, cellData) {
                 if (cellData > 1) {
                     $(td).css('background-color', 'rgb(' + (250 - (cellData * 1.5)) + ',' + '250' + ',' + (250 - (cellData * 1.5)) + ')')
                 }
             },
-            'render': function (data, type, full, meta) {
+            'render': function (data) {
                 return data + '%';
             }
         }
@@ -120,7 +113,7 @@ let table = $("#dataTable").DataTable({
 
 $('#dataTable_filter').prepend('<select id="select"></select>');
 $('#dataTable > thead > tr').children().each(function (indexInArray, valueOfElement) {
-    if (indexInArray != 0) {
+    if (indexInArray !== 0) {
         $('#select').append('<option>' + valueOfElement.innerHTML + '</option>');
     }
 });

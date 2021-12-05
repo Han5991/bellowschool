@@ -1,6 +1,6 @@
 $.fncregnoti = function () {
-    if (confirm("정말 등록하시겠습니까?") == true) {
-        if ($('#regnotititle').val() != "" && $('#regnoticontent').val() != "") {
+    if (confirm("정말 등록하시겠습니까?")) {
+        if ($('#regnotititle').val() !== "" && $('#regnoticontent').val() !== "") {
             $.ajax({
                 url: '/createnoti',
                 type: 'POST',
@@ -10,11 +10,11 @@ $.fncregnoti = function () {
                     regnoticontent: $('#regnoticontent').val(),
                     regnotiuser: $('#regNotiUser').val()
                 }),
-                success: function onData(data) {
+                success: (data) => {
                     if (data >= 1) {
                         alert('공지사항이 등록 되었습니다.');
                         location.href = "/noti";
-                    } else if (data == 0) {
+                    } else if (data === 0) {
                         alert('공지사항이 등록에 실패하였습니다.');
                     }
                 }

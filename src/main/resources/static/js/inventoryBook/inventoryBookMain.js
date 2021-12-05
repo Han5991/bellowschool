@@ -8,7 +8,7 @@ function makeInventoryBookList() {
         type: 'POST',
         async: false,
         contentType: "application/json",
-        success: function onData(data) {
+        success: (data) => {
             data.inventoryList.forEach(Vo => root.addChild(new TreeNode(Vo.inventoryname, Vo)));
                 root.getChildren().forEach(value => {
                     data.inventoryBookList.forEach(Vo => {
