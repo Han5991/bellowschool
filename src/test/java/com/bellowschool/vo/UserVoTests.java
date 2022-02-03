@@ -1,19 +1,25 @@
 package com.bellowschool.vo;
 
+import com.bellowschool.main.main.service.MainService;
 import lombok.extern.log4j.Log4j2;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Assert;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
 
 @SpringBootTest
 @Log4j2
 public class UserVoTests {
-    @Value("${property.test.name}") // depth 존재하는 값은 .으로 구분해서 값을 매핑
+    @Value("${property.test.name}") // depth가 존재하는 값은 .으로 구분해서 값을 매핑
     private String propertyTestName;
 
     @Value("${propertyTest}") // 단일 값을 매핑
@@ -30,12 +36,12 @@ public class UserVoTests {
 
     @Test
     public void userTest() {
-        assertThat(propertyTest, is("test"));
-        assertThat(defaultValue, is("default value"));
+        assertThat(propertyTest, Matchers.is("test"));
+        assertThat(defaultValue, Matchers.is("default value"));
 
-        assertThat(propertyTestArray[0], is("a"));
-        assertThat(propertyTestList.get(1), is("b"));
+        assertThat(propertyTestArray[0], Matchers.is("a"));
+        assertThat(propertyTestList.get(1), Matchers.is("b"));
 
-        assertThat(propertyTestName, is("property depth test"));
+        assertThat(propertyTestName, Matchers.is("property depth test"));
     }
 }
